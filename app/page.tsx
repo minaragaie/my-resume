@@ -278,56 +278,65 @@ export default function Resume() {
     setIsVisible(true)
     const timer = setTimeout(() => setSkillsVisible(true), 1500)
 
-    // Terminal typing effect
     let commandIndex = 0
     let charIndex = 0
     let currentText = ""
+    let isTyping = true
 
     const typeTerminal = () => {
+      if (!isTyping) return
+
       if (commandIndex < terminalCommands.length) {
         const currentCommand = terminalCommands[commandIndex]
         if (charIndex < currentCommand.length) {
           currentText += currentCommand[charIndex]
           setTerminalText(currentText)
           charIndex++
-          setTimeout(typeTerminal, 50)
+          setTimeout(typeTerminal, 80) // Slightly slower for better performance
         } else {
           currentText += "\n"
           setTerminalText(currentText)
           commandIndex++
           charIndex = 0
-          setTimeout(typeTerminal, 800)
+          setTimeout(typeTerminal, 1000)
         }
       }
     }
-    setTimeout(typeTerminal, 2000)
 
-    // Cursor blinking
+    const terminalTimer = setTimeout(typeTerminal, 2000)
+
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev)
-    }, 500)
+    }, 600) // Slightly slower blinking
 
+    let observerTimeout: NodeJS.Timeout
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up")
-            setCurrentSection(entry.target.id)
-          }
-        })
+        clearTimeout(observerTimeout)
+        observerTimeout = setTimeout(() => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-fade-in-up")
+              setCurrentSection(entry.target.id)
+            }
+          })
+        }, 100)
       },
-      { threshold: 0.1 },
+      { threshold: 0.1, rootMargin: "50px" },
     )
 
     const sections = document.querySelectorAll("section[id]")
     sections.forEach((section) => observer.observe(section))
 
     return () => {
+      isTyping = false
       clearTimeout(timer)
+      clearTimeout(terminalTimer)
+      clearTimeout(observerTimeout)
       clearInterval(cursorInterval)
       observer.disconnect()
     }
-  }, [])
+  }, []) // Empty dependency array to prevent re-runs
 
   const skills = [
     {
