@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
 export const dynamic = "force-static"
 
@@ -53,21 +53,5 @@ export async function GET() {
   } catch (error) {
     console.error("Error returning resume data:", error)
     return NextResponse.json({ error: "Failed to load resume data" }, { status: 500 })
-  }
-}
-
-export async function POST(request: NextRequest) {
-  try {
-    const resumeData = await request.json()
-
-    // Validate that we have the required structure
-    if (!resumeData.personalInfo || !resumeData.experience || !resumeData.skills) {
-      return NextResponse.json({ error: "Invalid resume data structure" }, { status: 400 })
-    }
-
-    return NextResponse.json({ success: true, message: "Resume data received successfully" })
-  } catch (error) {
-    console.error("Error processing resume data:", error)
-    return NextResponse.json({ error: "Failed to process resume data" }, { status: 500 })
   }
 }
