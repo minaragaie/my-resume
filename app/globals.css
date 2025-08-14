@@ -142,6 +142,135 @@
   }
 }
 
+/* Added print styles for professional resume download */
+@media print {
+  /* Reset colors for print */
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Hide interactive elements */
+  button,
+  .terminal-window,
+  .window-controls,
+  nav,
+  footer {
+    display: none !important;
+  }
+
+  /* Optimize layout for print */
+  body {
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ensure proper page breaks */
+  section {
+    page-break-inside: avoid;
+    margin-bottom: 20pt !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+    color: #1f2937 !important;
+    margin-bottom: 10pt !important;
+  }
+
+  /* Professional header styling */
+  #hero {
+    padding: 20pt 0 !important;
+    border-bottom: 2pt solid #1f2937 !important;
+  }
+
+  #hero h1 {
+    font-size: 24pt !important;
+    font-weight: bold !important;
+  }
+
+  /* Clean section headers */
+  #skills h2,
+  #experience h2,
+  #technologies h2,
+  #certifications h2 {
+    font-size: 18pt !important;
+    font-weight: bold !important;
+    border-bottom: 1pt solid #6b7280 !important;
+    padding-bottom: 5pt !important;
+  }
+
+  /* Experience cards */
+  .bg-252526,
+  .bg-1e1e1e {
+    background: white !important;
+    border: 1pt solid #e5e7eb !important;
+    margin-bottom: 15pt !important;
+    padding: 15pt !important;
+  }
+
+  /* Skills and badges */
+  .bg-gradient-to-r,
+  .bg-gradient-to-br {
+    background: #f3f4f6 !important;
+    border: 1pt solid #d1d5db !important;
+  }
+
+  /* Code blocks */
+  pre,
+  code {
+    background: #f9fafb !important;
+    border: 1pt solid #e5e7eb !important;
+    padding: 8pt !important;
+    font-family: "Courier New", monospace !important;
+    font-size: 10pt !important;
+  }
+
+  /* Contact information */
+  .grid {
+    display: block !important;
+  }
+
+  .grid > div {
+    display: inline-block !important;
+    margin-right: 20pt !important;
+    margin-bottom: 5pt !important;
+  }
+
+  /* Profile image */
+  img {
+    max-width: 80pt !important;
+    height: auto !important;
+    border: 1pt solid #d1d5db !important;
+  }
+
+  /* Ensure text is readable */
+  .text-white,
+  .text-d4d4d4,
+  .text-4ec9b0,
+  .text-007acc {
+    color: black !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
+
+  /* Avoid breaking inside important content */
+  .experience-card,
+  .skill-card,
+  .cert-card {
+    page-break-inside: avoid;
+  }
+}
+
 /* VSCode-themed animations and effects */
 @keyframes fadeInUp {
   from {

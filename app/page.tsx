@@ -1,28 +1,71 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
 import {
+  Download,
   Mail,
   Phone,
   MapPin,
   Linkedin,
+  Globe,
   Code,
   Database,
   Shield,
-  Globe,
-  Award,
-  Calendar,
-  ExternalLink,
-  Download,
-  Terminal,
   FileCode,
+  Terminal,
   Folder,
-  Play,
+  ExternalLink,
+  Award,
   GitBranch,
   Coffee,
 } from "lucide-react"
+import jsPDF from "jspdf"
+
+interface ResumeData {
+  personalInfo: {
+    name: string
+    linkedin: string
+    location: string
+    phone: string
+    email: string
+    profileImage: string
+  }
+  highlights: string
+  experience: Array<{
+    id: number
+    title: string
+    company: string
+    startDate: string
+    endDate: string
+    type?: string
+    description: string
+    achievements: string[]
+    technologies: string[]
+  }>
+  skills: {
+    languages: string[]
+    frameworks: string[]
+    databases: string[]
+    versionControl: string[]
+    technologies: string[]
+    methodologies: string[]
+    standards: string[]
+  }
+  education: Array<{
+    degree: string
+    institution: string
+    year: string
+  }>
+  certifications: Array<{
+    name: string
+    issuer: string
+    status: string
+    description: string
+  }>
+  additionalInfo: string
+}
 
 export default function Resume() {
   const [isVisible, setIsVisible] = useState(false)
@@ -30,6 +73,194 @@ export default function Resume() {
   const [currentSection, setCurrentSection] = useState("")
   const [terminalText, setTerminalText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
+  const [resumeData, setResumeData] = useState<ResumeData | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchResumeData = async () => {
+      try {
+        const response = await fetch("/api/resume")
+        const data = await response.json()
+        setResumeData(data)
+      } catch (error) {
+        console.error("Error fetching resume data:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchResumeData()
+  }, [])
+
+  const handleDownloadResume = async () => {
+    if (!resumeData) return
+
+    const doc = new jsPDF()
+
+    // VSCode theme colors
+    const colors = {
+      background: "#1e1e1e",
+      text: "#d4d4d4",
+      accent: "#007acc",
+      green: "#4ec9b0",
+      blue: "#569cd6",
+      orange: "#ce9178",
+    }
+
+    // Set background
+    doc.setFillColor(30, 30, 30) // #1e1e1e
+    doc.rect(0, 0, 210, 297, "F")
+
+    let yPos = 20
+
+    // Header with VSCode styling
+    doc.setTextColor(212, 212, 212) // #d4d4d4
+    doc.setFontSize(24)
+    doc.setFont("helvetica", "bold")
+    doc.text(resumeData.personalInfo.name, 20, yPos)
+
+    // Accent line
+    doc.setDrawColor(0, 122, 204) // #007acc
+    doc.setLineWidth(2)
+    doc.line(20, yPos + 3, 80, yPos + 3)
+
+    yPos += 15
+
+    // Contact info with VSCode syntax highlighting style
+    doc.setFontSize(10)
+    doc.setFont("courier", "normal")
+    doc.setTextColor(86, 156, 214) // #569cd6 (blue)
+    doc.text("const contact = {", 20, yPos)
+    yPos += 5
+
+    doc.setTextColor(206, 145, 120) // #ce9178 (orange)
+    doc.text(`  linkedin: "${resumeData.personalInfo.linkedin}",`, 25, yPos)
+    yPos += 4
+    doc.text(`  location: "${resumeData.personalInfo.location}",`, 25, yPos)
+    yPos += 4
+    doc.text(`  phone: "${resumeData.personalInfo.phone}",`, 25, yPos)
+    yPos += 4
+    doc.text(`  email: "${resumeData.personalInfo.email}"`, 25, yPos)
+    yPos += 5
+
+    doc.setTextColor(86, 156, 214) // #569cd6
+    doc.text("};", 20, yPos)
+    yPos += 15
+
+    // Highlights section
+    doc.setTextColor(78, 201, 176) // #4ec9b0 (green)
+    doc.setFontSize(14)
+    doc.setFont("helvetica", "bold")
+    doc.text("// HIGHLIGHTS OF QUALIFICATIONS", 20, yPos)
+    yPos += 8
+
+    doc.setTextColor(212, 212, 212)
+    doc.setFontSize(9)
+    doc.setFont("helvetica", "normal")
+    const splitHighlights = doc.splitTextToSize(resumeData.highlights, 170)
+    doc.text(splitHighlights, 20, yPos)
+    yPos += splitHighlights.length * 4 + 10
+
+    // Professional Experience
+    doc.setTextColor(78, 201, 176) // #4ec9b0
+    doc.setFontSize(14)
+    doc.setFont("helvetica", "bold")
+    doc.text("// PROFESSIONAL EXPERIENCE", 20, yPos)
+    yPos += 10
+
+    resumeData.experience.forEach((exp, index) => {
+      if (yPos > 250) {
+        doc.addPage()
+        doc.setFillColor(30, 30, 30)
+        doc.rect(0, 0, 210, 297, "F")
+        yPos = 20
+      }
+
+      // Job title and company
+      doc.setTextColor(0, 122, 204) // #007acc
+      doc.setFontSize(12)
+      doc.setFont("helvetica", "bold")
+      doc.text(exp.title, 20, yPos)
+      yPos += 5
+
+      doc.setTextColor(78, 201, 176) // #4ec9b0
+      doc.setFontSize(10)
+      doc.setFont("courier", "normal")
+      const period = `${exp.startDate} – ${exp.endDate}`
+      const typeText = exp.type ? ` (${exp.type})` : ""
+      doc.text(`${exp.company}${typeText} | ${period}`, 20, yPos)
+      yPos += 8
+
+      // Highlights
+      doc.setTextColor(212, 212, 212)
+      doc.setFontSize(9)
+      doc.setFont("helvetica", "normal")
+      exp.achievements.slice(0, 4).forEach((achievement) => {
+        const splitAchievement = doc.splitTextToSize("• " + achievement, 165)
+        doc.text(splitAchievement, 25, yPos)
+        yPos += splitAchievement.length * 4
+      })
+      yPos += 5
+    })
+
+    // Add new page for skills if needed
+    if (yPos > 200) {
+      doc.addPage()
+      doc.setFillColor(30, 30, 30)
+      doc.rect(0, 0, 210, 297, "F")
+      yPos = 20
+    }
+
+    // Skills section
+    doc.setTextColor(78, 201, 176) // #4ec9b0
+    doc.setFontSize(14)
+    doc.setFont("helvetica", "bold")
+    doc.text("// SKILLS & TECHNOLOGIES", 20, yPos)
+    yPos += 10
+
+    const skillCategories = [
+      {
+        title: "Languages",
+        skills: resumeData.skills.languages.join(", "),
+      },
+      {
+        title: "Frameworks & Libraries",
+        skills: resumeData.skills.frameworks.join(", "),
+      },
+      {
+        title: "Databases",
+        skills: resumeData.skills.databases.join(", "),
+      },
+      {
+        title: "Technologies & Platforms",
+        skills: resumeData.skills.technologies.join(", "),
+      },
+    ]
+
+    skillCategories.forEach((category) => {
+      if (yPos > 270) {
+        doc.addPage()
+        doc.setFillColor(30, 30, 30)
+        doc.rect(0, 0, 210, 297, "F")
+        yPos = 20
+      }
+
+      doc.setTextColor(0, 122, 204) // #007acc
+      doc.setFontSize(11)
+      doc.setFont("helvetica", "bold")
+      doc.text(category.title + ":", 20, yPos)
+      yPos += 6
+
+      doc.setTextColor(212, 212, 212)
+      doc.setFontSize(9)
+      doc.setFont("helvetica", "normal")
+      const splitSkills = doc.splitTextToSize(category.skills, 170)
+      doc.text(splitSkills, 20, yPos)
+      yPos += splitSkills.length * 4 + 8
+    })
+
+    doc.save(`${resumeData.personalInfo.name.replace(/\s+/g, "_")}_Resume.pdf`)
+  }
 
   const terminalCommands = [
     "$ whoami",
@@ -51,8 +282,9 @@ export default function Resume() {
     let charIndex = 0
     const typeTerminal = () => {
       if (commandIndex < terminalCommands.length) {
-        if (charIndex < terminalCommands[commandIndex].length) {
-          setTerminalText((prev) => prev + terminalCommands[commandIndex][charIndex])
+        const currentCommand = terminalCommands[commandIndex]
+        if (charIndex < currentCommand.length) {
+          setTerminalText((prev) => prev + currentCommand[charIndex])
           charIndex++
           setTimeout(typeTerminal, 50)
         } else {
@@ -137,7 +369,7 @@ export default function Resume() {
     },
   ]
 
-  const experiences = [
+  const experiencesData = [
     {
       title: "Full-Stack Web Developer",
       company: "HARPLABS INC.",
@@ -239,14 +471,6 @@ const medicalApp = {
     },
   ]
 
-  const certifications = [
-    { name: "Google Cybersecurity Certificate", issuer: "Google", icon: Shield },
-    { name: "Google Mobile Web Specialist", issuer: "Google", icon: Globe },
-    { name: "Microsoft Exam 480 HTML5, JavaScript, CSS3", issuer: "Microsoft", icon: Code },
-    { name: "Full-Stack Web Development", issuer: "Coursera", icon: Code },
-    { name: ".NET Core Certificate", issuer: "ComIT", icon: Code },
-  ]
-
   const techCategories = [
     {
       title: "Languages",
@@ -297,13 +521,27 @@ const medicalApp = {
           <div
             className={`transition-all duration-1000 ${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-10"}`}
           >
-            <div className="mb-6">
-              <div className="text-[#569cd6] text-sm mb-2 font-mono">// Full Stack Developer</div>
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-2">
-                <span className="text-[#4ec9b0]">const</span> <span className="text-[#9cdcfe]">developer</span>{" "}
-                <span className="text-white">=</span> <span className="text-[#ce9178]">"Mina Youaness"</span>
-              </h1>
-              <div className="h-1 w-32 bg-gradient-to-r from-[#007acc] to-[#4ec9b0] rounded-full"></div>
+            <div className="flex items-center gap-6 mb-8">
+              <div className="relative group">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#007acc] p-1 bg-gradient-to-br from-[#007acc] to-[#4ec9b0]">
+                  <img
+                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1753407168559-PCWiZjGAS8MtQhjaIJJBeSTHaxePdY.jpeg"
+                    alt="Mina Youaness - Full Stack Developer"
+                    className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#28ca42] rounded-full border-2 border-[#1e1e1e] flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                </div>
+              </div>
+              <div>
+                <div className="text-[#569cd6] text-sm mb-1 font-mono">// Full Stack Developer</div>
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-1">
+                  <span className="text-[#4ec9b0]">const</span> <span className="text-[#9cdcfe]">developer</span>{" "}
+                  <span className="text-white">=</span> <span className="text-[#ce9178]">"Mina Youaness"</span>
+                </h1>
+                <div className="h-1 w-32 bg-gradient-to-r from-[#007acc] to-[#4ec9b0] rounded-full"></div>
+              </div>
             </div>
 
             <div className="space-y-4 mb-8">
@@ -341,7 +579,7 @@ const medicalApp = {
             </div>
 
             <div className="flex gap-4">
-              <Button className="bg-[#007acc] hover:bg-[#005a9e] text-white">
+              <Button className="bg-[#007acc] hover:bg-[#005a9e] text-white" onClick={handleDownloadResume}>
                 <Download className="w-4 h-4 mr-2" />
                 Download Resume
               </Button>
@@ -431,7 +669,7 @@ const medicalApp = {
         </div>
       </section>
 
-      {/* Experience Section - VSCode File Explorer Style */}
+      {/* Experience Section - VSCode Theme Restored */}
       <section id="experience" className="py-20 px-4 bg-[#1e1e1e]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -439,69 +677,82 @@ const medicalApp = {
               <span className="text-[#569cd6] font-mono">interface</span>{" "}
               <span className="text-[#4ec9b0]">ProfessionalExperience</span>
             </h2>
-            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">// A decade of building innovative solutions</p>
+            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
+              // 10+ years of innovative full-stack development
+            </p>
           </div>
 
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
+          <div className="space-y-6">
+            {experiencesData.map((exp, index) => (
               <div
                 key={index}
-                className={`bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 ${
-                  isVisible ? "animate-slide-in-left" : "opacity-0 -translate-x-10"
+                className={`bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20 ${
+                  isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-10"
                 }`}
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                {/* File Tab */}
+                {/* File tab header */}
                 <div className="bg-[#2d2d30] px-4 py-2 border-b border-[#3e3e42] flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-[#007acc]" />
                   <span className="text-sm font-mono text-[#d4d4d4]">
                     {exp.company.toLowerCase().replace(/\s+/g, "-")}.{exp.fileType}
                   </span>
-                  <div className="ml-auto flex items-center gap-2 text-xs text-[#d4d4d4]">
-                    <Calendar className="w-3 h-3" />
-                    {exp.period}
+                  <div className="ml-auto flex items-center gap-2">
+                    <Badge className="bg-[#007acc]/20 text-[#007acc] text-xs font-mono border-[#007acc]/30">
+                      {exp.period}
+                    </Badge>
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <div className="flex items-start gap-4 mb-6">
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-white mb-1">{exp.title}</h3>
-                      <p className="text-[#4ec9b0] font-semibold">{exp.company}</p>
+                  {/* Job title and company */}
+                  <div className="mb-6">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex items-center justify-center">
+                        <span className="text-white font-bold text-lg">{exp.company.charAt(0)}</span>
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#007acc] transition-colors">
+                          {exp.title}
+                        </h3>
+                        <p className="text-[#4ec9b0] font-mono">{exp.company}</p>
+                      </div>
                     </div>
-                    <Button size="sm" className="bg-[#007acc] hover:bg-[#005a9e] text-white">
-                      <Play className="w-3 h-3 mr-1" />
-                      Run
-                    </Button>
                   </div>
 
                   {/* Code snippet */}
-                  <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 mb-6">
-                    <pre className="text-sm font-mono text-[#d4d4d4] overflow-x-auto">
-                      <code>{exp.codeSnippet}</code>
+                  <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 mb-6 overflow-x-auto">
+                    <pre className="text-sm font-mono">
+                      <code className="text-[#d4d4d4]">{exp.codeSnippet}</code>
                     </pre>
                   </div>
 
                   {/* Highlights */}
-                  <div className="space-y-3 mb-6">
-                    {exp.highlights.map((highlight, idx) => (
-                      <div key={idx} className="flex items-start gap-3">
-                        <span className="text-[#569cd6] font-mono text-sm mt-1">//</span>
-                        <span className="text-[#d4d4d4] text-sm leading-relaxed">{highlight}</span>
-                      </div>
-                    ))}
+                  <div className="mb-6">
+                    <div className="text-sm text-[#569cd6] font-mono mb-3">// Key Achievements:</div>
+                    <div className="space-y-2">
+                      {exp.highlights.map((highlight, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <div className="w-1.5 h-1.5 bg-[#4ec9b0] rounded-full mt-2 flex-shrink-0"></div>
+                          <span className="text-[#d4d4d4] text-sm leading-relaxed">{highlight}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map((tech) => (
-                      <Badge
-                        key={tech}
-                        className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 hover:bg-[#007acc]/20 font-mono text-xs"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
+                  <div className="mb-4">
+                    <div className="text-sm text-[#569cd6] font-mono mb-3">// Technologies:</div>
+                    <div className="flex flex-wrap gap-2">
+                      {exp.technologies.map((tech) => (
+                        <Badge
+                          key={tech}
+                          className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 font-mono text-xs hover:bg-[#007acc]/20 transition-colors"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -564,34 +815,157 @@ const medicalApp = {
               <span className="text-[#4ec9b0]">certifications</span> <span className="text-white">=</span>{" "}
               <span className="text-[#ce9178]">[]</span>
             </h2>
+            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
+              // Professional certifications and continuous learning achievements
+            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {certifications.map((cert, index) => {
+            {[
+              {
+                name: "Google Cybersecurity Certificate",
+                issuer: "Google",
+                icon: Shield,
+                status: "Certified",
+                description: "Comprehensive cybersecurity fundamentals, risk management, and security practices",
+                color: "from-red-500 to-orange-500",
+                skills: ["Security Frameworks", "Risk Assessment", "Incident Response", "Network Security"],
+              },
+              {
+                name: "Google Mobile Web Specialist",
+                issuer: "Google",
+                icon: Globe,
+                status: "Studied & Examined",
+                description: "Advanced mobile web development, PWA, and performance optimization",
+                color: "from-blue-500 to-cyan-500",
+                skills: ["PWA Development", "Mobile Optimization", "Service Workers", "Web Performance"],
+              },
+              {
+                name: "Microsoft Exam 480",
+                issuer: "Microsoft",
+                icon: Code,
+                status: "Certified",
+                description: "HTML5, JavaScript, and CSS3 programming expertise",
+                color: "from-blue-600 to-indigo-600",
+                skills: ["HTML5 APIs", "JavaScript ES6+", "CSS3 Advanced", "DOM Manipulation"],
+              },
+              {
+                name: "Full-Stack Web Development",
+                issuer: "Coursera",
+                icon: Code,
+                status: "Completed",
+                description: "Comprehensive full-stack development with modern frameworks",
+                color: "from-purple-500 to-pink-500",
+                skills: ["MEAN Stack", "RESTful APIs", "Database Design", "Authentication"],
+              },
+              {
+                name: ".NET Core Certificate",
+                issuer: "ComIT",
+                icon: Code,
+                status: "Certified",
+                description: "Modern .NET Core development and enterprise applications",
+                color: "from-indigo-500 to-purple-600",
+                skills: [".NET Core", "C# Advanced", "Entity Framework", "Web APIs"],
+              },
+            ].map((cert, index) => {
               const Icon = cert.icon
               return (
                 <div
                   key={index}
-                  className="bg-[#252526] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 text-center"
+                  className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20"
                 >
-                  <div className="p-4 bg-[#007acc]/10 rounded-full w-fit mx-auto mb-4">
-                    <Icon className="w-8 h-8 text-[#007acc]" />
+                  {/* Certificate Header */}
+                  <div className="bg-[#2d2d30] px-4 py-3 border-b border-[#3e3e42] flex items-center gap-2">
+                    <FileCode className="w-4 h-4 text-[#007acc]" />
+                    <span className="text-sm font-mono text-[#d4d4d4]">{cert.issuer.toLowerCase()}-cert.json</span>
+                    <div className="ml-auto">
+                      <Badge className={`bg-gradient-to-r ${cert.color} text-white text-xs`}>{cert.status}</Badge>
+                    </div>
                   </div>
-                  <h3 className="font-semibold text-white mb-2">{cert.name}</h3>
-                  <p className="text-sm text-[#d4d4d4] font-mono">{cert.issuer}</p>
+
+                  <div className="p-6">
+                    {/* Icon and Title */}
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className={`p-3 bg-gradient-to-br ${cert.color} rounded-lg`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-white mb-1 group-hover:text-[#007acc] transition-colors">
+                          {cert.name}
+                        </h3>
+                        <p className="text-sm text-[#4ec9b0] font-mono">{cert.issuer}</p>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm text-[#d4d4d4] mb-4 leading-relaxed">{cert.description}</p>
+
+                    {/* Skills */}
+                    <div className="space-y-2 mb-4">
+                      <div className="text-xs text-[#569cd6] font-mono">// Key Skills:</div>
+                      <div className="flex flex-wrap gap-1">
+                        {cert.skills.map((skill) => (
+                          <Badge
+                            key={skill}
+                            className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 text-xs font-mono"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Verification Link */}
+                    <Button
+                      size="sm"
+                      className="w-full bg-[#007acc]/10 hover:bg-[#007acc] text-[#007acc] hover:text-white border border-[#007acc]/20 hover:border-[#007acc] transition-all"
+                    >
+                      <ExternalLink className="w-3 h-3 mr-2" />
+                      <span className="font-mono text-xs">verify()</span>
+                    </Button>
+                  </div>
                 </div>
               )
             })}
           </div>
 
-          {/* Education */}
+          {/* Education - Enhanced */}
           <div className="text-center">
-            <div className="bg-[#252526] border border-[#3e3e42] rounded-lg p-8 inline-block hover:border-[#007acc] transition-all duration-300">
-              <div className="p-4 bg-[#4ec9b0]/10 rounded-full w-fit mx-auto mb-4">
-                <Award className="w-10 h-10 text-[#4ec9b0]" />
+            <div className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#4ec9b0] transition-all duration-300 inline-block group hover:shadow-lg hover:shadow-[#4ec9b0]/20">
+              {/* Education Header */}
+              <div className="bg-[#2d2d30] px-6 py-3 border-b border-[#3e3e42] flex items-center gap-2">
+                <FileCode className="w-4 h-4 text-[#4ec9b0]" />
+                <span className="text-sm font-mono text-[#d4d4d4]">education.degree</span>
               </div>
-              <h3 className="font-bold text-xl text-white mb-2">Bachelor of Computer Science</h3>
-              <p className="text-[#d4d4d4] font-mono">College of Computing & Information Technology</p>
+
+              <div className="p-8">
+                <div className="p-4 bg-[#4ec9b0]/10 rounded-full w-fit mx-auto mb-6">
+                  <Award className="w-12 h-12 text-[#4ec9b0]" />
+                </div>
+                <h3 className="font-bold text-2xl text-white mb-2 group-hover:text-[#4ec9b0] transition-colors">
+                  Bachelor of Computer Science
+                </h3>
+                <p className="text-[#d4d4d4] font-mono mb-4">College of Computing & Information Technology</p>
+
+                {/* Code snippet for education */}
+                <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 text-left">
+                  <code className="text-sm font-mono">
+                    <span className="text-[#569cd6]">const</span> <span className="text-[#9cdcfe]">education</span>{" "}
+                    <span className="text-white">=</span> <span className="text-white">{"{"}</span>
+                    <br />
+                    <span className="ml-4 text-[#9cdcfe]">degree</span>
+                    <span className="text-white">:</span>{" "}
+                    <span className="text-[#ce9178]">"Bachelor of Computer Science"</span>
+                    <span className="text-white">,</span>
+                    <br />
+                    <span className="ml-4 text-[#9cdcfe]">foundation</span>
+                    <span className="text-white">:</span>{" "}
+                    <span className="text-[#ce9178]">"Strong technical fundamentals"</span>
+                    <br />
+                    <span className="text-white">{"}"}</span>
+                  </code>
+                </div>
+              </div>
             </div>
           </div>
         </div>
