@@ -1,60 +1,22 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  /* VSCode Dark Theme Colors */
   --vscode-bg: #1e1e1e;
   --vscode-sidebar: #252526;
-  --vscode-tab: #2d2d30;
-  --vscode-border: #3e3e42;
+  --vscode-editor: #1e1e1e;
   --vscode-text: #d4d4d4;
-  --vscode-text-muted: #969696;
-  --vscode-blue: #007acc;
-  --vscode-blue-light: #58a6ff;
-  --vscode-green: #4ec9b0;
-  --vscode-yellow: #dcdcaa;
-  --vscode-orange: #ce9178;
-  --vscode-purple: #c586c0;
+  --vscode-comment: #6a9955;
   --vscode-keyword: #569cd6;
   --vscode-string: #ce9178;
-  --vscode-comment: #6a9955;
-  --vscode-error: #f44747;
-  --vscode-warning: #ffcc02;
-
-  /* Updated color tokens to match professional resume design brief */
-  --background: oklch(1 0 0); /* #ffffff */
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --vscode-type: #4ec9b0;
+  --vscode-variable: #9cdcfe;
+  --vscode-function: #dcdcaa;
+  --vscode-accent: #007acc;
+  --vscode-border: #3c3c3c;
+  --vscode-hover: #2a2d2e;
 }
 
 .dark {
@@ -93,6 +55,8 @@
 }
 
 @theme inline {
+  --font-sans: var(--font-source-sans);
+  --font-serif: var(--font-playfair);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -140,7 +104,625 @@
   }
 }
 
-/* VSCode-themed animations and effects */
+/* VSCode Theme Classes */
+.text-vscode-text {
+  color: var(--vscode-text);
+}
+.text-vscode-comment {
+  color: var(--vscode-comment);
+}
+.text-vscode-keyword {
+  color: var(--vscode-keyword);
+}
+.text-vscode-string {
+  color: var(--vscode-string);
+}
+.text-vscode-type {
+  color: var(--vscode-type);
+}
+.text-vscode-variable {
+  color: var(--vscode-variable);
+}
+.text-vscode-function {
+  color: var(--vscode-function);
+}
+.text-vscode-accent {
+  color: var(--vscode-accent);
+}
+.text-vscode-console {
+  color: var(--vscode-type);
+}
+.text-vscode-method {
+  color: var(--vscode-function);
+}
+.text-vscode-operator {
+  color: var(--vscode-text);
+}
+.text-vscode-object {
+  color: var(--vscode-text);
+}
+
+.bg-vscode-bg {
+  background-color: var(--vscode-bg);
+}
+.bg-vscode-sidebar {
+  background-color: var(--vscode-sidebar);
+}
+.bg-vscode-editor {
+  background-color: var(--vscode-editor);
+}
+.bg-vscode-hover {
+  background-color: var(--vscode-hover);
+}
+
+.border-vscode-border {
+  border-color: var(--vscode-border);
+}
+
+/* Main Layout */
+.main-container {
+  @apply min-h-screen bg-[#1e1e1e] text-[#d4d4d4] font-mono;
+}
+
+/* VSCode Header */
+.vscode-header {
+  @apply flex items-center justify-between bg-[#2d2d30] border-b border-[#3c3c3c] px-4 py-2;
+}
+
+.window-controls {
+  @apply flex items-center gap-2;
+}
+
+.window-control {
+  @apply w-3 h-3 rounded-full;
+}
+
+.window-control.red {
+  @apply bg-[#ff5f57];
+}
+.window-control.yellow {
+  @apply bg-[#ffbd2e];
+}
+.window-control.green {
+  @apply bg-[#28ca42];
+}
+
+.file-tab {
+  @apply flex items-center gap-2 bg-[#1e1e1e] px-4 py-2 rounded-t border-t-2 border-[#007acc] text-[#d4d4d4] relative;
+}
+
+.status-dot {
+  @apply w-2 h-2 bg-[#007acc] rounded-full;
+}
+
+/* Hero Section */
+.hero-section {
+  @apply py-20 px-8;
+}
+
+.hero-grid {
+  @apply max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center;
+}
+
+.profile-section {
+  @apply space-y-8 opacity-0 transform translate-y-8 transition-all duration-1000;
+}
+
+.profile-section.visible {
+  @apply opacity-100 translate-y-0;
+}
+
+.profile-header {
+  @apply flex items-start gap-6;
+}
+
+.profile-image-container {
+  @apply relative;
+}
+
+.profile-image-wrapper {
+  @apply w-24 h-24 rounded-full overflow-hidden border-4 border-gradient-to-r from-[#007acc] to-[#4ec9b0] p-1;
+}
+
+.profile-image {
+  @apply w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300;
+}
+
+.status-indicator {
+  @apply absolute -bottom-1 -right-1 w-6 h-6 bg-[#1e1e1e] rounded-full flex items-center justify-center;
+}
+
+.status-dot-inner {
+  @apply w-4 h-4 bg-[#28ca42] rounded-full;
+}
+
+.profile-title {
+  @apply text-[#6a9955] text-sm font-mono mb-2;
+}
+
+.profile-name {
+  @apply text-4xl lg:text-5xl font-bold mb-4 font-mono;
+}
+
+.profile-gradient {
+  @apply h-1 w-32 bg-gradient-to-r from-[#007acc] to-[#4ec9b0] rounded-full;
+}
+
+.profile-details {
+  @apply space-y-2 font-mono text-sm;
+}
+
+.profile-detail {
+  @apply flex gap-2;
+}
+
+.contact-grid {
+  @apply grid grid-cols-2 gap-4;
+}
+
+.contact-item {
+  @apply flex items-center gap-2 text-sm text-[#d4d4d4] hover:text-[#4ec9b0] transition-colors cursor-pointer;
+}
+
+.action-buttons {
+  @apply flex gap-4;
+}
+
+.btn {
+  @apply px-6 py-3 rounded-lg font-mono text-sm transition-all duration-300 flex items-center gap-2;
+}
+
+.btn-primary {
+  @apply bg-[#007acc] text-white hover:bg-[#005a9e] hover:scale-105;
+}
+
+.btn-outline {
+  @apply border border-[#3c3c3c] text-[#d4d4d4] hover:border-[#007acc] hover:text-[#007acc];
+}
+
+/* Terminal */
+.terminal {
+  @apply bg-[#0c0c0c] rounded-lg border border-[#3c3c3c] overflow-hidden;
+}
+
+.terminal-header {
+  @apply flex items-center justify-between bg-[#2d2d30] px-4 py-2 border-b border-[#3c3c3c];
+}
+
+.terminal-title {
+  @apply text-[#d4d4d4] text-sm font-mono;
+}
+
+.terminal-controls {
+  @apply flex items-center gap-2;
+}
+
+.terminal-control {
+  @apply w-3 h-3 rounded-full;
+}
+
+.terminal-control.red {
+  @apply bg-[#ff5f57];
+}
+.terminal-control.yellow {
+  @apply bg-[#ffbd2e];
+}
+.terminal-control.green {
+  @apply bg-[#28ca42];
+}
+
+.terminal-content {
+  @apply p-4 h-64 overflow-hidden;
+}
+
+.terminal-text {
+  @apply text-[#4ec9b0] font-mono text-sm leading-relaxed;
+}
+
+.terminal-cursor {
+  @apply text-[#d4d4d4] animate-pulse;
+}
+
+/* Skills Section */
+.skills-section {
+  @apply py-20 px-8 bg-[#252526];
+}
+
+.skills-grid {
+  @apply max-w-7xl mx-auto;
+}
+
+.skills-header {
+  @apply text-center mb-16;
+}
+
+.skills-title {
+  @apply text-4xl font-bold mb-4 text-[#4ec9b0] font-mono;
+}
+
+.skills-description {
+  @apply text-[#6a9955] font-mono;
+}
+
+.skills-list {
+  @apply grid md:grid-cols-2 lg:grid-cols-3 gap-8;
+}
+
+.skill-item {
+  @apply bg-[#1e1e1e] rounded-lg p-6 border border-[#3c3c3c] hover:border-[#007acc] transition-all duration-300 opacity-0 transform translate-y-8;
+}
+
+.skill-item.visible {
+  @apply opacity-100 translate-y-0;
+}
+
+.skill-icon {
+  @apply w-12 h-12 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex items-center justify-center mb-4;
+}
+
+.skill-info {
+  @apply flex justify-between items-center mb-3;
+}
+
+.skill-name {
+  @apply text-[#d4d4d4] font-semibold;
+}
+
+.skill-level {
+  @apply text-[#4ec9b0] font-mono text-sm;
+}
+
+.skill-bar {
+  @apply w-full bg-[#3c3c3c] rounded-full h-2 mb-4;
+}
+
+.skill-bar-fill {
+  @apply h-full bg-gradient-to-r from-[#007acc] to-[#4ec9b0] rounded-full transition-all duration-1000;
+}
+
+.skill-code {
+  @apply bg-[#0c0c0c] rounded p-2 border border-[#3c3c3c];
+}
+
+.skill-syntax {
+  @apply text-xs font-mono text-[#6a9955];
+}
+
+/* Experience Section */
+.experience-section {
+  @apply py-20 px-8;
+}
+
+.experience-grid {
+  @apply max-w-7xl mx-auto;
+}
+
+.experience-header {
+  @apply text-center mb-16;
+}
+
+.experience-title {
+  @apply text-4xl font-bold mb-4 text-[#4ec9b0] font-mono;
+}
+
+.experience-description {
+  @apply text-[#6a9955] font-mono;
+}
+
+.experience-list {
+  @apply space-y-8;
+}
+
+.experience-item {
+  @apply bg-[#252526] rounded-lg border border-[#3c3c3c] overflow-hidden hover:border-[#007acc] transition-all duration-300 opacity-0 transform translate-y-8;
+}
+
+.experience-item.visible {
+  @apply opacity-100 translate-y-0;
+}
+
+.experience-file-tab {
+  @apply flex items-center justify-between bg-[#2d2d30] px-6 py-3 border-b border-[#3c3c3c];
+}
+
+.experience-badge {
+  @apply bg-[#007acc] text-white px-3 py-1 rounded-full text-xs font-mono;
+}
+
+.experience-content {
+  @apply p-6 space-y-6;
+}
+
+.experience-header-content {
+  @apply flex items-center gap-4;
+}
+
+.experience-icon {
+  @apply w-12 h-12 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex items-center justify-center;
+}
+
+.experience-initial {
+  @apply text-white font-bold text-lg;
+}
+
+.experience-info h3 {
+  @apply text-xl font-semibold text-[#d4d4d4] mb-1;
+}
+
+.experience-info p {
+  @apply text-[#4ec9b0] font-mono;
+}
+
+.experience-code-snippet {
+  @apply bg-[#0c0c0c] rounded-lg p-4 border border-[#3c3c3c];
+}
+
+.experience-code {
+  @apply text-sm font-mono text-[#d4d4d4];
+}
+
+.experience-highlights-title {
+  @apply text-[#6a9955] font-mono text-sm mb-3;
+}
+
+.experience-highlights-list {
+  @apply space-y-2;
+}
+
+.experience-highlight {
+  @apply flex items-start gap-3;
+}
+
+.experience-highlight-dot {
+  @apply w-2 h-2 bg-[#4ec9b0] rounded-full mt-2 flex-shrink-0;
+}
+
+.experience-highlight-text {
+  @apply text-[#d4d4d4] text-sm leading-relaxed;
+}
+
+.experience-technologies-title {
+  @apply text-[#6a9955] font-mono text-sm mb-3;
+}
+
+.experience-technologies-list {
+  @apply flex flex-wrap gap-2;
+}
+
+.experience-technology-badge {
+  @apply bg-[#3c3c3c] text-[#d4d4d4] px-3 py-1 rounded-full text-xs font-mono hover:bg-[#007acc] hover:text-white transition-colors;
+}
+
+/* Technologies Section */
+.technologies-section {
+  @apply py-20 px-8 bg-[#252526];
+}
+
+.technologies-grid {
+  @apply max-w-7xl mx-auto;
+}
+
+.technologies-header {
+  @apply text-center mb-16;
+}
+
+.technologies-title {
+  @apply text-4xl font-bold text-[#4ec9b0] font-mono;
+}
+
+.technologies-categories {
+  @apply grid md:grid-cols-2 gap-8;
+}
+
+.technology-category {
+  @apply bg-[#1e1e1e] rounded-lg border border-[#3c3c3c] overflow-hidden hover:border-[#007acc] transition-all duration-300;
+}
+
+.technology-folder-header {
+  @apply flex items-center gap-2 bg-[#2d2d30] px-4 py-2 border-b border-[#3c3c3c] text-[#d4d4d4] font-mono text-sm;
+}
+
+.technology-category-content {
+  @apply p-6;
+}
+
+.technology-category-header {
+  @apply flex items-center gap-3 mb-4;
+}
+
+.technology-category-title {
+  @apply text-xl font-semibold text-[#d4d4d4];
+}
+
+.technology-list {
+  @apply grid grid-cols-2 gap-3;
+}
+
+.technology-item {
+  @apply flex items-center gap-2 text-[#d4d4d4] hover:text-[#4ec9b0] transition-colors cursor-pointer;
+}
+
+.technology-name {
+  @apply text-sm;
+}
+
+/* Certifications Section */
+.certifications-section {
+  @apply py-20 px-8;
+}
+
+.certifications-grid {
+  @apply max-w-7xl mx-auto;
+}
+
+.certifications-header {
+  @apply text-center mb-16;
+}
+
+.certifications-title {
+  @apply text-4xl font-bold mb-4 text-[#4ec9b0] font-mono;
+}
+
+.certifications-description {
+  @apply text-[#6a9955] font-mono;
+}
+
+.certifications-list {
+  @apply grid md:grid-cols-2 gap-8;
+}
+
+.certification-item {
+  @apply bg-[#252526] rounded-lg border border-[#3c3c3c] overflow-hidden hover:border-[#007acc] transition-all duration-300;
+}
+
+.certification-file-tab {
+  @apply flex items-center justify-between bg-[#2d2d30] px-6 py-3 border-b border-[#3c3c3c];
+}
+
+.certification-status {
+  @apply px-3 py-1 rounded-full text-xs font-mono text-white;
+}
+
+.certification-content {
+  @apply p-6 space-y-4;
+}
+
+.certification-header-content {
+  @apply flex items-center gap-4;
+}
+
+.certification-icon {
+  @apply w-12 h-12 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex items-center justify-center;
+}
+
+.certification-info h3 {
+  @apply text-lg font-semibold text-[#d4d4d4] mb-1;
+}
+
+.certification-info p {
+  @apply text-[#4ec9b0] font-mono text-sm;
+}
+
+.certification-description {
+  @apply text-[#d4d4d4] text-sm leading-relaxed;
+}
+
+.certification-skills-title {
+  @apply text-[#6a9955] font-mono text-sm mb-2;
+}
+
+.certification-skills-list {
+  @apply flex flex-wrap gap-2;
+}
+
+.certification-skill-badge {
+  @apply bg-[#3c3c3c] text-[#d4d4d4] px-2 py-1 rounded text-xs font-mono;
+}
+
+.certification-verification {
+  @apply flex justify-end;
+}
+
+/* Education Section */
+.education-section {
+  @apply py-20 px-8 bg-[#252526];
+}
+
+.education-grid {
+  @apply max-w-4xl mx-auto;
+}
+
+.education-header {
+  @apply text-center mb-16;
+}
+
+.education-title {
+  @apply text-4xl font-bold text-[#4ec9b0] font-mono;
+}
+
+.education-content {
+  @apply bg-[#1e1e1e] rounded-lg border border-[#3c3c3c] p-8 space-y-6;
+}
+
+.education-degree {
+  @apply flex items-center gap-6;
+}
+
+.education-degree-icon {
+  @apply w-16 h-16 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex items-center justify-center;
+}
+
+.education-degree-info h3 {
+  @apply text-2xl font-semibold text-[#d4d4d4] mb-2;
+}
+
+.education-degree-info p {
+  @apply text-[#4ec9b0] font-mono;
+}
+
+.education-code-snippet {
+  @apply bg-[#0c0c0c] rounded-lg p-4 border border-[#3c3c3c];
+}
+
+.education-syntax {
+  @apply font-mono text-sm;
+}
+
+/* Contact Section */
+.contact-section {
+  @apply py-20 px-8;
+}
+
+.contact-grid {
+  @apply max-w-4xl mx-auto text-center space-y-8;
+}
+
+.contact-header {
+  @apply space-y-4;
+}
+
+.contact-title {
+  @apply text-4xl font-bold text-[#4ec9b0] font-mono;
+}
+
+.contact-description {
+  @apply text-[#6a9955] font-mono;
+}
+
+.contact-buttons {
+  @apply flex justify-center gap-4;
+}
+
+.contact-code-snippet {
+  @apply bg-[#0c0c0c] rounded-lg p-4 border border-[#3c3c3c] inline-block;
+}
+
+.contact-syntax {
+  @apply font-mono text-sm;
+}
+
+/* Footer */
+.footer {
+  @apply flex items-center justify-between bg-[#007acc] px-8 py-4 text-white;
+}
+
+.footer-left {
+  @apply flex items-center gap-6;
+}
+
+.footer-git-branch {
+  @apply flex items-center gap-2 font-mono text-sm;
+}
+
+.footer-coffee {
+  @apply flex items-center gap-2 font-mono text-sm;
+}
+
+.footer-right {
+  @apply font-mono text-sm;
+}
+
+/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -152,204 +734,57 @@
   }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes typewriter {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
-}
-
-@keyframes pulse-glow {
-  0%,
-  100% {
-    opacity: 0.4;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.05);
-  }
-}
-
-@keyframes terminal-cursor {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes code-highlight {
-  0% {
-    background-color: transparent;
-  }
-  50% {
-    background-color: rgba(0, 122, 204, 0.1);
-  }
-  100% {
-    background-color: transparent;
-  }
-}
-
-@keyframes syntax-glow {
-  0%,
-  100% {
-    text-shadow: 0 0 5px currentColor;
-  }
-  50% {
-    text-shadow: 0 0 10px currentColor, 0 0 15px currentColor;
-  }
-}
-
-/* Animation classes */
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 0.6s ease-out forwards;
 }
 
-.animate-slide-in-left {
-  animation: slideInLeft 0.8s ease-out forwards;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-grid {
+    @apply grid-cols-1 gap-8;
+  }
+
+  .skills-list {
+    @apply grid-cols-1;
+  }
+
+  .technologies-categories {
+    @apply grid-cols-1;
+  }
+
+  .certifications-list {
+    @apply grid-cols-1;
+  }
+
+  .contact-buttons {
+    @apply flex-col items-center;
+  }
+
+  .footer {
+    @apply flex-col gap-4 text-center;
+  }
 }
 
-.animate-typewriter {
-  animation: typewriter 3s steps(40, end) forwards;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 3px solid var(--vscode-blue);
-  animation-iteration-count: 1;
-}
-
-.terminal-cursor {
-  animation: terminal-cursor 1s infinite;
-}
-
-/* Code syntax highlighting effects */
-.syntax-keyword {
-  color: var(--vscode-keyword);
-  animation: syntax-glow 3s ease-in-out infinite;
-}
-
-.syntax-string {
-  color: var(--vscode-string);
-}
-
-.syntax-comment {
-  color: var(--vscode-comment);
-  font-style: italic;
-}
-
-.syntax-function {
-  color: var(--vscode-yellow);
-}
-
-.syntax-variable {
-  color: var(--vscode-green);
-}
-
-/* VSCode-themed hover effects */
-.vscode-card:hover {
-  background-color: var(--vscode-sidebar);
-  border-color: var(--vscode-blue);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 122, 204, 0.15);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.vscode-tab:hover {
-  background-color: var(--vscode-tab);
-  border-bottom: 2px solid var(--vscode-blue);
-}
-
-.code-block {
-  background: var(--vscode-bg);
-  border: 1px solid var(--vscode-border);
-  border-radius: 6px;
-  font-family: "Fira Code", "Consolas", "Monaco", monospace;
-  position: relative;
-  overflow: hidden;
-}
-
-.code-block::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--vscode-blue), transparent);
-  animation: code-highlight 2s ease-in-out infinite;
-}
-
-/* Print styles for professional resume download */
+/* Print Styles */
 @media print {
-  * {
-    background: white !important;
-    color: black !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
+  .main-container {
+    @apply bg-white text-black;
   }
 
-  button,
-  .terminal-window,
-  .window-controls,
-  nav,
-  footer {
-    display: none !important;
+  .vscode-header,
+  .terminal,
+  .action-buttons,
+  .contact-buttons,
+  .footer {
+    @apply hidden;
   }
 
-  body {
-    font-size: 12pt !important;
-    line-height: 1.4 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+  .hero-section,
+  .skills-section,
+  .experience-section,
+  .technologies-section,
+  .certifications-section,
+  .education-section {
+    @apply py-8;
   }
-
-  section {
-    page-break-inside: avoid;
-    margin-bottom: 20pt !important;
-  }
-
-  h1,
-  h2,
-  h3 {
-    page-break-after: avoid;
-    color: #1f2937 !important;
-    margin-bottom: 10pt !important;
-  }
-
-  @page {
-    margin: 0.75in;
-    size: letter;
-  }
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Selection styling */
-::selection {
-  background: var(--vscode-blue);
-  color: white;
-}
-
-::-moz-selection {
-  background: var(--vscode-blue);
-  color: white;
 }

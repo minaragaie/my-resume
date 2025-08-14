@@ -68,7 +68,7 @@ interface ResumeData {
   additionalInfo: string
 }
 
-export default function Resume() {
+export default function ResumePage() {
   const [isVisible, setIsVisible] = useState(false)
   const [skillsVisible, setSkillsVisible] = useState(false)
   const [currentSection, setCurrentSection] = useState("")
@@ -548,115 +548,111 @@ const medicalApp = {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4]">
+    <div className="main-container">
       {/* VSCode-style header */}
-      <div className="bg-[#2d2d30] border-b border-[#3e3e42] px-4 py-2 flex items-center gap-4">
-        <div className="flex gap-2">
-          <div className="w-3 h-3 bg-[#ff5f57] rounded-full"></div>
-          <div className="w-3 h-3 bg-[#ffbd2e] rounded-full"></div>
-          <div className="w-3 h-3 bg-[#28ca42] rounded-full"></div>
+      <div className="vscode-header">
+        <div className="window-controls">
+          <div className="window-control red"></div>
+          <div className="window-control yellow"></div>
+          <div className="window-control green"></div>
         </div>
-        <div className="flex items-center gap-2 text-sm">
+        <div className="file-tab">
           <FileCode className="w-4 h-4" />
           <span>mina-youaness-resume.tsx</span>
-          <div className="w-2 h-2 bg-white rounded-full ml-2"></div>
+          <div className="status-dot"></div>
         </div>
       </div>
 
       {/* Hero Section with Terminal */}
-      <section id="hero" className="relative bg-[#1e1e1e] py-20 px-4 overflow-hidden">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+      <section id="hero" className="hero-section">
+        <div className="hero-grid">
           {/* Left side - Info */}
-          <div
-            className={`transition-all duration-1000 ${isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-10"}`}
-          >
-            <div className="flex items-center gap-6 mb-8">
-              <div className="relative group">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#007acc] p-1 bg-gradient-to-br from-[#007acc] to-[#4ec9b0]">
+          <div className={`profile-section ${isVisible ? "visible" : "hidden"}`}>
+            <div className="profile-header">
+              <div className="profile-image-container">
+                <div className="profile-image-wrapper">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1753407168559-PCWiZjGAS8MtQhjaIJJBeSTHaxePdY.jpeg"
                     alt="Mina Youaness - Full Stack Developer"
-                    className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
+                    className="profile-image"
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#28ca42] rounded-full border-2 border-[#1e1e1e] flex items-center justify-center">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <div className="status-indicator">
+                  <div className="status-dot-inner"></div>
                 </div>
               </div>
               <div>
-                <div className="text-[#569cd6] text-sm mb-1 font-mono">// Full Stack Developer</div>
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-1">
-                  <span className="text-[#4ec9b0]">const</span> <span className="text-[#9cdcfe]">developer</span>{" "}
-                  <span className="text-white">=</span> <span className="text-[#ce9178]">"Mina Youaness"</span>
+                <div className="profile-title">// Full Stack Developer</div>
+                <h1 className="profile-name">
+                  <span className="text-vscode-type">const</span>{" "}
+                  <span className="text-vscode-variable">developer</span> <span style={{ color: "white" }}>=</span>{" "}
+                  <span className="text-vscode-string">"Mina Youaness"</span>
                 </h1>
-                <div className="h-1 w-32 bg-gradient-to-r from-[#007acc] to-[#4ec9b0] rounded-full"></div>
+                <div className="profile-gradient"></div>
               </div>
             </div>
 
-            <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-3 text-[#d4d4d4]">
-                <span className="text-[#569cd6] font-mono">experience:</span>
-                <span className="text-[#ce9178]">"10+ years"</span>
+            <div className="profile-details">
+              <div className="profile-detail">
+                <span className="text-vscode-keyword">experience:</span>
+                <span className="text-vscode-string">"10+ years"</span>
               </div>
-              <div className="flex items-center gap-3 text-[#d4d4d4]">
-                <span className="text-[#569cd6] font-mono">specialization:</span>
-                <span className="text-[#ce9178]">"Full-Stack Web Development"</span>
+              <div className="profile-detail">
+                <span className="text-vscode-keyword">specialization:</span>
+                <span className="text-vscode-string">"Full-Stack Web Development"</span>
               </div>
-              <div className="flex items-center gap-3 text-[#d4d4d4]">
-                <span className="text-[#569cd6] font-mono">passion:</span>
-                <span className="text-[#ce9178]">"Scalable & Secure Applications"</span>
+              <div className="profile-detail">
+                <span className="text-vscode-keyword">passion:</span>
+                <span className="text-vscode-string">"Scalable & Secure Applications"</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 text-sm mb-8">
-              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
-                <MapPin className="w-4 h-4 text-[#4ec9b0]" />
+            <div className="contact-grid">
+              <div className="contact-item">
+                <MapPin className="w-4 h-4 text-vscode-type" />
                 <span>Voorhees, NJ</span>
               </div>
-              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
-                <Phone className="w-4 h-4 text-[#4ec9b0]" />
+              <div className="contact-item">
+                <Phone className="w-4 h-4 text-vscode-type" />
                 <span>609.839.3558</span>
               </div>
-              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
-                <Mail className="w-4 h-4 text-[#4ec9b0]" />
+              <div className="contact-item">
+                <Mail className="w-4 h-4 text-vscode-type" />
                 <span>minaragaie@hotmail.com</span>
               </div>
-              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
-                <Linkedin className="w-4 h-4 text-[#4ec9b0]" />
+              <div className="contact-item">
+                <Linkedin className="w-4 h-4 text-vscode-type" />
                 <span>LinkedIn</span>
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <Button className="bg-[#007acc] hover:bg-[#005a9e] text-white" onClick={handleDownloadResume}>
-                <Download className="w-4 h-4 mr-2" />
+            <div className="action-buttons">
+              <button className="btn btn-primary" onClick={handleDownloadResume}>
+                <Download className="w-4 h-4" style={{ marginRight: "0.5rem" }} />
                 Download Resume
-              </Button>
-              <Button
-                variant="outline"
-                className="border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white bg-transparent"
-              >
-                <ExternalLink className="w-4 h-4 mr-2" />
+              </button>
+              <button className="btn btn-outline">
+                <ExternalLink className="w-4 h-4" style={{ marginRight: "0.5rem" }} />
                 View Portfolio
-              </Button>
+              </button>
             </div>
           </div>
 
           {/* Right side - Terminal */}
-          <div className="bg-[#0d1117] rounded-lg border border-[#30363d] overflow-hidden">
-            <div className="bg-[#21262d] px-4 py-2 flex items-center gap-2 border-b border-[#30363d]">
-              <Terminal className="w-4 h-4 text-[#7d8590]" />
-              <span className="text-sm text-[#7d8590]">Terminal</span>
-              <div className="ml-auto flex gap-1">
-                <div className="w-3 h-3 bg-[#ff6b6b] rounded-full"></div>
-                <div className="w-3 h-3 bg-[#ffd93d] rounded-full"></div>
-                <div className="w-3 h-3 bg-[#6bcf7f] rounded-full"></div>
+          <div className="terminal">
+            <div className="terminal-header">
+              <Terminal className="w-4 h-4" />
+              <span className="terminal-title">Terminal</span>
+              <div className="terminal-controls">
+                <div className="terminal-control red"></div>
+                <div className="terminal-control yellow"></div>
+                <div className="terminal-control green"></div>
               </div>
             </div>
-            <div className="p-4 font-mono text-sm h-64 overflow-hidden">
-              <pre className="text-[#58a6ff] whitespace-pre-wrap">
+            <div className="terminal-content">
+              <pre className="terminal-text">
                 {terminalText}
-                {showCursor && <span className="bg-[#58a6ff] text-[#0d1117]">█</span>}
+                {showCursor && <span className="terminal-cursor">█</span>}
               </pre>
             </div>
           </div>
@@ -664,52 +660,33 @@ const medicalApp = {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 bg-[#252526]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">class</span>{" "}
-              <span className="text-[#4ec9b0]">TechnicalSkills</span>
-            </h2>
-            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
-              // Comprehensive expertise built through hands-on experience
-            </p>
+      <section id="skills" className="skills-section">
+        <div className="skills-grid">
+          <div className="skills-header">
+            <h2 className="skills-title">Technical Skills</h2>
+            <p className="skills-description">// Comprehensive expertise built through hands-on experience</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="skills-list">
             {skills.map((skill, index) => {
               const Icon = skill.icon
               return (
                 <div
                   key={skill.name}
-                  className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                    skillsVisible ? "animate-fade-in-up" : "opacity-0"
-                  }`}
+                  className={`skill-item ${skillsVisible ? "visible" : "hidden"}`}
                   style={{ animationDelay: `${index * 150}ms` }}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`p-2 bg-gradient-to-br ${skill.color} rounded`}>
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white">{skill.name}</h3>
-                      <p className="text-sm text-[#d4d4d4]">{skill.level}%</p>
-                    </div>
+                  <div className="skill-icon">
+                    <Icon className="w-5 h-5 text-white" />
                   </div>
-
-                  <div className="bg-[#2d2d30] rounded p-3 mb-4">
-                    <code className="text-xs text-[#ce9178] font-mono">{skill.syntax}</code>
+                  <div className="skill-info">
+                    <h3 className="skill-name">{skill.name}</h3>
+                    <p className="skill-level">{skill.level}%</p>
                   </div>
-
-                  <div className="relative">
-                    <div className="h-2 bg-[#3e3e42] rounded-full overflow-hidden">
-                      <div
-                        className={`h-full bg-gradient-to-r ${skill.color} transition-all duration-2000 ease-out`}
-                        style={{
-                          width: skillsVisible ? `${skill.level}%` : "0%",
-                          transitionDelay: `${index * 150 + 500}ms`,
-                        }}
-                      />
-                    </div>
+                  <div className="skill-bar">
+                    <div className="skill-bar-fill" style={{ width: `${skill.level}%` }}></div>
+                  </div>
+                  <div className="skill-code">
+                    <code className="skill-syntax">{skill.syntax}</code>
                   </div>
                 </div>
               )
@@ -718,86 +695,58 @@ const medicalApp = {
         </div>
       </section>
 
-      {/* Experience Section - VSCode Theme Restored */}
-      <section id="experience" className="py-20 px-4 bg-[#1e1e1e]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">interface</span>{" "}
-              <span className="text-[#4ec9b0]">ProfessionalExperience</span>
-            </h2>
-            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
-              // 10+ years of innovative full-stack development
-            </p>
+      {/* Experience Section */}
+      <section id="experience" className="experience-section">
+        <div className="experience-grid">
+          <div className="experience-header">
+            <h2 className="experience-title">Professional Experience</h2>
+            <p className="experience-description">// 10+ years of innovative full-stack development</p>
           </div>
-
-          <div className="space-y-6">
+          <div className="experience-list">
             {experiencesData.map((exp, index) => (
               <div
                 key={index}
-                className={`bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                  isVisible ? "animate-fade-in-up" : "opacity-0 translate-y-10"
-                }`}
+                className={`experience-item ${isVisible ? "visible" : "hidden"}`}
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                {/* File tab header */}
-                <div className="bg-[#2d2d30] px-4 py-2 border-b border-[#3e3e42] flex items-center gap-2">
+                <div className="experience-file-tab">
                   <FileCode className="w-4 h-4 text-[#007acc]" />
-                  <span className="text-sm font-mono text-[#d4d4d4]">
+                  <span>
                     {exp.company.toLowerCase().replace(/\s+/g, "-")}.{exp.fileType}
                   </span>
-                  <div className="ml-auto flex items-center gap-2">
-                    <Badge className="bg-[#007acc]/20 text-[#007acc] text-xs font-mono border-[#007acc]/30">
-                      {exp.period}
-                    </Badge>
-                  </div>
+                  <Badge className="experience-badge">{exp.period}</Badge>
                 </div>
-
-                <div className="p-6">
-                  {/* Job title and company */}
-                  <div className="mb-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex items-center justify-center">
-                        <span className="text-white font-bold text-lg">{exp.company.charAt(0)}</span>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#007acc] transition-colors">
-                          {exp.title}
-                        </h3>
-                        <p className="text-[#4ec9b0] font-mono">{exp.company}</p>
-                      </div>
+                <div className="experience-content">
+                  <div className="experience-header-content">
+                    <div className="experience-icon">
+                      <span className="experience-initial">{exp.company.charAt(0)}</span>
+                    </div>
+                    <div className="experience-info">
+                      <h3 className="experience-job-title">{exp.title}</h3>
+                      <p className="experience-company">{exp.company}</p>
                     </div>
                   </div>
-
-                  {/* Code snippet */}
-                  <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 mb-6 overflow-x-auto">
-                    <pre className="text-sm font-mono">
-                      <code className="text-[#d4d4d4]">{exp.codeSnippet}</code>
+                  <div className="experience-code-snippet">
+                    <pre className="experience-code">
+                      <code>{exp.codeSnippet}</code>
                     </pre>
                   </div>
-
-                  {/* Highlights */}
-                  <div className="mb-6">
-                    <div className="text-sm text-[#569cd6] font-mono mb-3">// Key Achievements:</div>
-                    <div className="space-y-2">
+                  <div className="experience-highlights">
+                    <div className="experience-highlights-title">// Key Achievements:</div>
+                    <div className="experience-highlights-list">
                       {exp.highlights.map((highlight, idx) => (
-                        <div key={idx} className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 bg-[#4ec9b0] rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-[#d4d4d4] text-sm leading-relaxed">{highlight}</span>
+                        <div key={idx} className="experience-highlight">
+                          <span className="experience-highlight-dot"></span>
+                          <span className="experience-highlight-text">{highlight}</span>
                         </div>
                       ))}
                     </div>
                   </div>
-
-                  {/* Technologies */}
-                  <div className="mb-4">
-                    <div className="text-sm text-[#569cd6] font-mono mb-3">// Technologies:</div>
-                    <div className="flex flex-wrap gap-2">
+                  <div className="experience-technologies">
+                    <div className="experience-technologies-title">// Technologies:</div>
+                    <div className="experience-technologies-list">
                       {exp.technologies.map((tech) => (
-                        <Badge
-                          key={tech}
-                          className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 font-mono text-xs hover:bg-[#007acc]/20 transition-colors"
-                        >
+                        <Badge key={tech} className="experience-technology-badge">
                           {tech}
                         </Badge>
                       ))}
@@ -810,40 +759,31 @@ const medicalApp = {
         </div>
       </section>
 
-      {/* Technologies Section - File Explorer Style */}
-      <section id="technologies" className="py-20 px-4 bg-[#252526]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">export</span> <span className="text-[#4ec9b0]">TechStack</span>
-            </h2>
+      {/* Technologies Section */}
+      <section id="technologies" className="technologies-section">
+        <div className="technologies-grid">
+          <div className="technologies-header">
+            <h2 className="technologies-title">Tech Stack</h2>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="technologies-categories">
             {techCategories.map((category, index) => {
               const Icon = category.icon
               return (
-                <div
-                  key={category.title}
-                  className="bg-[#1e1e1e] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300"
-                >
-                  {/* Folder header */}
-                  <div className="bg-[#2d2d30] px-4 py-3 border-b border-[#3e3e42] flex items-center gap-2">
+                <div key={category.title} className="technology-category">
+                  <div className="technology-folder-header">
                     <Folder className="w-4 h-4 text-[#dcb67a]" />
-                    <span className="text-sm font-mono text-[#d4d4d4]">{category.folder}</span>
+                    <span>{category.folder}</span>
                   </div>
-
-                  <div className="p-4">
-                    <div className="flex items-center gap-2 mb-4">
+                  <div className="technology-category-content">
+                    <div className="technology-category-header">
                       <Icon className="w-5 h-5 text-[#4ec9b0]" />
-                      <h3 className="font-semibold text-white">{category.title}</h3>
+                      <h3 className="technology-category-title">{category.title}</h3>
                     </div>
-
-                    <div className="space-y-2">
+                    <div className="technology-list">
                       {category.items.map((tech, idx) => (
-                        <div key={tech} className="flex items-center gap-2 text-sm">
+                        <div key={tech} className="technology-item">
                           {getTechIcon(tech)}
-                          <span className="text-[#d4d4d4] font-mono">{tech}</span>
+                          <span className="technology-name">{tech}</span>
                         </div>
                       ))}
                     </div>
@@ -856,20 +796,15 @@ const medicalApp = {
       </section>
 
       {/* Certifications */}
-      <section id="certifications" className="py-20 px-4 bg-[#1e1e1e]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">const</span>{" "}
-              <span className="text-[#4ec9b0]">certifications</span> <span className="text-white">=</span>{" "}
-              <span className="text-[#ce9178]">[]</span>
-            </h2>
-            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
+      <section id="certifications" className="certifications-section">
+        <div className="certifications-grid">
+          <div className="certifications-header">
+            <h2 className="certifications-title">Certifications</h2>
+            <p className="certifications-description">
               // Professional certifications and continuous learning achievements
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="certifications-list">
             {[
               {
                 name: "Google Cybersecurity Certificate",
@@ -919,161 +854,131 @@ const medicalApp = {
             ].map((cert, index) => {
               const Icon = cert.icon
               return (
-                <div
-                  key={index}
-                  className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20"
-                >
-                  {/* Certificate Header */}
-                  <div className="bg-[#2d2d30] px-4 py-3 border-b border-[#3e3e42] flex items-center gap-2">
+                <div key={index} className="certification-item">
+                  <div className="certification-file-tab">
                     <FileCode className="w-4 h-4 text-[#007acc]" />
-                    <span className="text-sm font-mono text-[#d4d4d4]">{cert.issuer.toLowerCase()}-cert.json</span>
-                    <div className="ml-auto">
-                      <Badge className={`bg-gradient-to-r ${cert.color} text-white text-xs`}>{cert.status}</Badge>
-                    </div>
+                    <span>{cert.issuer.toLowerCase()}-cert.json</span>
+                    <Badge className={`certification-status ${cert.color}`}>{cert.status}</Badge>
                   </div>
-
-                  <div className="p-6">
-                    {/* Icon and Title */}
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className={`p-3 bg-gradient-to-br ${cert.color} rounded-lg`}>
+                  <div className="certification-content">
+                    <div className="certification-header-content">
+                      <div className="certification-icon">
                         <Icon className="w-6 h-6 text-white" />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-white mb-1 group-hover:text-[#007acc] transition-colors">
-                          {cert.name}
-                        </h3>
-                        <p className="text-sm text-[#4ec9b0] font-mono">{cert.issuer}</p>
+                      <div className="certification-info">
+                        <h3 className="certification-name">{cert.name}</h3>
+                        <p className="certification-issuer">{cert.issuer}</p>
                       </div>
                     </div>
-
-                    {/* Description */}
-                    <p className="text-sm text-[#d4d4d4] mb-4 leading-relaxed">{cert.description}</p>
-
-                    {/* Skills */}
-                    <div className="space-y-2 mb-4">
-                      <div className="text-xs text-[#569cd6] font-mono">// Key Skills:</div>
-                      <div className="flex flex-wrap gap-1">
+                    <div className="certification-description">
+                      <p>{cert.description}</p>
+                    </div>
+                    <div className="certification-skills">
+                      <div className="certification-skills-title">// Key Skills:</div>
+                      <div className="certification-skills-list">
                         {cert.skills.map((skill) => (
-                          <Badge
-                            key={skill}
-                            className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 text-xs font-mono"
-                          >
+                          <Badge key={skill} className="certification-skill-badge">
                             {skill}
                           </Badge>
                         ))}
                       </div>
                     </div>
-
-                    {/* Verification Link */}
-                    <Button
-                      size="sm"
-                      className="w-full bg-[#007acc]/10 hover:bg-[#007acc] text-[#007acc] hover:text-white border border-[#007acc]/20 hover:border-[#007acc] transition-all"
-                    >
-                      <ExternalLink className="w-3 h-3 mr-2" />
-                      <span className="font-mono text-xs">verify()</span>
-                    </Button>
+                    <div className="certification-verification">
+                      <Button size="sm" className="btn btn-primary">
+                        <ExternalLink className="w-3 h-3" style={{ marginRight: "0.5rem" }} />
+                        <span className="font-mono text-xs">verify()</span>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )
             })}
           </div>
+        </div>
+      </section>
 
-          {/* Education - Enhanced */}
-          <div className="text-center">
-            <div className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#4ec9b0] transition-all duration-300 inline-block group hover:shadow-lg hover:shadow-[#4ec9b0]/20">
-              {/* Education Header */}
-              <div className="bg-[#2d2d30] px-6 py-3 border-b border-[#3e3e42] flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-[#4ec9b0]" />
-                <span className="text-sm font-mono text-[#d4d4d4]">education.degree</span>
+      {/* Education */}
+      <section id="education" className="education-section">
+        <div className="education-grid">
+          <div className="education-header">
+            <h2 className="education-title">Education</h2>
+          </div>
+          <div className="education-content">
+            <div className="education-degree">
+              <div className="education-degree-icon">
+                <Award className="w-12 h-12 text-[#4ec9b0]" />
               </div>
-
-              <div className="p-8">
-                <div className="p-4 bg-[#4ec9b0]/10 rounded-full w-fit mx-auto mb-6">
-                  <Award className="w-12 h-12 text-[#4ec9b0]" />
-                </div>
-                <h3 className="font-bold text-2xl text-white mb-2 group-hover:text-[#4ec9b0] transition-colors">
-                  Bachelor of Computer Science
-                </h3>
-                <p className="text-[#d4d4d4] font-mono mb-4">College of Computing & Information Technology</p>
-
-                {/* Code snippet for education */}
-                <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 text-left">
-                  <code className="text-sm font-mono">
-                    <span className="text-[#569cd6]">const</span> <span className="text-[#9cdcfe]">education</span>{" "}
-                    <span className="text-white">=</span> <span className="text-white">{"{"}</span>
-                    <br />
-                    <span className="ml-4 text-[#9cdcfe]">degree</span>
-                    <span className="text-white">:</span>{" "}
-                    <span className="text-[#ce9178]">"Bachelor of Computer Science"</span>
-                    <span className="text-white">,</span>
-                    <br />
-                    <span className="ml-4 text-[#9cdcfe]">foundation</span>
-                    <span className="text-white">:</span>{" "}
-                    <span className="text-[#ce9178]">"Strong technical fundamentals"</span>
-                    <br />
-                    <span className="text-white">{"}"}</span>
-                  </code>
-                </div>
+              <div className="education-degree-info">
+                <h3 className="education-degree-name">Bachelor of Computer Science</h3>
+                <p className="education-degree-institution">College of Computing & Information Technology</p>
               </div>
+            </div>
+            <div className="education-code-snippet">
+              <code className="education-syntax">
+                <span className="text-vscode-type">const</span> <span className="text-vscode-variable">education</span>{" "}
+                <span style={{ color: "white" }}>=</span> <span className="text-vscode-object">{"{"}</span>
+                <br />
+                <span className="text-vscode-keyword">degree</span>
+                <span className="text-vscode-operator">:</span>{" "}
+                <span className="text-vscode-string">"Bachelor of Computer Science"</span>
+                <span className="text-vscode-operator">,</span>
+                <br />
+                <span className="text-vscode-keyword">foundation</span>
+                <span className="text-vscode-operator">:</span>{" "}
+                <span className="text-vscode-string">"Strong technical fundamentals"</span>
+                <br />
+                <span className="text-vscode-object">{"}"}</span>
+              </code>
             </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 bg-[#252526]">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">function</span>{" "}
-              <span className="text-[#dcdcaa]">collaborate</span>
-              <span className="text-white">()</span>
-            </h2>
-            <p className="text-lg text-[#d4d4d4] max-w-2xl mx-auto leading-relaxed font-mono">
-              // Ready to build something amazing together?
-            </p>
+      <section id="contact" className="contact-section">
+        <div className="contact-grid">
+          <div className="contact-header">
+            <h2 className="contact-title">Collaborate</h2>
+            <p className="contact-description">// Ready to build something amazing together?</p>
           </div>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
-            <Button className="bg-[#007acc] hover:bg-[#005a9e] text-white text-lg px-8 py-6">
-              <Mail className="w-5 h-5 mr-3" />
+          <div className="contact-buttons">
+            <button className="btn btn-primary">
+              <Mail className="w-5 h-5" style={{ marginRight: "0.5rem" }} />
               <span className="font-mono">contact()</span>
-            </Button>
-            <Button
-              variant="outline"
-              className="border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white text-lg px-8 py-6 bg-transparent"
-            >
-              <Linkedin className="w-5 h-5 mr-3" />
+            </button>
+            <button className="btn btn-outline">
+              <Linkedin className="w-5 h-5" style={{ marginRight: "0.5rem" }} />
               <span className="font-mono">connect()</span>
-            </Button>
+            </button>
           </div>
-
-          <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 inline-block">
-            <code className="text-sm font-mono text-[#569cd6]">
-              <span className="text-[#c586c0]">console</span>
-              <span className="text-white">.</span>
-              <span className="text-[#dcdcaa]">log</span>
-              <span className="text-white">(</span>
-              <span className="text-[#ce9178]">"Portfolio samples available upon request"</span>
-              <span className="text-white">);</span>
+          <div className="contact-code-snippet">
+            <code className="contact-syntax">
+              <span className="text-vscode-console">console</span>
+              <span className="text-vscode-operator">.</span>
+              <span className="text-vscode-method">log</span>
+              <span className="text-vscode-operator">(</span>
+              <span className="text-vscode-string">"Portfolio samples available upon request"</span>
+              <span className="text-vscode-operator">);</span>
             </code>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <div className="bg-[#2d2d30] border-t border-[#3e3e42] px-4 py-3 flex items-center justify-between text-sm">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <GitBranch className="w-4 h-4 text-[#4ec9b0]" />
-            <span className="text-[#d4d4d4] font-mono">main</span>
+      <div className="footer">
+        <div className="footer-left">
+          <div className="footer-git-branch">
+            <GitBranch className="w-4 h-4 text-vscode-type" />
+            <span className="text-vscode-variable">main</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Coffee className="w-4 h-4 text-[#dcb67a]" />
-            <span className="text-[#d4d4d4] font-mono">Ready for next challenge</span>
+          <div className="footer-coffee">
+            <Coffee className="w-4 h-4 text-vscode-type" />
+            <span className="text-vscode-string">Ready for next challenge</span>
           </div>
         </div>
-        <div className="text-[#d4d4d4] font-mono">© 2025 Mina Youaness</div>
+        <div className="footer-right">
+          <span className="text-vscode-string">© 2025 Mina Youaness</span>
+        </div>
       </div>
     </div>
   )
