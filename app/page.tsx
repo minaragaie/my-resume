@@ -22,6 +22,7 @@ import {
   Coffee,
 } from "lucide-react"
 import jsPDF from "jspdf"
+import type { JSX } from "react/jsx-runtime"
 
 interface ResumeData {
   personalInfo: {
@@ -280,15 +281,19 @@ export default function Resume() {
     // Terminal typing effect
     let commandIndex = 0
     let charIndex = 0
+    let currentText = ""
+
     const typeTerminal = () => {
       if (commandIndex < terminalCommands.length) {
         const currentCommand = terminalCommands[commandIndex]
         if (charIndex < currentCommand.length) {
-          setTerminalText((prev) => prev + currentCommand[charIndex])
+          currentText += currentCommand[charIndex]
+          setTerminalText(currentText)
           charIndex++
           setTimeout(typeTerminal, 50)
         } else {
-          setTerminalText((prev) => prev + "\n")
+          currentText += "\n"
+          setTerminalText(currentText)
           commandIndex++
           charIndex = 0
           setTimeout(typeTerminal, 800)
@@ -497,6 +502,41 @@ const medicalApp = {
       folder: "src/standards/",
     },
   ]
+
+  const getTechIcon = (tech: string) => {
+    const iconMap: { [key: string]: JSX.Element } = {
+      JavaScript: <span className="text-[#f7df1e]">JS</span>,
+      TypeScript: <span className="text-[#3178c6]">TS</span>,
+      Java: <span className="text-[#ed8b00]">☕</span>,
+      HTML5: <span className="text-[#e34f26]">🌐</span>,
+      CSS3: <span className="text-[#1572b6]">🎨</span>,
+      SASS: <span className="text-[#cc6699]">💅</span>,
+      SCSS: <span className="text-[#cc6699]">💅</span>,
+      LESS: <span className="text-[#1d365d]">📝</span>,
+      PHP: <span className="text-[#777bb4]">🐘</span>,
+      Python: <span className="text-[#3776ab]">🐍</span>,
+      Angular: <span className="text-[#dd0031]">🅰️</span>,
+      React: <span className="text-[#61dafb]">⚛️</span>,
+      "Node.js": <span className="text-[#339933]">🟢</span>,
+      DevExtreme: <span className="text-[#ff7200]">📊</span>,
+      SailsJS: <span className="text-[#14acc2]">⛵</span>,
+      Ionic: <span className="text-[#3880ff]">📱</span>,
+      Bootstrap: <span className="text-[#7952b3]">🅱️</span>,
+      "NGX Bootstrap": <span className="text-[#7952b3]">🅱️</span>,
+      jQuery: <span className="text-[#0769ad]">💲</span>,
+      PostgreSQL: <span className="text-[#336791]">🐘</span>,
+      MySQL: <span className="text-[#4479a1]">🗄️</span>,
+      Git: <span className="text-[#f05032]">📝</span>,
+      Sequelize: <span className="text-[#52b0e7]">🔗</span>,
+      Flyway: <span className="text-[#cc0200]">🛫</span>,
+      WordPress: <span className="text-[#21759b]">📰</span>,
+      PWA: <span className="text-[#5a0fc8]">📱</span>,
+      WebSockets: <span className="text-[#010101]">🔌</span>,
+      Agile: <span className="text-[#0052cc]">🏃</span>,
+      Scrum: <span className="text-[#0052cc]">🏉</span>,
+    }
+    return iconMap[tech] || <span className="text-[#58a6ff]">⚡</span>
+  }
 
   return (
     <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4]">
@@ -793,7 +833,7 @@ const medicalApp = {
                     <div className="space-y-2">
                       {category.items.map((tech, idx) => (
                         <div key={tech} className="flex items-center gap-2 text-sm">
-                          <FileCode className="w-3 h-3 text-[#007acc]" />
+                          {getTechIcon(tech)}
                           <span className="text-[#d4d4d4] font-mono">{tech}</span>
                         </div>
                       ))}
