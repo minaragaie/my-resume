@@ -21,16 +21,13 @@ jobs:
         cache: 'npm'
         
     - name: Install dependencies
-      working-directory: ./my-resume   # <-- add this
       run: npm ci
-      
+
     - name: Build
-      working-directory: ./my-resume   # <-- add this
       run: npm run build
-      
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./my-resume/out   # <-- update this
+        publish_dir: ./out
