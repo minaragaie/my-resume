@@ -10,7 +10,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: my-resume   # <- inner folder
+        working-directory: ${{ github.workspace }}
 
     steps:
       - name: Checkout repository
