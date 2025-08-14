@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   /* VSCode Dark Theme Colors */
   --vscode-bg: #1e1e1e;
@@ -25,38 +23,38 @@
 
   /* Updated color tokens to match professional resume design brief */
   --background: oklch(1 0 0); /* #ffffff */
-  --foreground: oklch(0.205 0 0); /* #1f2937 */
-  --card: oklch(0.97 0 0); /* #f1f5f9 */
-  --card-foreground: oklch(0.205 0 0); /* #1f2937 */
-  --popover: oklch(1 0 0); /* #ffffff */
-  --popover-foreground: oklch(0.205 0 0); /* #1f2937 */
-  --primary: oklch(0.205 0 0); /* #1f2937 */
-  --primary-foreground: oklch(1 0 0); /* #ffffff */
-  --secondary: oklch(0.646 0.222 264.376); /* #8b5cf6 */
-  --secondary-foreground: oklch(1 0 0); /* #ffffff */
-  --muted: oklch(0.556 0 0); /* #6b7280 */
-  --muted-foreground: oklch(1 0 0); /* #ffffff */
-  --accent: oklch(0.646 0.222 264.376); /* #8b5cf6 */
-  --accent-foreground: oklch(1 0 0); /* #ffffff */
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.922 0 0); /* #e5e7eb */
-  --input: oklch(0.97 0 0); /* #f1f5f9 */
-  --ring: oklch(0.646 0.222 264.376 / 0.5); /* rgba(139, 92, 246, 0.5) */
-  --chart-1: oklch(0.556 0 0); /* #6b7280 */
-  --chart-2: oklch(0.646 0.222 264.376); /* #8b5cf6 */
-  --chart-3: oklch(0.205 0 0); /* #1f2937 */
-  --chart-4: oklch(0.269 0 0); /* #374151 */
-  --chart-5: oklch(0.97 0 0); /* #f1f5f9 */
-  --radius: 0.5rem;
-  --sidebar: oklch(0.97 0 0); /* #f1f5f9 */
-  --sidebar-foreground: oklch(0.205 0 0); /* #1f2937 */
-  --sidebar-primary: oklch(0.205 0 0); /* #1f2937 */
-  --sidebar-primary-foreground: oklch(1 0 0); /* #ffffff */
-  --sidebar-accent: oklch(0.646 0.222 264.376); /* #8b5cf6 */
-  --sidebar-accent-foreground: oklch(1 0 0); /* #ffffff */
-  --sidebar-border: oklch(0.922 0 0); /* #e5e7eb */
-  --sidebar-ring: oklch(0.646 0.222 264.376 / 0.3); /* rgba(139, 92, 246, 0.3) */
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
@@ -142,135 +140,6 @@
   }
 }
 
-/* Added print styles for professional resume download */
-@media print {
-  /* Reset colors for print */
-  * {
-    background: white !important;
-    color: black !important;
-    box-shadow: none !important;
-    text-shadow: none !important;
-  }
-
-  /* Hide interactive elements */
-  button,
-  .terminal-window,
-  .window-controls,
-  nav,
-  footer {
-    display: none !important;
-  }
-
-  /* Optimize layout for print */
-  body {
-    font-size: 12pt !important;
-    line-height: 1.4 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-
-  /* Ensure proper page breaks */
-  section {
-    page-break-inside: avoid;
-    margin-bottom: 20pt !important;
-  }
-
-  h1,
-  h2,
-  h3 {
-    page-break-after: avoid;
-    color: #1f2937 !important;
-    margin-bottom: 10pt !important;
-  }
-
-  /* Professional header styling */
-  #hero {
-    padding: 20pt 0 !important;
-    border-bottom: 2pt solid #1f2937 !important;
-  }
-
-  #hero h1 {
-    font-size: 24pt !important;
-    font-weight: bold !important;
-  }
-
-  /* Clean section headers */
-  #skills h2,
-  #experience h2,
-  #technologies h2,
-  #certifications h2 {
-    font-size: 18pt !important;
-    font-weight: bold !important;
-    border-bottom: 1pt solid #6b7280 !important;
-    padding-bottom: 5pt !important;
-  }
-
-  /* Experience cards */
-  .bg-252526,
-  .bg-1e1e1e {
-    background: white !important;
-    border: 1pt solid #e5e7eb !important;
-    margin-bottom: 15pt !important;
-    padding: 15pt !important;
-  }
-
-  /* Skills and badges */
-  .bg-gradient-to-r,
-  .bg-gradient-to-br {
-    background: #f3f4f6 !important;
-    border: 1pt solid #d1d5db !important;
-  }
-
-  /* Code blocks */
-  pre,
-  code {
-    background: #f9fafb !important;
-    border: 1pt solid #e5e7eb !important;
-    padding: 8pt !important;
-    font-family: "Courier New", monospace !important;
-    font-size: 10pt !important;
-  }
-
-  /* Contact information */
-  .grid {
-    display: block !important;
-  }
-
-  .grid > div {
-    display: inline-block !important;
-    margin-right: 20pt !important;
-    margin-bottom: 5pt !important;
-  }
-
-  /* Profile image */
-  img {
-    max-width: 80pt !important;
-    height: auto !important;
-    border: 1pt solid #d1d5db !important;
-  }
-
-  /* Ensure text is readable */
-  .text-white,
-  .text-d4d4d4,
-  .text-4ec9b0,
-  .text-007acc {
-    color: black !important;
-  }
-
-  /* Page margins */
-  @page {
-    margin: 0.75in;
-    size: letter;
-  }
-
-  /* Avoid breaking inside important content */
-  .experience-card,
-  .skill-card,
-  .cert-card {
-    page-break-inside: avoid;
-  }
-}
-
 /* VSCode-themed animations and effects */
 @keyframes fadeInUp {
   from {
@@ -348,6 +217,7 @@
   }
 }
 
+/* Animation classes */
 .animate-fade-in-up {
   animation: fadeInUp 0.8s ease-out forwards;
 }
@@ -364,12 +234,6 @@
   animation-iteration-count: 1;
 }
 
-.animate-typewriter::after {
-  content: "";
-  animation: pulse-glow 1s ease-in-out infinite;
-}
-
-/* VSCode-style terminal cursor */
 .terminal-cursor {
   animation: terminal-cursor 1s infinite;
 }
@@ -431,168 +295,52 @@
   animation: code-highlight 2s ease-in-out infinite;
 }
 
-/* File explorer styling */
-.file-explorer-item {
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.file-explorer-item:hover {
-  background-color: var(--vscode-tab);
-}
-
-.file-explorer-item.active {
-  background-color: var(--vscode-blue);
-  color: white;
-}
-
-/* Terminal styling */
-.terminal-window {
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  font-family: "Fira Code", "Consolas", "Monaco", monospace;
-  overflow: hidden;
-}
-
-.terminal-header {
-  background: #21262d;
-  padding: 8px 12px;
-  border-bottom: 1px solid #30363d;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.terminal-content {
-  padding: 16px;
-  color: #58a6ff;
-  font-size: 14px;
-  line-height: 1.5;
-  min-height: 200px;
-  overflow-y: auto;
-}
-
-/* Progress bar with VSCode styling */
-.vscode-progress {
-  background: var(--vscode-border);
-  border-radius: 2px;
-  overflow: hidden;
-  position: relative;
-}
-
-.vscode-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--vscode-blue), var(--vscode-green));
-  border-radius: 2px;
-  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.vscode-progress-fill::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: progress-shine 2s ease-in-out infinite;
-}
-
-@keyframes progress-shine {
-  0% {
-    transform: translateX(-100%);
+/* Print styles for professional resume download */
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
   }
-  100% {
-    transform: translateX(100%);
-  }
-}
 
-/* Enhanced button animations */
-.group:hover .group-hover\:scale-110 {
-  transform: scale(1.1);
+  button,
+  .terminal-window,
+  .window-controls,
+  nav,
+  footer {
+    display: none !important;
+  }
+
+  body {
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  section {
+    page-break-inside: avoid;
+    margin-bottom: 20pt !important;
+  }
+
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+    color: #1f2937 !important;
+    margin-bottom: 10pt !important;
+  }
+
+  @page {
+    margin: 0.75in;
+    size: letter;
+  }
 }
 
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
-}
-
-/* Custom gradient backgrounds */
-.gradient-bg {
-  background: linear-gradient(135deg, var(--card) 0%, var(--background) 50%, var(--card) 100%);
-}
-
-/* Floating animation for background elements */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: 3s;
-}
-
-/* VSCode window controls */
-.window-controls {
-  display: flex;
-  gap: 8px;
-}
-
-.window-control {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.window-control:hover {
-  opacity: 0.8;
-}
-
-.window-control.close {
-  background: #ff5f57;
-}
-
-.window-control.minimize {
-  background: #ffbd2e;
-}
-
-.window-control.maximize {
-  background: #28ca42;
-}
-
-/* Scrollbar styling for VSCode theme */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--vscode-bg);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--vscode-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-text-muted);
 }
 
 /* Selection styling */
