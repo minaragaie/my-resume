@@ -74,23 +74,12 @@ export default function Resume() {
   const [currentSection, setCurrentSection] = useState("")
   const [terminalText, setTerminalText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
-  const [resumeData, setResumeData] = useState<ResumeData | null>(null)
   const [loading, setLoading] = useState(true)
+  const [resumeData, setResumeData] = useState(null) // Declare the variable here
 
   useEffect(() => {
-    const fetchResumeData = async () => {
-      try {
-        const response = await fetch("/api/resume")
-        const data = await response.json()
-        setResumeData(data)
-      } catch (error) {
-        console.error("Error fetching resume data:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchResumeData()
+    setResumeData(resumeData)
+    setLoading(false)
   }, [])
 
   const handleDownloadResume = async () => {

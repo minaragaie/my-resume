@@ -1,8 +1,4 @@
-import { NextResponse } from "next/server"
-
-export const dynamic = "force-static"
-
-const defaultResumeData = {
+export const resumeData = {
   personalInfo: {
     name: "MINA YOUANESS",
     linkedin: "https://www.linkedin.com/in/mina-youaness-ba833713/",
@@ -45,13 +41,4 @@ const defaultResumeData = {
   ],
   certifications: ["AWS Certified Developer", "Google Analytics Certified"],
   additionalInfo: "Passionate about creating accessible and performant web applications.",
-}
-
-export async function GET() {
-  try {
-    return NextResponse.json(defaultResumeData)
-  } catch (error) {
-    console.error("Error returning resume data:", error)
-    return NextResponse.json({ error: "Failed to load resume data" }, { status: 500 })
-  }
 }
