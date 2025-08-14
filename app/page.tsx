@@ -292,22 +292,22 @@ export default function Resume() {
           currentText += currentCommand[charIndex]
           setTerminalText(currentText)
           charIndex++
-          setTimeout(typeTerminal, 80) // Slightly slower for better performance
+          setTimeout(typeTerminal, 30) // Much faster typing speed
         } else {
           currentText += "\n"
           setTerminalText(currentText)
           commandIndex++
           charIndex = 0
-          setTimeout(typeTerminal, 1000)
+          setTimeout(typeTerminal, 400) // Reduced pause between commands
         }
       }
     }
 
-    const terminalTimer = setTimeout(typeTerminal, 2000)
+    const terminalTimer = setTimeout(typeTerminal, 1000) // Start sooner
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev)
-    }, 600) // Slightly slower blinking
+    }, 800) // Slower blinking to reduce CPU usage
 
     let observerTimeout: NodeJS.Timeout
     const observer = new IntersectionObserver(
@@ -320,9 +320,9 @@ export default function Resume() {
               setCurrentSection(entry.target.id)
             }
           })
-        }, 100)
+        }, 50) // Reduced debounce time
       },
-      { threshold: 0.1, rootMargin: "50px" },
+      { threshold: 0.2, rootMargin: "30px" }, // Increased threshold, reduced margin
     )
 
     const sections = document.querySelectorAll("section[id]")
@@ -628,13 +628,18 @@ const medicalApp = {
             </div>
 
             <div className="flex gap-4">
-              <Button className="bg-[#007acc] hover:bg-[#005a9e] text-white" onClick={handleDownloadResume}>
+              <Button
+                className="bg-gradient-to-r from-[#007acc] to-[#0086d4] hover:from-[#005a9e] hover:to-[#006bb3] text-white shadow-lg hover:shadow-xl border border-[#007acc]/20"
+                size="lg"
+                onClick={handleDownloadResume}
+              >
                 <Download className="w-4 h-4 mr-2" />
                 Download Resume
               </Button>
               <Button
                 variant="outline"
-                className="border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white bg-transparent"
+                size="lg"
+                className="border-2 border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white bg-transparent/80 backdrop-blur-sm shadow-md hover:shadow-lg"
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 View Portfolio
@@ -964,10 +969,9 @@ const medicalApp = {
                       </div>
                     </div>
 
-                    {/* Verification Link */}
                     <Button
                       size="sm"
-                      className="w-full bg-[#007acc]/10 hover:bg-[#007acc] text-[#007acc] hover:text-white border border-[#007acc]/20 hover:border-[#007acc] transition-all"
+                      className="w-full bg-gradient-to-r from-[#007acc]/10 to-[#007acc]/5 hover:from-[#007acc] hover:to-[#0086d4] text-[#007acc] hover:text-white border-2 border-[#007acc]/30 hover:border-[#007acc] transition-all shadow-md hover:shadow-lg backdrop-blur-sm"
                     >
                       <ExternalLink className="w-3 h-3 mr-2" />
                       <span className="font-mono text-xs">verify()</span>
@@ -1035,13 +1039,17 @@ const medicalApp = {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
-            <Button className="bg-[#007acc] hover:bg-[#005a9e] text-white text-lg px-8 py-6">
+            <Button
+              className="bg-gradient-to-r from-[#007acc] to-[#0086d4] hover:from-[#005a9e] hover:to-[#006bb3] text-white shadow-lg hover:shadow-xl border border-[#007acc]/20"
+              size="lg"
+            >
               <Mail className="w-5 h-5 mr-3" />
               <span className="font-mono">contact()</span>
             </Button>
             <Button
               variant="outline"
-              className="border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white text-lg px-8 py-6 bg-transparent"
+              size="lg"
+              className="border-2 border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white bg-transparent/80 backdrop-blur-sm shadow-md hover:shadow-lg"
             >
               <Linkedin className="w-5 h-5 mr-3" />
               <span className="font-mono">connect()</span>
