@@ -108,7 +108,14 @@
         "Using Angular 10 and Ionic frameworks with PHP Laravel on the backend.",
         "Booking engine: WordPress plugin that includes a fully functional reservation system"
       ],
-      "technologies": ["Angular 10", "Ionic", "PHP", "Laravel", "WordPress", "PWA"]
+      "technologies": [
+        "Angular 10",
+        "Ionic",
+        "PHP",
+        "Laravel",
+        "WordPress",
+        "PWA"
+      ]
     },
     {
       "id": 5,
@@ -137,7 +144,18 @@
     }
   ],
   "skills": {
-    "languages": ["JavaScript", "Java", "TypeScript", "HTML5", "CSS3", "SASS", "SCSS", "LESS", "PHP", "Python"],
+    "languages": [
+      "JavaScript",
+      "Java",
+      "TypeScript",
+      "HTML5",
+      "CSS3",
+      "SASS",
+      "SCSS",
+      "LESS",
+      "PHP",
+      "Python"
+    ],
     "frameworks": [
       "Angular",
       "React",
@@ -149,10 +167,24 @@
       "NGX Bootstrap",
       "jQuery"
     ],
-    "databases": ["PostgreSQL", "MySQL"],
-    "versionControl": ["Git", "Sequelize", "Flyway"],
-    "technologies": ["WordPress", "PWA", "WebSockets"],
-    "methodologies": ["Agile", "Scrum"],
+    "databases": [
+      "PostgreSQL",
+      "MySQL"
+    ],
+    "versionControl": [
+      "Git",
+      "Sequelize",
+      "Flyway"
+    ],
+    "technologies": [
+      "WordPress",
+      "PWA",
+      "WebSockets"
+    ],
+    "methodologies": [
+      "Agile",
+      "Scrum"
+    ],
     "standards": [
       "WCAG 2.1",
       "ARIA",
