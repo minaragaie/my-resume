@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus, Trash2, Save, Edit, X } from "lucide-react"
+import { resumeData as initialResumeData } from "@/lib/resume-data"
 
 interface ResumeData {
   personalInfo: {
@@ -20,15 +21,16 @@ interface ResumeData {
   }
   highlights: string
   experience: Array<{
-    id: number
+    id?: number
     title: string
     company: string
-    startDate: string
-    endDate: string
+    startDate?: string
+    endDate?: string
+    duration?: string
     type?: string
     description: string
-    achievements: string[]
-    technologies: string[]
+    achievements?: string[]
+    technologies?: string[]
   }>
   skills: {
     languages: string[]
@@ -44,12 +46,14 @@ interface ResumeData {
     institution: string
     year: string
   }>
-  certifications: Array<{
-    name: string
-    issuer: string
-    status: string
-    description: string
-  }>
+  certifications:
+    | string[]
+    | Array<{
+        name: string
+        issuer: string
+        status: string
+        description: string
+      }>
   additionalInfo: string
 }
 
@@ -60,39 +64,39 @@ export default function AdminPage() {
   const [editingExperience, setEditingExperience] = useState<number | null>(null)
 
   useEffect(() => {
-    fetchResumeData()
-  }, [])
-
-  const fetchResumeData = async () => {
-    try {
-      const response = await fetch("/api/resume")
-      const data = await response.json()
-      setResumeData(data)
-    } catch (error) {
-      console.error("Error fetching resume data:", error)
-    } finally {
+    const loadResumeData = () => {
+      // Transform the static data to match the expected format
+      const transformedData: ResumeData = {
+        ...initialResumeData,
+        experience: initialResumeData.experience.map((exp, index) => ({
+          id: index + 1,
+          title: exp.title,
+          company: exp.company,
+          startDate: exp.duration?.split(" - ")[0] || "",
+          endDate: exp.duration?.split(" - ")[1] || "",
+          description: exp.description,
+          achievements: [],
+          technologies: [],
+        })),
+        certifications: Array.isArray(initialResumeData.certifications)
+          ? initialResumeData.certifications.map((cert) =>
+              typeof cert === "string" ? { name: cert, issuer: "", status: "Active", description: "" } : cert,
+            )
+          : [],
+      }
+      setResumeData(transformedData)
       setLoading(false)
     }
-  }
+
+    loadResumeData()
+  }, [])
 
   const saveResumeData = async () => {
     if (!resumeData) return
 
     setSaving(true)
     try {
-      const response = await fetch("/api/resume", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(resumeData),
-      })
-
-      if (response.ok) {
-        alert("Resume saved successfully!")
-      } else {
-        alert("Error saving resume")
-      }
+      alert("Demo mode: Changes are not persisted in static export. This would normally save to a database or API.")
     } catch (error) {
       console.error("Error saving resume:", error)
       alert("Error saving resume")
@@ -348,15 +352,15 @@ export default function AdminPage() {
             </div>
 
             {resumeData.experience.map((exp, index) => (
-              <Card key={exp.id} className="bg-[#252526] border-[#3e3e42]">
+              <Card key={exp.id || index} className="bg-[#252526] border-[#3e3e42]">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-[#d4d4d4]">
-                        {editingExperience === exp.id ? (
+                        {editingExperience === (exp.id || index) ? (
                           <Input
                             value={exp.title}
-                            onChange={(e) => updateExperience(exp.id, "title", e.target.value)}
+                            onChange={(e) => updateExperience(exp.id || index, "title", e.target.value)}
                             className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4] mb-2"
                             placeholder="Job Title"
                           />
@@ -365,10 +369,10 @@ export default function AdminPage() {
                         )}
                       </CardTitle>
                       <CardDescription className="text-[#969696]">
-                        {editingExperience === exp.id ? (
+                        {editingExperience === (exp.id || index) ? (
                           <Input
                             value={exp.company}
-                            onChange={(e) => updateExperience(exp.id, "company", e.target.value)}
+                            onChange={(e) => updateExperience(exp.id || index, "company", e.target.value)}
                             className="bg-[#1e1e1e] border-[#3e3e42] text-[#969696]"
                             placeholder="Company Name"
                           />
@@ -381,15 +385,21 @@ export default function AdminPage() {
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => setEditingExperience(editingExperience === exp.id ? null : exp.id)}
+                        onClick={() =>
+                          setEditingExperience(editingExperience === (exp.id || index) ? null : exp.id || index)
+                        }
                         className="border-[#3e3e42] text-[#d4d4d4] hover:bg-[#2d2d30]"
                       >
-                        {editingExperience === exp.id ? <X className="w-4 h-4" /> : <Edit className="w-4 h-4" />}
+                        {editingExperience === (exp.id || index) ? (
+                          <X className="w-4 h-4" />
+                        ) : (
+                          <Edit className="w-4 h-4" />
+                        )}
                       </Button>
                       <Button
                         size="sm"
                         variant="outline"
-                        onClick={() => deleteExperience(exp.id)}
+                        onClick={() => deleteExperience(exp.id || index)}
                         className="border-[#f44747] text-[#f44747] hover:bg-[#f44747] hover:text-white"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -398,14 +408,14 @@ export default function AdminPage() {
                   </div>
                 </CardHeader>
 
-                {editingExperience === exp.id && (
+                {editingExperience === (exp.id || index) && (
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-3 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">Start Date</label>
                         <Input
-                          value={exp.startDate}
-                          onChange={(e) => updateExperience(exp.id, "startDate", e.target.value)}
+                          value={exp.startDate || ""}
+                          onChange={(e) => updateExperience(exp.id || index, "startDate", e.target.value)}
                           className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
                           placeholder="May 2023"
                         />
@@ -413,8 +423,8 @@ export default function AdminPage() {
                       <div>
                         <label className="block text-sm font-medium mb-2">End Date</label>
                         <Input
-                          value={exp.endDate}
-                          onChange={(e) => updateExperience(exp.id, "endDate", e.target.value)}
+                          value={exp.endDate || ""}
+                          onChange={(e) => updateExperience(exp.id || index, "endDate", e.target.value)}
                           className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
                           placeholder="Present"
                         />
@@ -423,7 +433,7 @@ export default function AdminPage() {
                         <label className="block text-sm font-medium mb-2">Type (Optional)</label>
                         <Input
                           value={exp.type || ""}
-                          onChange={(e) => updateExperience(exp.id, "type", e.target.value)}
+                          onChange={(e) => updateExperience(exp.id || index, "type", e.target.value)}
                           className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
                           placeholder="Part Time, Contract, etc."
                         />
@@ -434,7 +444,7 @@ export default function AdminPage() {
                       <label className="block text-sm font-medium mb-2">Description</label>
                       <Textarea
                         value={exp.description}
-                        onChange={(e) => updateExperience(exp.id, "description", e.target.value)}
+                        onChange={(e) => updateExperience(exp.id || index, "description", e.target.value)}
                         className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
                         placeholder="Brief description of the role..."
                       />
@@ -442,14 +452,14 @@ export default function AdminPage() {
 
                     <div>
                       <label className="block text-sm font-medium mb-2">Key Achievements</label>
-                      {exp.achievements.map((achievement, achIndex) => (
+                      {(exp.achievements || []).map((achievement, achIndex) => (
                         <div key={achIndex} className="flex gap-2 mb-2">
                           <Textarea
                             value={achievement}
                             onChange={(e) => {
-                              const newAchievements = [...exp.achievements]
+                              const newAchievements = [...(exp.achievements || [])]
                               newAchievements[achIndex] = e.target.value
-                              updateExperience(exp.id, "achievements", newAchievements)
+                              updateExperience(exp.id || index, "achievements", newAchievements)
                             }}
                             className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4] flex-1"
                             placeholder="Achievement description..."
@@ -458,8 +468,8 @@ export default function AdminPage() {
                             size="sm"
                             variant="outline"
                             onClick={() => {
-                              const newAchievements = exp.achievements.filter((_, i) => i !== achIndex)
-                              updateExperience(exp.id, "achievements", newAchievements)
+                              const newAchievements = (exp.achievements || []).filter((_, i) => i !== achIndex)
+                              updateExperience(exp.id || index, "achievements", newAchievements)
                             }}
                             className="border-[#f44747] text-[#f44747] hover:bg-[#f44747] hover:text-white"
                           >
@@ -469,7 +479,9 @@ export default function AdminPage() {
                       ))}
                       <Button
                         size="sm"
-                        onClick={() => updateExperience(exp.id, "achievements", [...exp.achievements, ""])}
+                        onClick={() =>
+                          updateExperience(exp.id || index, "achievements", [...(exp.achievements || []), ""])
+                        }
                         className="bg-[#4ec9b0] hover:bg-[#3ea896] text-black"
                       >
                         <Plus className="w-4 h-4 mr-2" />
@@ -480,14 +492,14 @@ export default function AdminPage() {
                     <div>
                       <label className="block text-sm font-medium mb-2">Technologies Used</label>
                       <div className="flex flex-wrap gap-2 mb-2">
-                        {exp.technologies.map((tech, techIndex) => (
+                        {(exp.technologies || []).map((tech, techIndex) => (
                           <div key={techIndex} className="flex items-center gap-1">
                             <Input
                               value={tech}
                               onChange={(e) => {
-                                const newTechnologies = [...exp.technologies]
+                                const newTechnologies = [...(exp.technologies || [])]
                                 newTechnologies[techIndex] = e.target.value
-                                updateExperience(exp.id, "technologies", newTechnologies)
+                                updateExperience(exp.id || index, "technologies", newTechnologies)
                               }}
                               className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4] w-32"
                               placeholder="Technology"
@@ -496,8 +508,8 @@ export default function AdminPage() {
                               size="sm"
                               variant="outline"
                               onClick={() => {
-                                const newTechnologies = exp.technologies.filter((_, i) => i !== techIndex)
-                                updateExperience(exp.id, "technologies", newTechnologies)
+                                const newTechnologies = (exp.technologies || []).filter((_, i) => i !== techIndex)
+                                updateExperience(exp.id || index, "technologies", newTechnologies)
                               }}
                               className="border-[#f44747] text-[#f44747] hover:bg-[#f44747] hover:text-white p-1"
                             >
@@ -508,7 +520,9 @@ export default function AdminPage() {
                       </div>
                       <Button
                         size="sm"
-                        onClick={() => updateExperience(exp.id, "technologies", [...exp.technologies, ""])}
+                        onClick={() =>
+                          updateExperience(exp.id || index, "technologies", [...(exp.technologies || []), ""])
+                        }
                         className="bg-[#4ec9b0] hover:bg-[#3ea896] text-black"
                       >
                         <Plus className="w-4 h-4 mr-2" />
@@ -624,62 +638,99 @@ export default function AdminPage() {
           <TabsContent value="certifications" className="space-y-6">
             <h2 className="text-2xl font-bold">Certifications</h2>
 
-            {resumeData.certifications.map((cert, index) => (
-              <Card key={index} className="bg-[#252526] border-[#3e3e42]">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+            {Array.isArray(resumeData.certifications) &&
+              resumeData.certifications.map((cert, index) => (
+                <Card key={index} className="bg-[#252526] border-[#3e3e42]">
+                  <CardContent className="pt-6 space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Certification Name</label>
+                        <Input
+                          value={typeof cert === "string" ? cert : cert.name}
+                          onChange={(e) => {
+                            const newCertifications = [...resumeData.certifications] as any[]
+                            if (typeof cert === "string") {
+                              newCertifications[index] = {
+                                name: e.target.value,
+                                issuer: "",
+                                status: "Active",
+                                description: "",
+                              }
+                            } else {
+                              newCertifications[index] = { ...cert, name: e.target.value }
+                            }
+                            setResumeData({ ...resumeData, certifications: newCertifications })
+                          }}
+                          className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Issuer</label>
+                        <Input
+                          value={typeof cert === "string" ? "" : cert.issuer}
+                          onChange={(e) => {
+                            const newCertifications = [...resumeData.certifications] as any[]
+                            if (typeof cert === "string") {
+                              newCertifications[index] = {
+                                name: cert,
+                                issuer: e.target.value,
+                                status: "Active",
+                                description: "",
+                              }
+                            } else {
+                              newCertifications[index] = { ...cert, issuer: e.target.value }
+                            }
+                            setResumeData({ ...resumeData, certifications: newCertifications })
+                          }}
+                          className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
+                        />
+                      </div>
+                    </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">Certification Name</label>
+                      <label className="block text-sm font-medium mb-2">Status</label>
                       <Input
-                        value={cert.name}
+                        value={typeof cert === "string" ? "Active" : cert.status}
                         onChange={(e) => {
-                          const newCertifications = [...resumeData.certifications]
-                          newCertifications[index] = { ...cert, name: e.target.value }
+                          const newCertifications = [...resumeData.certifications] as any[]
+                          if (typeof cert === "string") {
+                            newCertifications[index] = {
+                              name: cert,
+                              issuer: "",
+                              status: e.target.value,
+                              description: "",
+                            }
+                          } else {
+                            newCertifications[index] = { ...cert, status: e.target.value }
+                          }
                           setResumeData({ ...resumeData, certifications: newCertifications })
                         }}
                         className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium mb-2">Issuer</label>
-                      <Input
-                        value={cert.issuer}
+                      <label className="block text-sm font-medium mb-2">Description</label>
+                      <Textarea
+                        value={typeof cert === "string" ? "" : cert.description}
                         onChange={(e) => {
-                          const newCertifications = [...resumeData.certifications]
-                          newCertifications[index] = { ...cert, issuer: e.target.value }
+                          const newCertifications = [...resumeData.certifications] as any[]
+                          if (typeof cert === "string") {
+                            newCertifications[index] = {
+                              name: cert,
+                              issuer: "",
+                              status: "Active",
+                              description: e.target.value,
+                            }
+                          } else {
+                            newCertifications[index] = { ...cert, description: e.target.value }
+                          }
                           setResumeData({ ...resumeData, certifications: newCertifications })
                         }}
                         className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
                       />
                     </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Status</label>
-                    <Input
-                      value={cert.status}
-                      onChange={(e) => {
-                        const newCertifications = [...resumeData.certifications]
-                        newCertifications[index] = { ...cert, status: e.target.value }
-                        setResumeData({ ...resumeData, certifications: newCertifications })
-                      }}
-                      className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Description</label>
-                    <Textarea
-                      value={cert.description}
-                      onChange={(e) => {
-                        const newCertifications = [...resumeData.certifications]
-                        newCertifications[index] = { ...cert, description: e.target.value }
-                        setResumeData({ ...resumeData, certifications: newCertifications })
-                      }}
-                      className="bg-[#1e1e1e] border-[#3e3e42] text-[#d4d4d4]"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))}
           </TabsContent>
         </Tabs>
       </div>
