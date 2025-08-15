@@ -1,9 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Award, CheckCircle, Clock, ExternalLink } from "lucide-react"
+import { Award, CheckCircle, Clock, ExternalLink, FileCode, Icon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
+import { Button } from "./ui/button"
 
 export default function CertificationsSection() {
   const [certsVisible, setCertsVisible] = useState(false)
@@ -13,21 +14,15 @@ export default function CertificationsSection() {
     return () => clearTimeout(timer)
   }, [])
 
-  const handleVerify = (certName: string) => {
-    console.log(`Verifying certification: ${certName}`)
-    // Add verification logic here
+  const handleVerify = (cert: any) => {
+  if (cert.verify) {
+    // Open the verification link in a new tab
+    window.open(cert.verify, "_blank");
+    console.log(`Verifying certification: ${cert.name}`);
+  } else {
+    console.warn(`No verification link available for: ${cert.name}`);
   }
-
-  const getCertificationSkills = (certName: string) => {
-    const skillsMap: { [key: string]: string[] } = {
-      "Google Cybersecurity": ["Security Frameworks", "Risk Assessment", "Incident Response", "Network Security"],
-      "Google Mobile Web Specialist": ["PWA", "Performance Optimization", "Mobile-First Design", "WebSockets"],
-      "Full-Stack Web Development": ["JavaScript", "Node.js", "React", "Angular"],
-      "Microsoft Exam 480 HTML5, JavaScript, CSS3": ["HTML5", "JavaScript", "CSS3", "Cross-Browser Compatibility"],
-      "Certificate of Completion .NET Core": ["C#", ".NET Core", "Backend Development", "API Design"],
-    }
-    return skillsMap[certName] || []
-  }
+};
 
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
@@ -95,11 +90,11 @@ export default function CertificationsSection() {
                 <p className="text-[#d4d4d4] mt-2 text-sm leading-relaxed">{cert.description}</p>
               </div>
 
-              {getCertificationSkills(cert.name).length > 0 && (
+              {(cert.skills).length > 0 && (
                 <div className="mb-4">
                   <h4 className="text-sm font-semibold text-[#569cd6] mb-2 font-mono">// Key Skills:</h4>
                   <div className="flex flex-wrap gap-2">
-                    {getCertificationSkills(cert.name).map((skill, skillIndex) => (
+                    {cert.skills.map((skill, skillIndex) => (
                       <Badge
                         key={skillIndex}
                         variant="outline"
@@ -117,15 +112,19 @@ export default function CertificationsSection() {
                   <span className="text-[#569cd6] font-mono">issuer:</span>
                   <span className="text-[#ce9178]">"{cert.issuer}"</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    onClick={() => handleVerify(cert.name)}
-                    className="px-3 py-1 text-xs bg-[#007acc] text-white rounded hover:bg-[#005a9e] transition-colors duration-200 font-mono"
-                  >
-                    verify()
-                  </button>
-                  <ExternalLink className="w-4 h-4 text-[#4ec9b0] opacity-50 hover:opacity-100 transition-opacity cursor-pointer" />
-                </div>
+                {cert.verify && (
+                  <div className="flex items-center gap-3">
+                    <Button
+                        size="sm"
+                        className="w-full bg-gradient-to-r from-[#4ec9b0]/10 to-[#4ec9b0]/5 hover:from-[#4ec9b0] hover:to-[#0086d4] text-[#4ec9b0] hover:text-white border-2 border-[#4ec9b0]/30 hover:border-[#4ec9b0] transition-all shadow-md hover:shadow-lg backdrop-blur-sm"
+                        onClick={() => handleVerify(cert)}
+                      >
+                        <ExternalLink className="w-3 h-3 mr-2" />
+                        <span className="font-mono text-xs">verify()</span>
+                      </Button>
+                    <ExternalLink className="w-4 h-4 text-[#4ec9b0] opacity-50 hover:opacity-100 transition-opacity cursor-pointer" onClick={() => handleVerify(cert)}/>
+                  </div>
+                )}  
               </div>
             </div>
           ))}

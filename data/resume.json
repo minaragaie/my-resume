@@ -209,36 +209,144 @@
     }
   ],
   "certifications": [
-    {
-      "name": "Google Mobile Web Specialist",
-      "issuer": "Google",
-      "status": "studied and attended exam",
-      "description": "Advanced certification focusing on mobile web development best practices, performance optimization, and progressive web applications."
-    },
-    {
-      "name": "Full-Stack Web Development",
-      "issuer": "Coursera",
-      "status": "completed",
-      "description": "Comprehensive program covering modern web development technologies and methodologies."
-    },
-    {
-      "name": "Microsoft Exam 480 HTML5, JavaScript, CSS3",
-      "issuer": "Microsoft",
-      "status": "completed",
-      "description": "Microsoft certification demonstrating proficiency in front-end web technologies."
-    },
-    {
-      "name": "Certificate of Completion .NET Core",
-      "issuer": "ComIT",
-      "status": "completed",
-      "description": "Specialized training in .NET Core framework and modern C# development practices."
-    },
-    {
-      "name": "Google Cybersecurity",
-      "issuer": "Google",
-      "status": "completed",
-      "description": "Professional certificate program covering cybersecurity fundamentals, risk management, and security best practices."
-    }
-  ],
+  {
+    "name": "AI For Everyone",
+    "issuer": "DeepLearning.AI",
+    "icon": "Ai",
+    "status": "Completed",
+    "description": "Introduction to AI concepts and applications",
+    "color": "from-yellow-400 to-orange-500",
+    "skills": ["AI Basics", "Machine Learning Concepts"],
+    "verify": "https://www.coursera.org/account/accomplishments/verify/SV0FYU7RA3P0"
+  },
+  {
+    "name": "Automate Cybersecurity Tasks with Python",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Completed",
+    "description": "Automate cybersecurity processes using Python",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Python Automation", "Cybersecurity Tools"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/6KTX4BJNNFY8"
+  },
+  {
+    "name": "Google Cybersecurity Specialization",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Certified",
+    "description": "Comprehensive cybersecurity fundamentals, risk management, and security practices",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Security Frameworks", "Risk Assessment", "Incident Response", "Network Security"],
+    "verify": "https://www.coursera.org/account/accomplishments/specialization/H683C0JO3OPH"
+  },
+  {
+    "name": "Sound the Alarm: Detection and Response",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Completed",
+    "description": "Detect and respond to cybersecurity threats effectively",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Threat Detection", "Incident Response"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/TUDKBHCQ8D1Z"
+  },
+  {
+    "name": "Assets, Threats, and Vulnerabilities",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Completed",
+    "description": "Identify key assets, threats, and vulnerabilities in systems",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Asset Management", "Threat Analysis", "Vulnerability Assessment"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/L5LC2HU0L2CK"
+  },
+  {
+    "name": "Connect and Protect: Networks and Network Security",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Completed",
+    "description": "Network fundamentals and security practices",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Network Security", "Firewalls", "Secure Communication"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/NDPLO0COTVHX"
+  },
+  {
+    "name": "Tools of the Trade: Linux and SQL",
+    "issuer": "Google",
+    "icon": "Terminal",
+    "status": "Completed",
+    "description": "Linux commands and SQL database management for cybersecurity",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Linux CLI", "SQL Queries", "Database Management"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/HRNB68820N7V"
+  },
+  {
+    "name": "Foundations of Cybersecurity",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Completed",
+    "description": "Core cybersecurity principles and risk management",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Cybersecurity Fundamentals", "Risk Management"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/RWMESRX2VZMH"
+  },
+  {
+    "name": "Play It Safe: Manage Security Risks",
+    "issuer": "Google",
+    "icon": "Shield",
+    "status": "Completed",
+    "description": "Manage and mitigate security risks in organizations",
+    "color": "from-red-500 to-orange-500",
+    "skills": ["Risk Mitigation", "Security Policies"],
+    "verify": "https://www.coursera.org/account/accomplishments/records/Z4SNJFW2NVSP"
+  },
+  {
+    "name": "Certificate of Completion - .NET Core",
+    "issuer": "ComIT",
+    "icon": "Code",
+    "status": "Certified",
+    "description": "Modern .NET Core development and enterprise applications",
+    "color": "from-indigo-500 to-purple-600",
+    "skills": [".NET Core", "C# Advanced", "Entity Framework", "Web APIs"]
+  },
+  {
+    "name": "Exam 480: Programming in HTML5 with JavaScript and CSS3",
+    "issuer": "Microsoft",
+    "icon": "Code",
+    "status": "Certified",
+    "description": "HTML5, JavaScript, and CSS3 programming expertise",
+    "color": "from-blue-600 to-indigo-600",
+    "skills": ["HTML5 APIs", "JavaScript ES6+", "CSS3 Advanced", "DOM Manipulation"],
+    "verify": "https://www.credly.com/badges/4ac93c3f-d644-4615-b0c2-f5dbc4c5a0f3"
+  },
+  {
+    "name": "Full Stack Developer",
+    "issuer": "One Million Coders",
+    "icon": "Code",
+    "status": "Completed",
+    "description": "Comprehensive full-stack web development",
+    "color": "from-purple-500 to-pink-500",
+    "skills": ["MEAN Stack", "RESTful APIs", "Database Design", "Authentication"],
+    "verify": "https://www.coursera.org/account/accomplishments/verify/J4ST5YBWXDGJ"
+  },
+  {
+    "name": "Verified International Academic Qualifications",
+    "issuer": "World Education Services",
+    "icon": "Certificate",
+    "status": "Verified",
+    "description": "Verification of international academic credentials",
+    "color": "from-green-500 to-teal-500",
+    "skills": ["Credential Verification", "Academic Records"]
+  },
+  {
+    "name": "HTML, CSS and JavaScript",
+    "issuer": "Coursera",
+    "icon": "Code",
+    "status": "Completed",
+    "description": "Fundamentals of web development using HTML, CSS, and JavaScript",
+    "color": "from-blue-500 to-cyan-500",
+    "skills": ["HTML", "CSS", "JavaScript", "Web Development"],
+    "verify": "https://www.coursera.org/account/accomplishments/verify/J4ST5YBWXDGJ"
+  }
+],
   "additionalInfo": "All my projects are hosted on private repositories due to confidentiality reasons. They are available for review upon request. Security expertise demonstrated through multiple certifications, including Google Cybersecurity Certificate"
 }
