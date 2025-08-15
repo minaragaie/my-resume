@@ -77,11 +77,15 @@ export default function Resume() {
   const [loading, setLoading] = useState(true)
   const [resumeData, setResumeData] = useState(null) // Declare the variable here
   const terminalCommands = [
-    "Welcome to my resume!",
-    "I am a Full-Stack Developer.",
-    "Let's explore my skills and experiences.",
-  ] // Declare terminalCommands variable
-
+    "$ whoami",
+    "> Mina Youaness - Full Stack Developer",
+    "$ cat experience.txt",
+    "> 10+ years of innovative web development",
+    "$ ls skills/",
+    "> Angular React Node.js TypeScript...",
+    "$ git log --oneline",
+    "> Ready for next challenge! 🚀",
+  ]
   useEffect(() => {
     setResumeData(resumeData)
     setLoading(false)
