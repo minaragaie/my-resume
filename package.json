@@ -4,9 +4,14 @@
   "private": true,
   "homepage": "https://minaragaie.github.io/my-resume",
   "scripts": {
-  "predeploy": "next build",
-  "deploy": "gh-pages -d out"
-},
+    "build": "next build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "dev": "next dev",
+    "export": "next build && next export",
+    "lint": "next lint",
+    "start": "next start"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "1.2.2",

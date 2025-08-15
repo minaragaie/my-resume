@@ -23,6 +23,7 @@ import {
 } from "lucide-react"
 import jsPDF from "jspdf"
 import type { JSX } from "react/jsx-runtime"
+import { resumeData as staticResumeData } from "@/lib/resume-data"
 
 interface ResumeData {
   personalInfo: {
@@ -75,10 +76,30 @@ export default function Resume() {
   const [terminalText, setTerminalText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
   const [loading, setLoading] = useState(true)
-  const [resumeData, setResumeData] = useState(null) // Declare the variable here
+  const [resumeData, setResumeData] = useState<ResumeData | null>(null)
 
   useEffect(() => {
-    setResumeData(resumeData)
+    const transformedData: ResumeData = {
+      ...staticResumeData,
+      experience: staticResumeData.experience.map((exp, index) => ({
+        id: index + 1,
+        title: exp.title,
+        company: exp.company,
+        startDate: exp.duration?.split(" - ")[0] || "",
+        endDate: exp.duration?.split(" - ")[1] || "",
+        type: "",
+        description: exp.description,
+        achievements: [],
+        technologies: [],
+      })),
+      certifications: staticResumeData.certifications.map((cert) => ({
+        name: typeof cert === "string" ? cert : cert,
+        issuer: "",
+        status: "Active",
+        description: "",
+      })),
+    }
+    setResumeData(transformedData)
     setLoading(false)
   }, [])
 
@@ -726,7 +747,7 @@ const medicalApp = {
           </div>
 
           <div className="space-y-6">
-            {experiencesData.map((exp, index) => (
+            {resumeData?.experience.map((exp, index) => (
               <div
                 key={index}
                 className={`bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20 ${
@@ -742,7 +763,7 @@ const medicalApp = {
                   </span>
                   <div className="ml-auto flex items-center gap-2">
                     <Badge className="bg-[#007acc]/20 text-[#007acc] text-xs font-mono border-[#007acc]/30">
-                      {exp.period}
+                      {exp.startDate} – {exp.endDate}
                     </Badge>
                   </div>
                 </div>
@@ -766,7 +787,7 @@ const medicalApp = {
                   {/* Code snippet */}
                   <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 mb-6 overflow-x-auto">
                     <pre className="text-sm font-mono">
-                      <code className="text-[#d4d4d4]">{exp.codeSnippet}</code>
+                      <code className="text-[#d4d4d4]">{exp.description}</code>
                     </pre>
                   </div>
 
@@ -774,7 +795,7 @@ const medicalApp = {
                   <div className="mb-6">
                     <div className="text-sm text-[#569cd6] font-mono mb-3">// Key Achievements:</div>
                     <div className="space-y-2">
-                      {exp.highlights.map((highlight, idx) => (
+                      {exp.achievements.map((highlight, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-[#4ec9b0] rounded-full mt-2 flex-shrink-0"></div>
                           <span className="text-[#d4d4d4] text-sm leading-relaxed">{highlight}</span>
@@ -864,53 +885,7 @@ const medicalApp = {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {[
-              {
-                name: "Google Cybersecurity Certificate",
-                issuer: "Google",
-                icon: Shield,
-                status: "Certified",
-                description: "Comprehensive cybersecurity fundamentals, risk management, and security practices",
-                color: "from-red-500 to-orange-500",
-                skills: ["Security Frameworks", "Risk Assessment", "Incident Response", "Network Security"],
-              },
-              {
-                name: "Google Mobile Web Specialist",
-                issuer: "Google",
-                icon: Globe,
-                status: "Studied & Examined",
-                description: "Advanced mobile web development, PWA, and performance optimization",
-                color: "from-blue-500 to-cyan-500",
-                skills: ["PWA Development", "Mobile Optimization", "Service Workers", "Web Performance"],
-              },
-              {
-                name: "Microsoft Exam 480",
-                issuer: "Microsoft",
-                icon: Code,
-                status: "Certified",
-                description: "HTML5, JavaScript, and CSS3 programming expertise",
-                color: "from-blue-600 to-indigo-600",
-                skills: ["HTML5 APIs", "JavaScript ES6+", "CSS3 Advanced", "DOM Manipulation"],
-              },
-              {
-                name: "Full-Stack Web Development",
-                issuer: "Coursera",
-                icon: Code,
-                status: "Completed",
-                description: "Comprehensive full-stack development with modern frameworks",
-                color: "from-purple-500 to-pink-500",
-                skills: ["MEAN Stack", "RESTful APIs", "Database Design", "Authentication"],
-              },
-              {
-                name: ".NET Core Certificate",
-                issuer: "ComIT",
-                icon: Code,
-                status: "Certified",
-                description: "Modern .NET Core development and enterprise applications",
-                color: "from-indigo-500 to-purple-600",
-                skills: [".NET Core", "C# Advanced", "Entity Framework", "Web APIs"],
-              },
-            ].map((cert, index) => {
+            {resumeData?.certifications.map((cert, index) => {
               const Icon = cert.icon
               return (
                 <div
@@ -920,7 +895,7 @@ const medicalApp = {
                   {/* Certificate Header */}
                   <div className="bg-[#2d2d30] px-4 py-3 border-b border-[#3e3e42] flex items-center gap-2">
                     <FileCode className="w-4 h-4 text-[#007acc]" />
-                    <span className="text-sm font-mono text-[#d4d4d4]">{cert.issuer.toLowerCase()}-cert.json</span>
+                    <span className="text-sm font-mono text-[#d4d4d4]">{cert.name.toLowerCase()}-cert.json</span>
                     <div className="ml-auto">
                       <Badge className={`bg-gradient-to-r ${cert.color} text-white text-xs`}>{cert.status}</Badge>
                     </div>

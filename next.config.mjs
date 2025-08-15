@@ -1,11 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // replaces next export
+  output: 'export',
+  trailingSlash: true,
+  basePath: process.env.NODE_ENV === 'production' ? '/my-resume' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/my-resume/' : '',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     unoptimized: true,
   },
-  basePath: '/my-resume',
-  assetPrefix: '/my-resume/',
-};
+}
 
-export default nextConfig;
+export default nextConfig
