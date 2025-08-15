@@ -2,8 +2,8 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/my-resume' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/my-resume/' : '',
+  basePath:  '',
+  assetPrefix: '',
   eslint: {
     ignoreDuringBuilds: true,
   },
