@@ -208,7 +208,7 @@ export default function Resume() {
       doc.setTextColor(212, 212, 212)
       doc.setFontSize(9)
       doc.setFont("helvetica", "normal")
-      exp.achievements.slice(0, 4).forEach((achievement) => {
+      ;(exp.achievements || []).slice(0, 4).forEach((achievement) => {
         const splitAchievement = doc.splitTextToSize("• " + achievement, 165)
         doc.text(splitAchievement, 25, yPos)
         yPos += splitAchievement.length * 4
@@ -797,7 +797,7 @@ const medicalApp = {
                   <div className="mb-6">
                     <div className="text-sm text-[#569cd6] font-mono mb-3">// Key Achievements:</div>
                     <div className="space-y-2">
-                      {exp.achievements.map((highlight, idx) => (
+                      {(exp.achievements || []).map((highlight, idx) => (
                         <div key={idx} className="flex items-start gap-3">
                           <div className="w-1.5 h-1.5 bg-[#4ec9b0] rounded-full mt-2 flex-shrink-0"></div>
                           <span className="text-[#d4d4d4] text-sm leading-relaxed">{highlight}</span>
@@ -810,7 +810,7 @@ const medicalApp = {
                   <div className="mb-4">
                     <div className="text-sm text-[#569cd6] font-mono mb-3">// Technologies:</div>
                     <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech) => (
+                      {(exp.technologies || []).map((tech) => (
                         <Badge
                           key={tech}
                           className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 font-mono text-xs hover:bg-[#007acc]/20 transition-colors"
@@ -924,7 +924,7 @@ const medicalApp = {
                     <div className="space-y-2 mb-4">
                       <div className="text-xs text-[#569cd6] font-mono">// Key Skills:</div>
                       <div className="flex flex-wrap gap-1">
-                        {cert.skills.map((skill) => (
+                        {(cert.skills || []).map((skill) => (
                           <Badge
                             key={skill}
                             className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 text-xs font-mono"
