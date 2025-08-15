@@ -681,59 +681,102 @@ const medicalApp = {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 bg-[#252526]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">class</span>{" "}
-              <span className="text-[#4ec9b0]">TechnicalSkills</span>
-            </h2>
-            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
-              // Comprehensive expertise built through hands-on experience
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skills.map((skill, index) => {
-              const Icon = skill.icon
-              return (
-                <div
-                  key={skill.name}
-                  className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                    skillsVisible ? "animate-fade-in-up" : "opacity-0"
-                  }`}
-                  style={{ animationDelay: `${index * 150}ms` }}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`p-2 bg-gradient-to-br ${skill.color} rounded`}>
-                      <Icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-white">{skill.name}</h3>
-                      <p className="text-sm text-[#d4d4d4]">{skill.level}%</p>
-                    </div>
-                  </div>
+      {resumeData?.skills && (
+        <section id="skills" className="py-20 px-4 bg-[#0d1117]">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-white mb-4 font-mono">
+                <span className="text-[#007acc]">const</span> skills = [
+              </h2>
+              <p className="text-lg text-[#d4d4d4] max-w-2xl mx-auto leading-relaxed font-mono">
+                // My technical expertise and proficiency levels
+              </p>
+            </div>
 
-                  <div className="bg-[#2d2d30] rounded p-3 mb-4">
-                    <code className="text-xs text-[#ce9178] font-mono">{skill.syntax}</code>
-                  </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  name: "Frontend Development",
+                  level: 95,
+                  color: "from-[#007acc] to-[#0086d4]",
+                  syntax: "React.createElement('div')",
+                  icon: Code,
+                },
+                {
+                  name: "Backend Development",
+                  level: 90,
+                  color: "from-[#4ec9b0] to-[#5dd4b1]",
+                  syntax: "app.listen(3000)",
+                  icon: Database,
+                },
+                {
+                  name: "Database Design",
+                  level: 85,
+                  color: "from-[#f92672] to-[#ff4081]",
+                  syntax: "SELECT * FROM users",
+                  icon: Database,
+                },
+                {
+                  name: "DevOps & Cloud",
+                  level: 80,
+                  color: "from-[#ff9800] to-[#ffb74d]",
+                  syntax: "docker run -p 3000:3000",
+                  icon: Shield,
+                },
+                {
+                  name: "UI/UX Design",
+                  level: 88,
+                  color: "from-[#9c27b0] to-[#ba68c8]",
+                  syntax: "design.prototype()",
+                  icon: Code,
+                },
+                {
+                  name: "Mobile Development",
+                  level: 75,
+                  color: "from-[#00bcd4] to-[#4dd0e1]",
+                  syntax: "ionic serve",
+                  icon: Code,
+                },
+              ].map((skill, index) => {
+                const Icon = skill.icon
+                return (
+                  <div
+                    key={skill.name}
+                    className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
+                      skillsVisible ? "animate-fade-in-up" : "opacity-0"
+                    }`}
+                    style={{ animationDelay: `${index * 150}ms` }}
+                  >
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`p-2 bg-gradient-to-br ${skill.color} rounded`}>
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-white">{skill.name}</h3>
+                        <p className="text-sm text-[#d4d4d4]">{skill.level}%</p>
+                      </div>
+                    </div>
 
-                  <div className="relative">
-                    <div className="h-2 bg-[#3e3e42] rounded-full overflow-hidden">
-                      <div
-                        className={`h-full bg-gradient-to-r ${skill.color} transition-all duration-2000 ease-out`}
-                        style={{
-                          width: skillsVisible ? `${skill.level}%` : "0%",
-                          transitionDelay: `${index * 150 + 500}ms`,
-                        }}
-                      />
+                    <div className="bg-[#2d2d30] rounded p-3 mb-4">
+                      <code className="text-xs text-[#ce9178] font-mono">{skill.syntax}</code>
+                    </div>
+
+                    <div className="relative">
+                      <div className="bg-[#3e3e42] rounded-full h-2">
+                        <div
+                          className={`bg-gradient-to-r ${skill.color} h-2 rounded-full transition-all duration-1000 ease-out`}
+                          style={{ width: skillsVisible ? `${skill.level}%` : "0%" }}
+                        ></div>
+                      </div>
+                      <span className="text-xs text-[#d4d4d4] mt-1 block text-right font-mono">{skill.level}%</span>
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Experience Section - VSCode Theme Restored */}
       <section id="experience" className="py-20 px-4 bg-[#1e1e1e]">
@@ -828,16 +871,41 @@ const medicalApp = {
       </section>
 
       {/* Technologies Section - File Explorer Style */}
-      <section id="technologies" className="py-20 px-4 bg-[#252526]">
+      <section className="py-20 px-4 bg-[#0d1117]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">export</span> <span className="text-[#4ec9b0]">TechStack</span>
+              <span className="text-[#569cd6] font-mono">const</span> techStack = {"{"}
             </h2>
+            <p className="text-lg text-[#d4d4d4] max-w-2xl mx-auto leading-relaxed font-mono">
+              // Technologies and tools I work with
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techCategories.map((category, index) => {
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "Frontend", folder: "src/frontend/", items: resumeData?.skills?.frameworks || [], icon: Code },
+              { title: "Backend", folder: "src/backend/", items: resumeData?.skills?.languages || [], icon: Database },
+              {
+                title: "Database",
+                folder: "src/database/",
+                items: resumeData?.skills?.databases || [],
+                icon: Database,
+              },
+              { title: "DevOps", folder: "src/devops/", items: resumeData?.skills?.technologies || [], icon: Shield },
+              {
+                title: "Version Control",
+                folder: "src/git/",
+                items: resumeData?.skills?.versionControl || [],
+                icon: GitBranch,
+              },
+              {
+                title: "Methodologies",
+                folder: "src/process/",
+                items: resumeData?.skills?.methodologies || [],
+                icon: Coffee,
+              },
+            ].map((category) => {
               const Icon = category.icon
               return (
                 <div
@@ -873,122 +941,162 @@ const medicalApp = {
       </section>
 
       {/* Certifications */}
-      <section id="certifications" className="py-20 px-4 bg-[#1e1e1e]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">
-              <span className="text-[#569cd6] font-mono">const</span>{" "}
-              <span className="text-[#4ec9b0]">certifications</span> <span className="text-white">=</span>{" "}
-              <span className="text-[#ce9178]">[]</span>
-            </h2>
-            <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
-              // Professional certifications and continuous learning achievements
-            </p>
-          </div>
+      {resumeData?.certifications && (
+        <div className="py-20 px-4 bg-[#1e1e1e]">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold mb-4 text-white">
+                <span className="text-[#569cd6] font-mono">const</span>{" "}
+                <span className="text-[#4ec9b0]">certifications</span> <span className="text-white">=</span>{" "}
+                <span className="text-[#ce9178]">[]</span>
+              </h2>
+              <p className="text-lg text-[#d4d4d4] max-w-2xl mx-auto leading-relaxed font-mono">
+                // Professional certifications and continuous learning achievements
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-            {resumeData?.certifications.map((cert, index) => {
-              const Icon = cert.icon
-              return (
-                <div
-                  key={index}
-                  className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20"
-                >
-                  {/* Certificate Header */}
-                  <div className="bg-[#2d2d30] px-4 py-3 border-b border-[#3e3e42] flex items-center gap-2">
-                    <FileCode className="w-4 h-4 text-[#007acc]" />
-                    <span className="text-sm font-mono text-[#d4d4d4]">{cert.name.toLowerCase()}-cert.json</span>
-                    <div className="ml-auto">
-                      <Badge className={`bg-gradient-to-r ${cert.color} text-white text-xs`}>{cert.status}</Badge>
+            <div className="grid md:grid-cols-2 gap-8">
+              {[
+                {
+                  name: "AWS Certified Developer",
+                  issuer: "Amazon Web Services",
+                  date: "2023",
+                  status: "Active",
+                  color: "from-[#ff9900] to-[#ffb84d]",
+                  skills: ["AWS", "Cloud Computing", "Lambda"],
+                  icon: Award,
+                },
+                {
+                  name: "Google Analytics Certified",
+                  issuer: "Google",
+                  date: "2023",
+                  status: "Active",
+                  color: "from-[#4285f4] to-[#5a9df8]",
+                  skills: ["Analytics", "Data Analysis", "Reporting"],
+                  icon: Award,
+                },
+              ].map((cert, index) => {
+                const Icon = cert.icon
+                return (
+                  <div
+                    key={index}
+                    className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#007acc] transition-all duration-300 group hover:shadow-lg hover:shadow-[#007acc]/20"
+                  >
+                    {/* Certificate Header */}
+                    <div className="bg-[#2d2d30] px-4 py-3 border-b border-[#3e3e42] flex items-center gap-2">
+                      <FileCode className="w-4 h-4 text-[#007acc]" />
+                      <span className="text-sm font-mono text-[#d4d4d4]">{cert.name.toLowerCase()}-cert.json</span>
+                      <div className="ml-auto">
+                        <Badge className={`bg-gradient-to-r ${cert.color} text-white text-xs`}>{cert.status}</Badge>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      {/* Icon and Title */}
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className={`p-3 bg-gradient-to-br ${cert.color} rounded-lg`}>
+                          <Icon className="w-6 h-6 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-white mb-1">{cert.name}</h3>
+                          <p className="text-sm text-[#d4d4d4] mb-2">{cert.issuer}</p>
+                          <p className="text-xs text-[#007acc] font-mono">Issued: {cert.date}</p>
+                        </div>
+                      </div>
+
+                      {/* Skills */}
+                      <div className="mb-4">
+                        <p className="text-xs text-[#d4d4d4] mb-2 font-mono">// Skills covered:</p>
+                        <div className="flex flex-wrap gap-1">
+                          {(cert.skills || []).map((skill, idx) => (
+                            <Badge
+                              key={idx}
+                              variant="secondary"
+                              className="text-xs bg-[#1e1e1e] text-[#d4d4d4] border border-[#3e3e42]"
+                            >
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Verify Button */}
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full bg-gradient-to-r from-[#007acc]/10 to-[#007acc]/5 hover:from-[#007acc] hover:to-[#0086d4] text-[#007acc] hover:text-white border-2 border-[#007acc]/30 hover:border-[#007acc] transition-all shadow-md hover:shadow-lg backdrop-blur-sm"
+                      >
+                        <ExternalLink className="w-3 h-3 mr-2" />
+                        <span className="font-mono text-xs">verify()</span>
+                      </Button>
                     </div>
                   </div>
-
-                  <div className="p-6">
-                    {/* Icon and Title */}
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className={`p-3 bg-gradient-to-br ${cert.color} rounded-lg`}>
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-white mb-1 group-hover:text-[#007acc] transition-colors">
-                          {cert.name}
-                        </h3>
-                        <p className="text-sm text-[#4ec9b0] font-mono">{cert.issuer}</p>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-sm text-[#d4d4d4] mb-4 leading-relaxed">{cert.description}</p>
-
-                    {/* Skills */}
-                    <div className="space-y-2 mb-4">
-                      <div className="text-xs text-[#569cd6] font-mono">// Key Skills:</div>
-                      <div className="flex flex-wrap gap-1">
-                        {(cert.skills || []).map((skill) => (
-                          <Badge
-                            key={skill}
-                            className="bg-[#007acc]/10 text-[#007acc] border-[#007acc]/20 text-xs font-mono"
-                          >
-                            {skill}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-
-                    <Button
-                      size="sm"
-                      className="w-full bg-gradient-to-r from-[#007acc]/10 to-[#007acc]/5 hover:from-[#007acc] hover:to-[#0086d4] text-[#007acc] hover:text-white border-2 border-[#007acc]/30 hover:border-[#007acc] transition-all shadow-md hover:shadow-lg backdrop-blur-sm"
-                    >
-                      <ExternalLink className="w-3 h-3 mr-2" />
-                      <span className="font-mono text-xs">verify()</span>
-                    </Button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-
-          {/* Education - Enhanced */}
-          <div className="text-center">
-            <div className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#4ec9b0] transition-all duration-300 inline-block group hover:shadow-lg hover:shadow-[#4ec9b0]/20">
-              {/* Education Header */}
-              <div className="bg-[#2d2d30] px-6 py-3 border-b border-[#3e3e42] flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-[#4ec9b0]" />
-                <span className="text-sm font-mono text-[#d4d4d4]">education.degree</span>
-              </div>
-
-              <div className="p-8">
-                <div className="p-4 bg-[#4ec9b0]/10 rounded-full w-fit mx-auto mb-6">
-                  <Award className="w-12 h-12 text-[#4ec9b0]" />
-                </div>
-                <h3 className="font-bold text-2xl text-white mb-2 group-hover:text-[#4ec9b0] transition-colors">
-                  Bachelor of Computer Science
-                </h3>
-                <p className="text-[#d4d4d4] font-mono mb-4">College of Computing & Information Technology</p>
-
-                {/* Code snippet for education */}
-                <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 text-left">
-                  <code className="text-sm font-mono">
-                    <span className="text-[#569cd6]">const</span> <span className="text-[#9cdcfe]">education</span>{" "}
-                    <span className="text-white">=</span> <span className="text-white">{"{"}</span>
-                    <br />
-                    <span className="ml-4 text-[#9cdcfe]">degree</span>
-                    <span className="text-white">:</span>{" "}
-                    <span className="text-[#ce9178]">"Bachelor of Computer Science"</span>
-                    <span className="text-white">,</span>
-                    <br />
-                    <span className="ml-4 text-[#9cdcfe]">foundation</span>
-                    <span className="text-white">:</span>{" "}
-                    <span className="text-[#ce9178]">"Strong technical fundamentals"</span>
-                    <br />
-                    <span className="text-white">{"}"}</span>
-                  </code>
-                </div>
-              </div>
+                )
+              })}
             </div>
           </div>
         </div>
-      </section>
+      )}
+
+      {/* Education - Enhanced */}
+      <div className="py-20 px-4 bg-[#1e1e1e]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 text-white">
+              <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">education</span>{" "}
+              <span className="text-white">=</span> <span className="text-[#ce9178]">[]</span>
+            </h2>
+            <p className="text-lg text-[#d4d4d4] max-w-2xl mx-auto leading-relaxed font-mono">
+              // My educational background
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {resumeData?.education.map((edu, index) => (
+              <div
+                key={index}
+                className="bg-[#252526] border border-[#3e3e42] rounded-lg overflow-hidden hover:border-[#4ec9b0] transition-all duration-300 group hover:shadow-lg hover:shadow-[#4ec9b0]/20"
+              >
+                {/* Education Header */}
+                <div className="bg-[#2d2d30] px-6 py-3 border-b border-[#3e3e42] flex items-center gap-2">
+                  <FileCode className="w-4 h-4 text-[#4ec9b0]" />
+                  <span className="text-sm font-mono text-[#d4d4d4]">{edu.degree.toLowerCase()}</span>
+                </div>
+
+                <div className="p-8">
+                  <div className="p-4 bg-[#4ec9b0]/10 rounded-full w-fit mx-auto mb-6">
+                    <Award className="w-12 h-12 text-[#4ec9b0]" />
+                  </div>
+                  <h3 className="font-bold text-2xl text-white mb-2 group-hover:text-[#4ec9b0] transition-colors">
+                    {edu.degree}
+                  </h3>
+                  <p className="text-[#d4d4d4] font-mono mb-4">{edu.institution}</p>
+
+                  {/* Code snippet for education */}
+                  <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded p-4 text-left">
+                    <code className="text-sm font-mono">
+                      <span className="text-[#569cd6]">const</span> <span className="text-[#9cdcfe]">education</span>{" "}
+                      <span className="text-white">=</span> <span className="text-white">{"{"}</span>
+                      <br />
+                      <span className="ml-4 text-[#9cdcfe]">degree</span>
+                      <span className="text-white">:</span> <span className="text-[#ce9178]">"{edu.degree}"</span>
+                      <span className="text-white">,</span>
+                      <br />
+                      <span className="ml-4 text-[#9cdcfe]">institution</span>
+                      <span className="text-white">:</span> <span className="text-[#ce9178]">"{edu.institution}"</span>
+                      <br />
+                      <span className="ml-4 text-[#9cdcfe]">year</span>
+                      <span className="text-white">:</span> <span className="text-[#ce9178]">"{edu.year}"</span>
+                      <br />
+                      <span className="text-white">{"}"}</span>
+                    </code>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4 bg-[#252526]">
