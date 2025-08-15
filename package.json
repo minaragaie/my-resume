@@ -2,6 +2,7 @@
   "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://minaragaie.github.io/my-resume",
   "scripts": {
     "build": "next build",
     "deploy": "npm run export && touch out/.nojekyll && gh-pages -d out",
