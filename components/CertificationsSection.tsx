@@ -56,8 +56,7 @@ export default function CertificationsSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-white">
-            <span className="text-[#569cd6] font-mono">enum</span>{" "}
-            <span className="text-[#4ec9b0]">Certifications</span>
+            <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">certifications</span> <span className="text-white">=</span> <span className="text-[#ce9178]">[]</span> 
           </h2>
           <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
             // Continuous learning and professional development
