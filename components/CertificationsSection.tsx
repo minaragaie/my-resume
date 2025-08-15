@@ -13,6 +13,22 @@ export default function CertificationsSection() {
     return () => clearTimeout(timer)
   }, [])
 
+  const handleVerify = (certName: string) => {
+    console.log(`Verifying certification: ${certName}`)
+    // Add verification logic here
+  }
+
+  const getCertificationSkills = (certName: string) => {
+    const skillsMap: { [key: string]: string[] } = {
+      "Google Cybersecurity": ["Security Frameworks", "Risk Assessment", "Incident Response", "Network Security"],
+      "Google Mobile Web Specialist": ["PWA", "Performance Optimization", "Mobile-First Design", "WebSockets"],
+      "Full-Stack Web Development": ["JavaScript", "Node.js", "React", "Angular"],
+      "Microsoft Exam 480 HTML5, JavaScript, CSS3": ["HTML5", "JavaScript", "CSS3", "Cross-Browser Compatibility"],
+      "Certificate of Completion .NET Core": ["C#", ".NET Core", "Backend Development", "API Design"],
+    }
+    return skillsMap[certName] || []
+  }
+
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
       case "completed":
@@ -80,12 +96,37 @@ export default function CertificationsSection() {
                 <p className="text-[#d4d4d4] mt-2 text-sm leading-relaxed">{cert.description}</p>
               </div>
 
+              {getCertificationSkills(cert.name).length > 0 && (
+                <div className="mb-4">
+                  <h4 className="text-sm font-semibold text-[#569cd6] mb-2 font-mono">// Key Skills:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {getCertificationSkills(cert.name).map((skill, skillIndex) => (
+                      <Badge
+                        key={skillIndex}
+                        variant="outline"
+                        className="text-xs text-[#4ec9b0] border-[#4ec9b0] bg-[#1e1e1e]"
+                      >
+                        {skill}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm text-[#d4d4d4]">
                   <span className="text-[#569cd6] font-mono">issuer:</span>
                   <span className="text-[#ce9178]">"{cert.issuer}"</span>
                 </div>
-                <ExternalLink className="w-4 h-4 text-[#4ec9b0] opacity-50 hover:opacity-100 transition-opacity cursor-pointer" />
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => handleVerify(cert.name)}
+                    className="px-3 py-1 text-xs bg-[#007acc] text-white rounded hover:bg-[#005a9e] transition-colors duration-200 font-mono"
+                  >
+                    verify()
+                  </button>
+                  <ExternalLink className="w-4 h-4 text-[#4ec9b0] opacity-50 hover:opacity-100 transition-opacity cursor-pointer" />
+                </div>
               </div>
             </div>
           ))}

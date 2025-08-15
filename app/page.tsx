@@ -6,6 +6,7 @@ import HeroSection from "@/components/HeroSection"
 import SkillsSection from "@/components/SkillsSection"
 import ExperienceSection from "@/components/ExperienceSection"
 import TechnologiesSection from "@/components/TechnologiesSection"
+import EducationSection from "@/components/EducationSection"
 import CertificationsSection from "@/components/CertificationsSection"
 import ContactSection from "@/components/ContactSection"
 
@@ -44,6 +45,7 @@ export default function Resume() {
       <SkillsSection />
       <ExperienceSection />
       <TechnologiesSection />
+      <EducationSection />
       <CertificationsSection />
       <ContactSection />
 
