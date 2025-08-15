@@ -28,6 +28,7 @@ interface ResumeData {
     endDate?: string
     duration?: string
     type?: string
+    fileType?: string
     description: string
     achievements?: string[]
     technologies?: string[]
@@ -74,6 +75,7 @@ export default function AdminPage() {
           company: exp.company,
           startDate: exp.duration?.split(" - ")[0] || "",
           endDate: exp.duration?.split(" - ")[1] || "",
+          fileType: index === 0 ? "tsx" : index === 1 ? "js" : "ts",
           description: exp.description,
           achievements: [],
           technologies: [],
@@ -114,6 +116,7 @@ export default function AdminPage() {
       company: "",
       startDate: "",
       endDate: "",
+      fileType: "",
       description: "",
       achievements: [""],
       technologies: [""],

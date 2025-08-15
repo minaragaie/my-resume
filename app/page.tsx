@@ -42,6 +42,7 @@ interface ResumeData {
     startDate: string
     endDate: string
     type?: string
+    fileType?: string
     description: string
     achievements: string[]
     technologies: string[]
@@ -88,6 +89,7 @@ export default function Resume() {
         startDate: exp.duration?.split(" - ")[0] || "",
         endDate: exp.duration?.split(" - ")[1] || "",
         type: "",
+        fileType: index === 0 ? "tsx" : index === 1 ? "js" : "ts",
         description: exp.description,
         achievements: [],
         technologies: [],
@@ -759,7 +761,7 @@ const medicalApp = {
                 <div className="bg-[#2d2d30] px-4 py-2 border-b border-[#3e3e42] flex items-center gap-2">
                   <FileCode className="w-4 h-4 text-[#007acc]" />
                   <span className="text-sm font-mono text-[#d4d4d4]">
-                    {exp.company.toLowerCase().replace(/\s+/g, "-")}.{exp.fileType}
+                    {exp.company.toLowerCase().replace(/\s+/g, "-")}.{exp.fileType || "js"}
                   </span>
                   <div className="ml-auto flex items-center gap-2">
                     <Badge className="bg-[#007acc]/20 text-[#007acc] text-xs font-mono border-[#007acc]/30">
