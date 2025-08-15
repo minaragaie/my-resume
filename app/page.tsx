@@ -208,7 +208,7 @@ export default function Resume() {
       doc.setTextColor(212, 212, 212)
       doc.setFontSize(9)
       doc.setFont("helvetica", "normal")
-      ;(exp.achievements || []).slice(0, 4).forEach((achievement) => {
+      exp.achievements.slice(0, 4).forEach((achievement) => {
         const splitAchievement = doc.splitTextToSize("• " + achievement, 165)
         doc.text(splitAchievement, 25, yPos)
         yPos += splitAchievement.length * 4
