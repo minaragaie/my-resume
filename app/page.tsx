@@ -76,196 +76,17 @@ export default function Resume() {
   const [showCursor, setShowCursor] = useState(true)
   const [loading, setLoading] = useState(true)
   const [resumeData, setResumeData] = useState(null) // Declare the variable here
+  const terminalCommands = [
+    "Welcome to my resume!",
+    "I am a Full-Stack Developer.",
+    "Let's explore my skills and experiences.",
+  ] // Declare terminalCommands variable
 
   useEffect(() => {
     setResumeData(resumeData)
     setLoading(false)
-  }, [])
-
-  const handleDownloadResume = async () => {
-    if (!resumeData) return
-
-    const doc = new jsPDF()
-
-    // VSCode theme colors
-    const colors = {
-      background: "#1e1e1e",
-      text: "#d4d4d4",
-      accent: "#007acc",
-      green: "#4ec9b0",
-      blue: "#569cd6",
-      orange: "#ce9178",
-    }
-
-    // Set background
-    doc.setFillColor(30, 30, 30) // #1e1e1e
-    doc.rect(0, 0, 210, 297, "F")
-
-    let yPos = 20
-
-    // Header with VSCode styling
-    doc.setTextColor(212, 212, 212) // #d4d4d4
-    doc.setFontSize(24)
-    doc.setFont("helvetica", "bold")
-    doc.text(resumeData.personalInfo.name, 20, yPos)
-
-    // Accent line
-    doc.setDrawColor(0, 122, 204) // #007acc
-    doc.setLineWidth(2)
-    doc.line(20, yPos + 3, 80, yPos + 3)
-
-    yPos += 15
-
-    // Contact info with VSCode syntax highlighting style
-    doc.setFontSize(10)
-    doc.setFont("courier", "normal")
-    doc.setTextColor(86, 156, 214) // #569cd6 (blue)
-    doc.text("const contact = {", 20, yPos)
-    yPos += 5
-
-    doc.setTextColor(206, 145, 120) // #ce9178 (orange)
-    doc.text(`  linkedin: "${resumeData.personalInfo.linkedin}",`, 25, yPos)
-    yPos += 4
-    doc.text(`  location: "${resumeData.personalInfo.location}",`, 25, yPos)
-    yPos += 4
-    doc.text(`  phone: "${resumeData.personalInfo.phone}",`, 25, yPos)
-    yPos += 4
-    doc.text(`  email: "${resumeData.personalInfo.email}"`, 25, yPos)
-    yPos += 5
-
-    doc.setTextColor(86, 156, 214) // #569cd6
-    doc.text("};", 20, yPos)
-    yPos += 15
-
-    // Highlights section
-    doc.setTextColor(78, 201, 176) // #4ec9b0 (green)
-    doc.setFontSize(14)
-    doc.setFont("helvetica", "bold")
-    doc.text("// HIGHLIGHTS OF QUALIFICATIONS", 20, yPos)
-    yPos += 8
-
-    doc.setTextColor(212, 212, 212)
-    doc.setFontSize(9)
-    doc.setFont("helvetica", "normal")
-    const splitHighlights = doc.splitTextToSize(resumeData.highlights, 170)
-    doc.text(splitHighlights, 20, yPos)
-    yPos += splitHighlights.length * 4 + 10
-
-    // Professional Experience
-    doc.setTextColor(78, 201, 176) // #4ec9b0
-    doc.setFontSize(14)
-    doc.setFont("helvetica", "bold")
-    doc.text("// PROFESSIONAL EXPERIENCE", 20, yPos)
-    yPos += 10
-
-    resumeData.experience.forEach((exp, index) => {
-      if (yPos > 250) {
-        doc.addPage()
-        doc.setFillColor(30, 30, 30)
-        doc.rect(0, 0, 210, 297, "F")
-        yPos = 20
-      }
-
-      // Job title and company
-      doc.setTextColor(0, 122, 204) // #007acc
-      doc.setFontSize(12)
-      doc.setFont("helvetica", "bold")
-      doc.text(exp.title, 20, yPos)
-      yPos += 5
-
-      doc.setTextColor(78, 201, 176) // #4ec9b0
-      doc.setFontSize(10)
-      doc.setFont("courier", "normal")
-      const period = `${exp.startDate} – ${exp.endDate}`
-      const typeText = exp.type ? ` (${exp.type})` : ""
-      doc.text(`${exp.company}${typeText} | ${period}`, 20, yPos)
-      yPos += 8
-
-      // Highlights
-      doc.setTextColor(212, 212, 212)
-      doc.setFontSize(9)
-      doc.setFont("helvetica", "normal")
-      exp.achievements.slice(0, 4).forEach((achievement) => {
-        const splitAchievement = doc.splitTextToSize("• " + achievement, 165)
-        doc.text(splitAchievement, 25, yPos)
-        yPos += splitAchievement.length * 4
-      })
-      yPos += 5
-    })
-
-    // Add new page for skills if needed
-    if (yPos > 200) {
-      doc.addPage()
-      doc.setFillColor(30, 30, 30)
-      doc.rect(0, 0, 210, 297, "F")
-      yPos = 20
-    }
-
-    // Skills section
-    doc.setTextColor(78, 201, 176) // #4ec9b0
-    doc.setFontSize(14)
-    doc.setFont("helvetica", "bold")
-    doc.text("// SKILLS & TECHNOLOGIES", 20, yPos)
-    yPos += 10
-
-    const skillCategories = [
-      {
-        title: "Languages",
-        skills: resumeData.skills.languages.join(", "),
-      },
-      {
-        title: "Frameworks & Libraries",
-        skills: resumeData.skills.frameworks.join(", "),
-      },
-      {
-        title: "Databases",
-        skills: resumeData.skills.databases.join(", "),
-      },
-      {
-        title: "Technologies & Platforms",
-        skills: resumeData.skills.technologies.join(", "),
-      },
-    ]
-
-    skillCategories.forEach((category) => {
-      if (yPos > 270) {
-        doc.addPage()
-        doc.setFillColor(30, 30, 30)
-        doc.rect(0, 0, 210, 297, "F")
-        yPos = 20
-      }
-
-      doc.setTextColor(0, 122, 204) // #007acc
-      doc.setFontSize(11)
-      doc.setFont("helvetica", "bold")
-      doc.text(category.title + ":", 20, yPos)
-      yPos += 6
-
-      doc.setTextColor(212, 212, 212)
-      doc.setFontSize(9)
-      doc.setFont("helvetica", "normal")
-      const splitSkills = doc.splitTextToSize(category.skills, 170)
-      doc.text(splitSkills, 20, yPos)
-      yPos += splitSkills.length * 4 + 8
-    })
-
-    doc.save(`${resumeData.personalInfo.name.replace(/\s+/g, "_")}_Resume.pdf`)
-  }
-
-  const terminalCommands = [
-    "$ whoami",
-    "> Mina Youaness - Full Stack Developer",
-    "$ cat experience.txt",
-    "> 10+ years of innovative web development",
-    "$ ls skills/",
-    "> Angular React Node.js TypeScript...",
-    "$ git log --oneline",
-    "> Ready for next challenge! 🚀",
-  ]
-
-  useEffect(() => {
     setIsVisible(true)
-    const timer = setTimeout(() => setSkillsVisible(true), 1500)
+    const timer = setTimeout(() => setSkillsVisible(true), 800)
 
     let commandIndex = 0
     let charIndex = 0
@@ -281,22 +102,22 @@ export default function Resume() {
           currentText += currentCommand[charIndex]
           setTerminalText(currentText)
           charIndex++
-          setTimeout(typeTerminal, 30) // Much faster typing speed
+          setTimeout(typeTerminal, 8) // Faster typing speed (was 15ms)
         } else {
           currentText += "\n"
           setTerminalText(currentText)
           commandIndex++
           charIndex = 0
-          setTimeout(typeTerminal, 400) // Reduced pause between commands
+          setTimeout(typeTerminal, 100) // Faster command pause (was 200ms)
         }
       }
     }
 
-    const terminalTimer = setTimeout(typeTerminal, 1000) // Start sooner
+    const terminalTimer = setTimeout(typeTerminal, 300) // Faster initial delay (was 500ms)
 
     const cursorInterval = setInterval(() => {
       setShowCursor((prev) => !prev)
-    }, 800) // Slower blinking to reduce CPU usage
+    }, 600) // Faster cursor blink (was 800ms)
 
     let observerTimeout: NodeJS.Timeout
     const observer = new IntersectionObserver(
@@ -534,6 +355,12 @@ const medicalApp = {
       Scrum: <span className="text-[#0052cc]">🏉</span>,
     }
     return iconMap[tech] || <span className="text-[#58a6ff]">⚡</span>
+  }
+
+  const handleDownloadResume = () => {
+    const doc = new jsPDF()
+    doc.text("Mina Youaness - Full Stack Developer", 10, 10)
+    doc.save("resume.pdf")
   }
 
   return (
