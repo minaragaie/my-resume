@@ -4,15 +4,23 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Mail, Phone, MapPin, Linkedin, Send, MessageSquare } from "lucide-react"
+import { Mail, Phone, MapPin, Linkedin, Send, MessageSquare, Terminal } from "lucide-react"
 import resumeData from "@/data/resume.json"
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  onStatusChange?: (status: string) => void
+}
+
+export default function ContactSection({ onStatusChange }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
   })
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showTerminal, setShowTerminal] = useState(false)
+  const [terminalLogs, setTerminalLogs] = useState<string[]>([])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -21,14 +29,73 @@ export default function ContactSection() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const addTerminalLog = (message: string) => {
+    setTerminalLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] ${message}`])
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
+    setIsSubmitting(true)
+    setShowTerminal(true)
+    setTerminalLogs([])
+
+    try {
+      onStatusChange?.("Sending message...")
+      addTerminalLog("Initializing message transmission...")
+      await new Promise((resolve) => setTimeout(resolve, 800))
+
+      onStatusChange?.("Validating data...")
+      addTerminalLog("Validating form data...")
+      await new Promise((resolve) => setTimeout(resolve, 600))
+
+      onStatusChange?.("Establishing connection...")
+      addTerminalLog("Establishing secure connection...")
+      await new Promise((resolve) => setTimeout(resolve, 700))
+
+      onStatusChange?.("Encrypting message...")
+      addTerminalLog("Encrypting message content...")
+      await new Promise((resolve) => setTimeout(resolve, 500))
+
+      onStatusChange?.("Transmitting...")
+      addTerminalLog("Sending message to server...")
+
+      // Simulate API call - replace with actual email service
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        onStatusChange?.("Message sent successfully!")
+        addTerminalLog("✓ Message sent successfully!")
+        addTerminalLog("✓ Notification delivered to recipient")
+        setFormData({ name: "", email: "", message: "" })
+
+        setTimeout(() => {
+          onStatusChange?.("Ready for next challenge")
+        }, 5000)
+      } else {
+        throw new Error("Failed to send message")
+      }
+    } catch (error) {
+      onStatusChange?.("Failed to send message - Please try again")
+      addTerminalLog("✗ Error: Failed to send message")
+      addTerminalLog("✗ Please try again or contact directly")
+
+      setTimeout(() => {
+        onStatusChange?.("Ready for next challenge")
+      }, 5000)
+    } finally {
+      setIsSubmitting(false)
+      addTerminalLog("Process completed.")
+    }
   }
 
   return (
-    <section id="contact" className="py-20 px-4 bg-[#252526]">
+    <section id="contact" className="py-20 px-4 bg-[#252526] relative">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-white">
@@ -156,16 +223,63 @@ export default function ContactSection() {
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-to-r from-[#007acc] to-[#4ec9b0] hover:from-[#005a9e] hover:to-[#3a9d8a] text-white shadow-lg hover:shadow-xl"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-[#007acc] to-[#4ec9b0] hover:from-[#005a9e] hover:to-[#3a9d8a] text-white shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
                 size="lg"
               >
-                <Send className="w-4 h-4 mr-2" />
-                Send Message
+                {isSubmitting ? (
+                  <>
+                    <div className="w-4 h-4 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </>
+                )}
               </Button>
             </form>
           </div>
         </div>
       </div>
+
+      {showTerminal && (
+        <div className="fixed bottom-4 right-4 w-96 bg-[#1e1e1e] border border-[#3e3e42] rounded-lg shadow-2xl z-50">
+          {/* Terminal Header */}
+          <div className="flex items-center justify-between bg-[#2d2d30] px-4 py-2 rounded-t-lg">
+            <div className="flex items-center gap-2">
+              <Terminal className="w-4 h-4 text-[#4ec9b0]" />
+              <span className="text-white text-sm font-mono">Message Sender</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button className="w-3 h-3 bg-[#ffbd2e] rounded-full hover:bg-[#ffbd2e]/80" />
+              <button className="w-3 h-3 bg-[#28ca42] rounded-full hover:bg-[#28ca42]/80" />
+              <button
+                onClick={() => setShowTerminal(false)}
+                className="w-3 h-3 bg-[#ff5f56] rounded-full hover:bg-[#ff5f56]/80"
+              />
+            </div>
+          </div>
+
+          {/* Terminal Content */}
+          <div className="p-4 h-64 overflow-y-auto bg-[#1e1e1e] rounded-b-lg">
+            <div className="font-mono text-xs space-y-1">
+              {terminalLogs.map((log, index) => (
+                <div key={index} className="text-[#d4d4d4]">
+                  <span className="text-[#569cd6]">$</span> {log}
+                </div>
+              ))}
+              {isSubmitting && (
+                <div className="flex items-center gap-2 text-[#4ec9b0]">
+                  <div className="w-2 h-2 bg-[#4ec9b0] rounded-full animate-pulse" />
+                  <span>Processing...</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

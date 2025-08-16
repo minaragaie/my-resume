@@ -1,18 +1,13 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { Calendar, MapPin, Code2 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
 
-export default function ExperienceSection() {
-  const [experienceVisible, setExperienceVisible] = useState(false)
+interface ExperienceSectionProps {
+  isVisible: boolean
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => setExperienceVisible(true), 600)
-    return () => clearTimeout(timer)
-  }, [])
-
+export default function ExperienceSection({ isVisible }: ExperienceSectionProps) {
   return (
     <section id="experience" className="py-20 px-4 bg-[#1e1e1e]">
       <div className="max-w-6xl mx-auto">
@@ -30,10 +25,13 @@ export default function ExperienceSection() {
           {resumeData.experience.map((exp, index) => (
             <div
               key={exp.id}
-              className={`bg-[#252526] border border-[#3e3e42] rounded-lg p-8 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/10 ${
-                experienceVisible ? "animate-fade-in-up" : "opacity-0"
+              className={`bg-[#252526] border border-[#3e3e42] rounded-lg p-8 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/10 transform ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
               }`}
-              style={{ animationDelay: `${index * 200}ms` }}
+              style={{
+                transitionDelay: `${index * 200}ms`,
+                transitionProperty: "transform, opacity",
+              }}
             >
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                 <div className="flex-1">

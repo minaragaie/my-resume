@@ -1,6 +1,4 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { Code, Database, Shield, Globe } from "lucide-react"
 
 const skills = [
@@ -48,14 +46,11 @@ const skills = [
   },
 ]
 
-export default function SkillsSection() {
-  const [skillsVisible, setSkillsVisible] = useState(false)
+interface SkillsSectionProps {
+  isVisible: boolean
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => setSkillsVisible(true), 800)
-    return () => clearTimeout(timer)
-  }, [])
-
+export default function SkillsSection({ isVisible }: SkillsSectionProps) {
   return (
     <section id="skills" className="py-20 px-4 bg-[#252526]">
       <div className="max-w-6xl mx-auto">
@@ -74,10 +69,13 @@ export default function SkillsSection() {
             return (
               <div
                 key={skill.name}
-                className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                  skillsVisible ? "animate-fade-in-up" : "opacity-0"
+                className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
-                style={{ animationDelay: `${index * 150}ms` }}
+                style={{
+                  transitionDelay: `${index * 150}ms`,
+                  transitionProperty: "transform, opacity",
+                }}
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`p-2 bg-gradient-to-br ${skill.color} rounded`}>
@@ -96,10 +94,10 @@ export default function SkillsSection() {
                 <div className="relative">
                   <div className="h-2 bg-[#3e3e42] rounded-full overflow-hidden">
                     <div
-                      className={`h-full bg-gradient-to-r ${skill.color} transition-all duration-2000 ease-out`}
+                      className={`h-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
                       style={{
-                        width: skillsVisible ? `${skill.level}%` : "0%",
-                        transitionDelay: `${index * 150 + 500}ms`,
+                        width: isVisible ? `${skill.level}%` : "0%",
+                        transitionDelay: `${index * 150 + 300}ms`,
                       }}
                     />
                   </div>
