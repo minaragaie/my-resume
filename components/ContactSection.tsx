@@ -9,9 +9,10 @@ import resumeData from "@/data/resume.json"
 
 interface ContactSectionProps {
   onStatusChange?: (status: string) => void
+  isVisible?: boolean
 }
 
-export default function ContactSection({ onStatusChange }: ContactSectionProps) {
+export default function ContactSection({ onStatusChange, isVisible = false }: ContactSectionProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -95,7 +96,12 @@ export default function ContactSection({ onStatusChange }: ContactSectionProps) 
   }
 
   return (
-    <section id="contact" className="py-20 px-4 bg-[#252526] relative">
+    <section
+      id="contact"
+      className={`py-20 px-4 bg-[#252526] relative transition-all duration-700 ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-white">

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Award, CheckCircle, Clock, ExternalLink, RotateCcw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
@@ -18,16 +18,14 @@ interface Certificate {
   pathway?: Certificate[]
 }
 
-export default function CertificationsSection() {
-  const [certsVisible, setCertsVisible] = useState(false)
+interface CertificationsSectionProps {
+  isVisible?: boolean
+}
+
+export default function CertificationsSection({ isVisible = false }: CertificationsSectionProps) {
   const [selectedCert, setSelectedCert] = useState<Certificate | null>(null)
   const [currentPathwayIndex, setCurrentPathwayIndex] = useState(0)
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
-
-  useEffect(() => {
-    const timer = setTimeout(() => setCertsVisible(true), 500)
-    return () => clearTimeout(timer)
-  }, [])
 
   const handleVerify = (cert: any) => {
     if (cert.verify) {
@@ -112,9 +110,11 @@ export default function CertificationsSection() {
           {(resumeData.certifications as Certificate[]).map((cert, index) => (
             <div
               key={index}
-              className={`relative h-[400px] ${certsVisible ? "animate-fade-in-up" : "opacity-0"}`}
+              className={`relative h-[400px] transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
               style={{
-                animationDelay: `${index * 200}ms`,
+                transitionDelay: `${index * 200}ms`,
                 perspective: "1000px",
               }}
             >
