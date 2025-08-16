@@ -6,7 +6,7 @@ export interface Certificate {
   color: string
   skills: string[]
   icon: string
-  verify: string
+  verify?: string
   pathway?: Certificate[]
 
 }
