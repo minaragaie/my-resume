@@ -42,23 +42,28 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
 
     try {
       onStatusChange?.("Sending message...")
-      addTerminalLog("Initializing message transmission...")
+      addTerminalLog(`connect --to "Mina Youaness"`)
       await new Promise((resolve) => setTimeout(resolve, 800))
 
-      onStatusChange?.("Validating data...")
-      addTerminalLog("Validating form data...")
+      addTerminalLog("[✔] Secure channel established")
       await new Promise((resolve) => setTimeout(resolve, 600))
 
-      onStatusChange?.("Establishing connection...")
-      addTerminalLog("Establishing secure connection...")
-      await new Promise((resolve) => setTimeout(resolve, 700))
-
-      onStatusChange?.("Encrypting message...")
-      addTerminalLog("Encrypting message content...")
+      addTerminalLog("[✔] Handshake completed")
       await new Promise((resolve) => setTimeout(resolve, 500))
 
+      addTerminalLog("[✔] Contact form initialized")
+      await new Promise((resolve) => setTimeout(resolve, 500))
+
+      onStatusChange?.("Encrypting message...")
+      addTerminalLog(`[✔] Encrypting message from <${formData.email}>...`)
+      await new Promise((resolve) => setTimeout(resolve, 700))
+
       onStatusChange?.("Transmitting...")
-      addTerminalLog("Sending message to server...")
+      addTerminalLog("[✔] Transmitting data packets...")
+      await new Promise((resolve) => setTimeout(resolve, 600))
+
+      addTerminalLog("[✔] Signal received by Mina's inbox")
+      await new Promise((resolve) => setTimeout(resolve, 500))
 
       // Simulate API call - replace with actual email service
       const response = await fetch("/api/contact", {
@@ -71,8 +76,19 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
 
       if (response.ok) {
         onStatusChange?.("Message sent successfully!")
-        addTerminalLog("✓ Message sent successfully!")
-        addTerminalLog("✓ Notification delivered to recipient")
+        addTerminalLog("------------------------------------------")
+        addTerminalLog(`👋 Hello ${formData.name} (<${formData.email}>)`)
+        addTerminalLog("   Welcome to my terminal. Your message has successfully")
+        addTerminalLog("   reached Mina Youaness.")
+        addTerminalLog("")
+        addTerminalLog("   ⚡ Transmission complete. Mina will review your request")
+        addTerminalLog("      and get back to you as soon as possible.")
+        addTerminalLog("")
+        addTerminalLog("------------------------------------------")
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        addTerminalLog("exit")
+        addTerminalLog("Session closed. Thank you for reaching out!")
+
         setFormData({ name: "", email: "", message: "" })
 
         setTimeout(() => {
