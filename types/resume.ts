@@ -1,3 +1,15 @@
+export interface Certificate {
+  name: string
+  issuer: string
+  status: string
+  description: string
+  color: string
+  skills: string[]
+  icon: string
+  verify: string
+  pathway?: Certificate[]
+
+}
 export interface ResumeData {
   personalInfo: {
     name: string
@@ -33,11 +45,6 @@ export interface ResumeData {
     institution: string
     year: string
   }>
-  certifications: Array<{
-    name: string
-    issuer: string
-    status: string
-    description: string
-  }>
+  certifications: Certificate[]
   additionalInfo: string
 }
