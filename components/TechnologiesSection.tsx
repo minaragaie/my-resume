@@ -1,6 +1,4 @@
 "use client"
-
-import { useState, useEffect } from "react"
 import { Code, Database, Globe, Wrench, Shield, Zap } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
@@ -44,14 +42,11 @@ const techCategories = [
   },
 ]
 
-export default function TechnologiesSection() {
-  const [techVisible, setTechVisible] = useState(false)
+interface TechnologiesSectionProps {
+  isVisible: boolean
+}
 
-  useEffect(() => {
-    const timer = setTimeout(() => setTechVisible(true), 400)
-    return () => clearTimeout(timer)
-  }, [])
-
+export default function TechnologiesSection({ isVisible }: TechnologiesSectionProps) {
   return (
     <section id="technologies" className="py-20 px-4 bg-[#252526]">
       <div className="max-w-6xl mx-auto">
@@ -70,9 +65,12 @@ export default function TechnologiesSection() {
               <div
                 key={category.name}
                 className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                  techVisible ? "animate-fade-in-up" : "opacity-0"
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
                 }`}
-                style={{ animationDelay: `${index * 150}ms` }}
+                style={{
+                  transitionDelay: `${index * 150}ms`,
+                  transitionDuration: "600ms",
+                }}
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className={`p-3 bg-gradient-to-br ${category.color} rounded-lg`}>

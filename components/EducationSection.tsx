@@ -1,9 +1,13 @@
 import { resumeData } from "@/lib/resume-data"
 import { GraduationCap, Calendar, Building } from "lucide-react"
 
-export default function EducationSection() {
+interface EducationSectionProps {
+  isVisible: boolean
+}
+
+export default function EducationSection({ isVisible }: EducationSectionProps) {
   return (
-    <section className="py-20 bg-[#1e1e1e]">
+    <section id="education" className="py-20 bg-[#1e1e1e]">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-white mb-4">
@@ -16,7 +20,13 @@ export default function EducationSection() {
           {resumeData.education.map((edu, index) => (
             <div
               key={index}
-              className="bg-[#252526] rounded-lg p-8 border border-[#3e3e42] hover:border-[#007acc] transition-all duration-300 group"
+              className={`bg-[#252526] rounded-lg p-8 border border-[#3e3e42] hover:border-[#007acc] transition-all duration-300 group ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{
+                transitionDelay: `${index * 200}ms`,
+                transitionDuration: "600ms",
+              }}
             >
               <div className="flex items-start gap-6">
                 <div className="flex-shrink-0">
