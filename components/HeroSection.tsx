@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Download, Mail, Phone, MapPin, Linkedin, ExternalLink, FileCode, Terminal } from "lucide-react"
 import jsPDF from "jspdf"
 
-export default function HeroSection() {
-  const [isVisible, setIsVisible] = useState(false)
+interface HeroSectionProps {
+  isVisible: boolean
+}
+
+export default function HeroSection({ isVisible }: HeroSectionProps) {
   const [terminalText, setTerminalText] = useState("")
   const [showCursor, setShowCursor] = useState(true)
 
@@ -73,7 +76,6 @@ export default function HeroSection() {
   }, [terminalCommands])
 
   useEffect(() => {
-    setIsVisible(true)
     const stopTyping = typeTerminal()
 
     const cursorInterval = setInterval(() => {
