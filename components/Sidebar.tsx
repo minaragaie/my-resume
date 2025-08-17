@@ -57,7 +57,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   return (
     <>
       {/* Activity Bar - Always visible */}
-      <div className="fixed top-0 left-0 w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50">
+      <div className="w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50 min-h-screen">
         <div className="flex flex-col py-2">
           {sidebarTabs.map((tab) => {
             const Icon = tab.icon
@@ -113,10 +113,8 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
       {/* Sidebar Panel - Toggleable */}
       <div
-        className={`fixed top-0 left-12 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 ${
-          isCollapsed ? "w-0 overflow-hidden" : "w-64"
-        }`}
-        style={{ height: "calc(100vh - 60px)" }}
+        className={`bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen`}
+        
       >
         {activeTab === "explorer" && (
           <>

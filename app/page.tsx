@@ -72,15 +72,8 @@ export default function Resume() {
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
 
-      <div className={`flex-1 min-h-screen transition-all duration-300 ${sidebarCollapsed ? "ml-12" : "ml-80"}`}>
-        <div className="h-9 bg-[#2d2d30] border-b border-[#3e3e42] flex items-center px-4">
-          <div className="flex items-center gap-2 bg-[#1e1e1e] px-3 py-1 text-xs text-[#cccccc] border-r border-[#3e3e42]">
-            <div className="w-2 h-2 bg-[#f1c40f] rounded-full"></div>
-            <div className="w-2 h-2 bg-[#2ecc71] rounded-full"></div>
-            <span>mina-youaness-resume.tsx</span>
-            <div className="w-2 h-2 bg-white rounded-full ml-2"></div>
-          </div>
-        </div>
+      <div className={`flex-1 min-h-screen transition-all duration-300`}>
+        
 
         <div className="flex-1 pb-16">
           <section id="hero">
