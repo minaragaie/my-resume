@@ -11,6 +11,7 @@ import ContactSection from "@/components/ContactSection"
 import StatusBar from "@/components/StatusBar"
 import LogoLoader from "@/components/LogoLoader"
 import Sidebar from "@/components/Sidebar"
+import { FileCode } from "lucide-react"
 
 export default function Resume() {
   const [isLoading, setIsLoading] = useState(true)
@@ -73,7 +74,20 @@ export default function Resume() {
       />
 
       <div className={`flex-1 h-screen flex flex-col transition-all duration-300`}>
-        <div className="flex-1 overflow-y-auto pb-16">
+        <div className="bg-[#2d2d30] border-b border-[#3e3e42] px-4 py-2 flex items-center gap-4 flex-shrink-0">
+          <div className="flex gap-2">
+            <div className="w-3 h-3 bg-[#ff5f57] rounded-full"></div>
+            <div className="w-3 h-3 bg-[#ffbd2e] rounded-full"></div>
+            <div className="w-3 h-3 bg-[#28ca42] rounded-full"></div>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <FileCode className="w-4 h-4" />
+            <span>mina-youaness-resume.tsx</span>
+            <div className="w-2 h-2 bg-white rounded-full ml-2"></div>
+          </div>
+        </div>
+
+        <div className="flex-1 overflow-y-auto">
           <section id="hero">
             <HeroSection isVisible={animationStates.hero} />
           </section>
