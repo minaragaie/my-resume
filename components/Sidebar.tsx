@@ -112,96 +112,98 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
       </div>
 
       {/* Sidebar Panel - Toggleable */}
-      <div className={`w-64 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen`}>
-        {activeTab === "explorer" && (
-          <>
-            <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
-              Explorer
-            </div>
-
-            {/* File Explorer */}
-            <div className="p-2">
-              <div className="mb-2">
-                <button
-                  onClick={() => setIsExplorerOpen(!isExplorerOpen)}
-                  className="flex items-center gap-2 text-xs text-[#cccccc] hover:text-white transition-colors w-full py-1 px-2 hover:bg-[#2a2d2e] rounded"
-                >
-                  {isExplorerOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-                  <FolderOpen size={14} className="text-[#dcb67a]" />
-                  <span className="font-medium uppercase tracking-wide">Resume-Portfolio</span>
-                </button>
+      {!isCollapsed && (
+        <div className={`w-64 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen`}>
+          {activeTab === "explorer" && (
+            <>
+              <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
+                Explorer
               </div>
 
-              {isExplorerOpen && (
-                <div className="ml-4 space-y-0.5">
-                  {sections.map((section) => {
-                    const Icon = section.icon
-                    const isActive = currentSection === section.id
-
-                    return (
-                      <button
-                        key={section.id}
-                        onClick={() => scrollToSection(section.id)}
-                        className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
-                          isActive ? "bg-[#094771] text-white" : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
-                        }`}
-                      >
-                        <Icon size={14} style={{ color: section.color }} />
-                        <span>{section.name}</span>
-                        {isActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
-                      </button>
-                    )
-                  })}
+              {/* File Explorer */}
+              <div className="p-2">
+                <div className="mb-2">
+                  <button
+                    onClick={() => setIsExplorerOpen(!isExplorerOpen)}
+                    className="flex items-center gap-2 text-xs text-[#cccccc] hover:text-white transition-colors w-full py-1 px-2 hover:bg-[#2a2d2e] rounded"
+                  >
+                    {isExplorerOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+                    <FolderOpen size={14} className="text-[#dcb67a]" />
+                    <span className="font-medium uppercase tracking-wide">Resume-Portfolio</span>
+                  </button>
                 </div>
-              )}
-            </div>
 
-            <div className="p-3 border-t border-[#3e3e42] bg-[#252526]">
-              <div className="text-xs text-[#858585] space-y-1">
-                <div className="flex items-center gap-2">
+                {isExplorerOpen && (
+                  <div className="ml-4 space-y-0.5">
+                    {sections.map((section) => {
+                      const Icon = section.icon
+                      const isActive = currentSection === section.id
+
+                      return (
+                        <button
+                          key={section.id}
+                          onClick={() => scrollToSection(section.id)}
+                          className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+                            isActive ? "bg-[#094771] text-white" : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
+                          }`}
+                        >
+                          <Icon size={14} style={{ color: section.color }} />
+                          <span>{section.name}</span>
+                          {isActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+
+              <div className="p-3 border-t border-[#3e3e42] bg-[#252526]">
+                <div className="text-xs text-[#858585] space-y-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>7 files • Portfolio v1.0</span>
+                  </div>
+                  <div className="text-[#6a6a6a]">Last modified: Just now</div>
+                </div>
+              </div>
+            </>
+          )}
+
+          {activeTab === "search" && (
+            <div className="p-4">
+              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Search</div>
+              <div className="text-xs text-[#858585]">Search functionality coming soon...</div>
+            </div>
+          )}
+
+          {activeTab === "git" && (
+            <div className="p-4">
+              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Source Control</div>
+              <div className="text-xs text-[#858585]">
+                <div className="flex items-center gap-2 mb-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>7 files • Portfolio v1.0</span>
+                  <span>Clean working tree</span>
                 </div>
-                <div className="text-[#6a6a6a]">Last modified: Just now</div>
+                <div>Branch: main</div>
               </div>
             </div>
-          </>
-        )}
+          )}
 
-        {activeTab === "search" && (
-          <div className="p-4">
-            <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Search</div>
-            <div className="text-xs text-[#858585]">Search functionality coming soon...</div>
-          </div>
-        )}
-
-        {activeTab === "git" && (
-          <div className="p-4">
-            <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Source Control</div>
-            <div className="text-xs text-[#858585]">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Clean working tree</span>
-              </div>
-              <div>Branch: main</div>
+          {activeTab === "extensions" && (
+            <div className="p-4">
+              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Extensions</div>
+              <div className="text-xs text-[#858585]">No extensions installed</div>
             </div>
-          </div>
-        )}
+          )}
 
-        {activeTab === "extensions" && (
-          <div className="p-4">
-            <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Extensions</div>
-            <div className="text-xs text-[#858585]">No extensions installed</div>
-          </div>
-        )}
-
-        {activeTab === "settings" && (
-          <div className="p-4">
-            <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Settings</div>
-            <div className="text-xs text-[#858585]">Portfolio settings</div>
-          </div>
-        )}
-      </div>
+          {activeTab === "settings" && (
+            <div className="p-4">
+              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Settings</div>
+              <div className="text-xs text-[#858585]">Portfolio settings</div>
+            </div>
+          )}
+        </div>
+      )}
     </>
   )
 }

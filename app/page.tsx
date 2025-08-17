@@ -17,7 +17,7 @@ export default function Resume() {
   const [isLoading, setIsLoading] = useState(true)
   const [currentSection, setCurrentSection] = useState("")
   const [status, setStatus] = useState("Ready for next challenge")
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(true)
   const [animationStates, setAnimationStates] = useState({
     hero: true, // Hero starts visible since it's above the fold
     skills: false,
