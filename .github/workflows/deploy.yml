@@ -28,5 +28,3 @@ jobs:
 
       - name: Build and deploy
         run: npm run deploy
-      - name: Export static site
-        run: npm run export
