@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 
 import { staticResumeData } from "@/lib/resume-data"
+import { slugify } from "@/lib/utils"
 
 interface SidebarProps {
   currentSection: string
@@ -39,7 +40,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   })
 
   const generateFileStructure = () => {
-    const structure = [{ id: "hero", name: "hero.tsx", icon: User, color: "#007acc", type: "file" }]
+    const structure:any[] = [{ id: "hero", name: "hero.tsx", icon: User, color: "#007acc", type: "file" }]
 
     const skillsChildren = Object.entries(staticResumeData.skills).map(([category, skills]) => ({
       id: `skills-${category}`,
@@ -60,7 +61,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
     const experienceChildren = staticResumeData.experience.map((exp) => ({
       id: `experience-${exp.id}`,
-      name: `${exp.company.toLowerCase().replace(/[^a-z0-9]/g, "-")}.tsx`,
+      name: `${slugify(exp.company.toLowerCase())}.tsx`,
       icon: Briefcase,
       color: "#dcdcaa",
       parent: "experience",
@@ -79,7 +80,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
     const educationChildren = staticResumeData.education.map((edu, index) => ({
       id: `education-${index}`,
-      name: `${(edu.degree || "unknown-degree").toLowerCase().replace(/[^a-z0-9]/g, "-")}.tsx`,
+      name: `${slugify((edu.degree || "unknown-degree").toLowerCase())}.tsx`,
       icon: GraduationCap,
       color: "#c586c0",
       parent: "education",
@@ -96,7 +97,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
     const certificationsChildren = staticResumeData.certifications.map((cert, index) => ({
       id: `certifications-${index}`,
-      name: `${(cert.name || "unknown-certificate").toLowerCase().replace(/[^a-z0-9]/g, "-")}.tsx`,
+      name: `${slugify((cert.name || "unknown-certificate").toLowerCase())}.tsx`,
       icon: Award,
       color: "#ce9178",
       parent: "certifications",
@@ -242,7 +243,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                           <div key={item.id}>
                             <button
                               onClick={() => toggleDirectory(item.id)}
-                              className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+                              className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors text-left ${
                                 isActive
                                   ? "bg-[#094771] text-white"
                                   : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
@@ -255,7 +256,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
                             {isExpanded && item.children && (
                               <div className="ml-6 space-y-0.5 mt-1">
-                                {item.children.map((child) => {
+                                {item.children.map((child: any) => {
                                   const ChildIcon = child.icon
                                   const isChildActive = currentSection === child.parent
 
@@ -263,7 +264,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                                     <button
                                       key={child.id}
                                       onClick={() => scrollToSection(child.id)}
-                                      className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+                                      className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors text-left ${
                                         isChildActive
                                           ? "bg-[#094771] text-white"
                                           : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
