@@ -9,8 +9,10 @@ import EducationSection from "@/components/EducationSection"
 import CertificationsSection from "@/components/CertificationsSection"
 import ContactSection from "@/components/ContactSection"
 import StatusBar from "@/components/StatusBar"
+import LogoLoader from "@/components/LogoLoader"
 
 export default function Resume() {
+  const [isLoading, setIsLoading] = useState(true)
   const [currentSection, setCurrentSection] = useState("")
   const [status, setStatus] = useState("Ready for next challenge")
   const [animationStates, setAnimationStates] = useState({
@@ -24,6 +26,8 @@ export default function Resume() {
   })
 
   useEffect(() => {
+    if (isLoading) return
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -47,7 +51,15 @@ export default function Resume() {
     return () => {
       observer.disconnect()
     }
-  }, [])
+  }, [isLoading])
+
+  const handleLoadComplete = () => {
+    setIsLoading(false)
+  }
+
+  if (isLoading) {
+    return <LogoLoader onLoadComplete={handleLoadComplete} />
+  }
 
   return (
     <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4] pb-12">

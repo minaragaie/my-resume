@@ -7,10 +7,10 @@
     "build": "next build",
     "deploy": "npm run export && touch out/.nojekyll && gh-pages -d out",
     "dev": "next dev",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "export": "next build && next export",
     "lint": "next lint",
-    "start": "next start",
-    "dev:debug": "NODE_OPTIONS='--inspect' next dev"
+    "start": "next start"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -71,12 +71,12 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
     "gh-pages": "^6.1.1",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5"
   }
 }
