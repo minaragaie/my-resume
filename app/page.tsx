@@ -10,11 +10,14 @@ import CertificationsSection from "@/components/CertificationsSection"
 import ContactSection from "@/components/ContactSection"
 import StatusBar from "@/components/StatusBar"
 import LogoLoader from "@/components/LogoLoader"
+import Sidebar from "@/components/Sidebar"
+import { FileText } from "lucide-react"
 
 export default function Resume() {
   const [isLoading, setIsLoading] = useState(true)
   const [currentSection, setCurrentSection] = useState("")
   const [status, setStatus] = useState("Ready for next challenge")
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const [animationStates, setAnimationStates] = useState({
     hero: true, // Hero starts visible since it's above the fold
     skills: false,
@@ -62,14 +65,45 @@ export default function Resume() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4] pb-12">
-      <HeroSection isVisible={animationStates.hero} />
-      <SkillsSection isVisible={animationStates.skills} />
-      <ExperienceSection isVisible={animationStates.experience} />
-      <TechnologiesSection isVisible={animationStates.technologies} />
-      <EducationSection isVisible={animationStates.education} />
-      <CertificationsSection isVisible={animationStates.certifications} />
-      <ContactSection isVisible={animationStates.contact} onStatusChange={setStatus} />
+    <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4]">
+      <button
+        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+        className="fixed top-4 left-4 z-50 bg-[#2d2d30] hover:bg-[#3e3e42] text-[#cccccc] p-2 rounded border border-[#464647] transition-colors"
+        title={sidebarCollapsed ? "Show Sidebar" : "Hide Sidebar"}
+      >
+        <FileText size={16} />
+      </button>
+
+      <Sidebar
+        currentSection={currentSection}
+        onSectionClick={setCurrentSection}
+        isCollapsed={sidebarCollapsed}
+        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+      />
+
+      <div className={`flex-1 pb-12 transition-all duration-300 ${sidebarCollapsed ? "ml-12" : "ml-80"}`}>
+        <section id="hero">
+          <HeroSection isVisible={animationStates.hero} />
+        </section>
+        <section id="skills">
+          <SkillsSection isVisible={animationStates.skills} />
+        </section>
+        <section id="experience">
+          <ExperienceSection isVisible={animationStates.experience} />
+        </section>
+        <section id="technologies">
+          <TechnologiesSection isVisible={animationStates.technologies} />
+        </section>
+        <section id="education">
+          <EducationSection isVisible={animationStates.education} />
+        </section>
+        <section id="certifications">
+          <CertificationsSection isVisible={animationStates.certifications} />
+        </section>
+        <section id="contact">
+          <ContactSection isVisible={animationStates.contact} onStatusChange={setStatus} />
+        </section>
+      </div>
 
       <StatusBar status={status} onStatusChange={setStatus} />
     </div>
