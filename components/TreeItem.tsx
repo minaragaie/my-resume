@@ -50,7 +50,7 @@ export default function TreeItem({
     <div>
       <button
         onClick={handleClick}
-        className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+        className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors text-left ${
           isActive ? "bg-[#094771] text-white" : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
         } ${className}`}
       >
