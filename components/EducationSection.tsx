@@ -10,10 +10,12 @@ export default function EducationSection({ isVisible }: EducationSectionProps) {
     <section id="education" className="py-20 bg-[#1e1e1e]">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-white mb-4">
-            <span className="text-[#007acc]">Education</span>
+          <h2 className="text-4xl font-bold mb-4 text-white">
+            <span className="text-[#569cd6] font-mono">class</span> <span className="text-[#4ec9b0]">Education</span>
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-[#007acc] to-[#4ec9b0] mx-auto"></div>
+          <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
+            // Academic foundation in computer science and technology
+          </p>
         </div>
 
         <div className="grid gap-8">

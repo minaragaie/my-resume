@@ -36,7 +36,7 @@ export const resumeData = {
     {
       degree: "Bachelor of Computer Science",
       institution: "College of Computing & Information Technology",
-      year: "2015",
+      year: "2012",
     },
   ],
   certifications: ["AWS Certified Developer", "Google Analytics Certified"],
