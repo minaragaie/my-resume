@@ -66,13 +66,13 @@ export default function Resume() {
 
   return (
     <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4]">
-      <button
+      {/* <button
         onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
         className="fixed top-4 left-4 z-50 bg-[#2d2d30] hover:bg-[#3e3e42] text-[#cccccc] p-2 rounded border border-[#464647] transition-colors"
         title={sidebarCollapsed ? "Show Sidebar" : "Hide Sidebar"}
       >
         <FileText size={16} />
-      </button>
+      </button> */}
 
       <Sidebar
         currentSection={currentSection}
