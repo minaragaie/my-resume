@@ -112,10 +112,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
       </div>
 
       {/* Sidebar Panel - Toggleable */}
-      <div
-        className={`bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen`}
-        
-      >
+      <div className={`w-64 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen`}>
         {activeTab === "explorer" && (
           <>
             <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
