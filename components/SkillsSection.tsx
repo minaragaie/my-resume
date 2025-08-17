@@ -1,48 +1,84 @@
 "use client"
-import { Code, Database, Shield, Globe } from "lucide-react"
+import { Code, Database, Globe, GitBranch, Wrench, Target, Award } from "lucide-react"
+import { staticResumeData } from "@/lib/resume-data"
 
-const skills = [
+const skillIcons: { [key: string]: string } = {
+  // Languages
+  JavaScript: "🟨",
+  Java: "☕",
+  TypeScript: "🔷",
+  HTML5: "🌐",
+  CSS3: "🎨",
+  PHP: "🐘",
+  Python: "🐍",
+  // Frameworks
+  Angular: "🅰️",
+  React: "⚛️",
+  "Node.js": "🟢",
+  Bootstrap: "🅱️",
+  jQuery: "💙",
+  // Databases
+  PostgreSQL: "🐘",
+  MySQL: "🐬",
+  // Version Control
+  Git: "📦",
+  Sequelize: "🔗",
+  // Technologies
+  WordPress: "📝",
+  PWA: "📱",
+  // Default
+  default: "⚡",
+}
+
+const skillCategories = [
   {
-    name: "JavaScript/TypeScript",
-    level: 95,
+    name: "Languages",
     icon: Code,
     color: "from-yellow-400 to-orange-500",
-    syntax: "const skills = 'expert';",
+    skills: staticResumeData.skills.languages,
+    syntax: "const languages = ['expert'];",
   },
   {
-    name: "Angular",
-    level: 90,
-    icon: Globe,
-    color: "from-red-500 to-pink-500",
-    syntax: "@Component({ expert: true })",
-  },
-  {
-    name: "React",
-    level: 88,
+    name: "Frameworks",
     icon: Globe,
     color: "from-blue-400 to-cyan-500",
-    syntax: "const [skill] = useState('high');",
+    skills: staticResumeData.skills.frameworks,
+    syntax: "import { frameworks } from 'expertise';",
   },
   {
-    name: "Node.js",
-    level: 85,
-    icon: Code,
-    color: "from-green-400 to-emerald-500",
-    syntax: "app.listen(3000, 'expert');",
-  },
-  {
-    name: "Database Management",
-    level: 82,
+    name: "Databases",
     icon: Database,
     color: "from-purple-400 to-violet-500",
-    syntax: "SELECT * FROM expertise;",
+    skills: staticResumeData.skills.databases,
+    syntax: "SELECT * FROM knowledge;",
   },
   {
-    name: "Security Practices",
-    level: 88,
-    icon: Shield,
+    name: "Version Control",
+    icon: GitBranch,
+    color: "from-green-400 to-emerald-500",
+    skills: staticResumeData.skills.versionControl,
+    syntax: "git commit -m 'expert level';",
+  },
+  {
+    name: "Technologies",
+    icon: Wrench,
     color: "from-indigo-400 to-blue-500",
-    syntax: "auth.secure({ level: 'high' });",
+    skills: staticResumeData.skills.technologies,
+    syntax: "tech.implement({ level: 'advanced' });",
+  },
+  {
+    name: "Methodologies",
+    icon: Target,
+    color: "from-red-400 to-pink-500",
+    skills: staticResumeData.skills.methodologies,
+    syntax: "methodology.apply('agile');",
+  },
+  {
+    name: "Standards",
+    icon: Award,
+    color: "from-orange-400 to-red-500",
+    skills: staticResumeData.skills.standards,
+    syntax: "standards.comply({ wcag: '2.1' });",
   },
 ]
 
@@ -64,43 +100,48 @@ export default function SkillsSection({ isVisible }: SkillsSectionProps) {
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill, index) => {
-            const Icon = skill.icon
+          {skillCategories.map((category, categoryIndex) => {
+            const Icon = category.icon
             return (
               <div
-                key={skill.name}
+                key={category.name}
                 className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform ${
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
                 style={{
-                  transitionDelay: `${index * 150}ms`,
+                  transitionDelay: `${categoryIndex * 150}ms`,
                   transitionProperty: "transform, opacity",
                 }}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-2 bg-gradient-to-br ${skill.color} rounded`}>
+                  <div className={`p-2 bg-gradient-to-br ${category.color} rounded`}>
                     <Icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">{skill.name}</h3>
-                    <p className="text-sm text-[#d4d4d4]">{skill.level}%</p>
+                    <h3 className="font-semibold text-white">{category.name}</h3>
+                    <p className="text-sm text-[#d4d4d4]">{category.skills.length} skills</p>
                   </div>
                 </div>
 
                 <div className="bg-[#2d2d30] rounded p-3 mb-4">
-                  <code className="text-xs text-[#ce9178] font-mono">{skill.syntax}</code>
+                  <code className="text-xs text-[#ce9178] font-mono">{category.syntax}</code>
                 </div>
 
-                <div className="relative">
-                  <div className="h-2 bg-[#3e3e42] rounded-full overflow-hidden">
+                <div className="grid grid-cols-2 gap-2">
+                  {category.skills.map((skill, skillIndex) => (
                     <div
-                      className={`h-full bg-gradient-to-r ${skill.color} transition-all duration-1000 ease-out`}
+                      key={skill}
+                      className={`flex items-center gap-2 text-xs text-[#d4d4d4] bg-[#2d2d30] px-2 py-1.5 rounded hover:bg-[#3e3e42] transition-all duration-500 ${
+                        isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                      }`}
                       style={{
-                        width: isVisible ? `${skill.level}%` : "0%",
-                        transitionDelay: `${index * 150 + 300}ms`,
+                        transitionDelay: `${categoryIndex * 150 + skillIndex * 50 + 300}ms`,
                       }}
-                    />
-                  </div>
+                    >
+                      <span className="text-sm">{skillIcons[skill] || skillIcons.default}</span>
+                      <span className="truncate">{skill}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             )
