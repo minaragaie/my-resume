@@ -17,10 +17,12 @@ import {
   ExpandIcon as Extensions,
   Folder,
   FileText,
+  X,
 } from "lucide-react"
 
 import { staticResumeData } from "@/lib/resume-data"
 import { slugify } from "@/lib/utils"
+import TreeItem from "./TreeItem"
 
 interface SidebarProps {
   currentSection: string
@@ -40,7 +42,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   })
 
   const generateFileStructure = () => {
-    const structure:any[] = [{ id: "hero", name: "hero.tsx", icon: User, color: "#007acc", type: "file" }]
+    const structure: any[] = [{ id: "hero", name: "hero.tsx", icon: User, color: "#007acc", type: "file" }]
 
     const skillsChildren = Object.entries(staticResumeData.skills).map(([category, skills]) => ({
       id: `skills-${category}`,
@@ -154,8 +156,10 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
   return (
     <>
+      {!isCollapsed && <div className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" onClick={onToggle} />}
+
       {/* Activity Bar - Always visible */}
-      <div className="w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50 min-h-screen">
+      <div className="w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50 min-h-screen fixed md:relative">
         <div className="flex flex-col py-2">
           {sidebarTabs.map((tab) => {
             const Icon = tab.icon
@@ -211,7 +215,22 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
       {/* Sidebar Panel - Toggleable */}
       {!isCollapsed && (
-        <div className={`w-64 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen`}>
+        <div
+          className={`
+          w-64 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen
+          fixed left-12 top-0 md:relative md:left-0
+          max-w-[calc(100vw-3rem)] overflow-x-hidden
+        `}
+        >
+          <div className="md:hidden absolute top-2 right-2 z-50">
+            <button
+              onClick={onToggle}
+              className="w-8 h-8 flex items-center justify-center text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors"
+            >
+              <X size={16} />
+            </button>
+          </div>
+
           {activeTab === "explorer" && (
             <>
               <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
@@ -219,7 +238,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
               </div>
 
               {/* File Explorer */}
-              <div className="p-2">
+              <div className="p-2 overflow-y-auto max-h-[calc(100vh-8rem)]">
                 <div className="mb-2">
                   <button
                     onClick={() => setIsExplorerOpen(!isExplorerOpen)}
@@ -227,7 +246,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                   >
                     {isExplorerOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
                     <FolderOpen size={14} className="text-[#dcb67a]" />
-                    <span className="font-medium uppercase tracking-wide">Resume-Portfolio</span>
+                    <span className="font-medium uppercase tracking-wide truncate">Resume-Portfolio</span>
                   </button>
                 </div>
 
@@ -240,64 +259,69 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                         const isActive = currentSection === item.id
 
                         return (
-                          <div key={item.id}>
-                            <button
-                              onClick={() => toggleDirectory(item.id)}
-                              className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors text-left ${
-                                isActive
-                                  ? "bg-[#094771] text-white"
-                                  : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
-                              }`}
-                            >
-                              {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-                              <Icon size={14} style={{ color: item.color }} />
-                              <span>{item.name}</span>
-                            </button>
-
-                            {isExpanded && item.children && (
-                              <div className="ml-6 space-y-0.5 mt-1">
+                          <TreeItem
+                            key={item.id}
+                            id={item.id}
+                            name={item.name}
+                            icon={Icon}
+                            color={item.color}
+                            isActive={isActive}
+                            onClick={(id) => {
+                              scrollToSection(id)
+                              if (window.innerWidth < 768) {
+                                onToggle()
+                              }
+                            }}
+                            showActiveIndicator={false}
+                            className="justify-start"
+                            isExpanded={isExpanded}
+                            onToggleExpand={toggleDirectory}
+                          >
+                            {item.children && (
+                              <div className="space-y-0.5">
                                 {item.children.map((child: any) => {
-                                  const ChildIcon = child.icon
                                   const isChildActive = currentSection === child.parent
 
                                   return (
-                                    <button
+                                    <TreeItem
                                       key={child.id}
-                                      onClick={() => scrollToSection(child.id)}
-                                      className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors text-left ${
-                                        isChildActive
-                                          ? "bg-[#094771] text-white"
-                                          : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
-                                      }`}
-                                    >
-                                      <ChildIcon size={14} style={{ color: child.color }} />
-                                      <span>{child.name}</span>
-                                      {isChildActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
-                                    </button>
+                                      id={child.id}
+                                      name={child.name}
+                                      icon={child.icon}
+                                      color={child.color}
+                                      isActive={isChildActive}
+                                      onClick={(id) => {
+                                        scrollToSection(id)
+                                        if (window.innerWidth < 768) {
+                                          onToggle()
+                                        }
+                                      }}
+                                    />
                                   )
                                 })}
                               </div>
                             )}
-                          </div>
+                          </TreeItem>
                         )
                       } else {
                         const Icon = item.icon
                         const isActive = currentSection === item.id
 
                         return (
-                          <button
+                          <TreeItem
                             key={item.id}
-                            onClick={() => scrollToSection(item.id)}
-                            className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
-                              isActive
-                                ? "bg-[#094771] text-white"
-                                : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
-                            }`}
-                          >
-                            <Icon size={14} style={{ color: item.color }} />
-                            <span>{item.name}</span>
-                            {isActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
-                          </button>
+                            id={item.id}
+                            name={item.name}
+                            icon={Icon}
+                            color={item.color}
+                            isActive={isActive}
+                            onClick={(id) => {
+                              scrollToSection(id)
+                              if (window.innerWidth < 768) {
+                                onToggle()
+                              }
+                            }}
+                          />
                         )
                       }
                     })}
