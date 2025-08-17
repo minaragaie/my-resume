@@ -72,10 +72,8 @@ export default function Resume() {
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
       />
 
-      <div className={`flex-1 min-h-screen transition-all duration-300`}>
-        
-
-        <div className="flex-1 pb-16">
+      <div className={`flex-1 h-screen flex flex-col transition-all duration-300`}>
+        <div className="flex-1 overflow-y-auto pb-16">
           <section id="hero">
             <HeroSection isVisible={animationStates.hero} />
           </section>
