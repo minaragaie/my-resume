@@ -98,7 +98,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
         </div>
 
         <div className="mt-auto mb-2">
-          {/* <button
+          <button
             onClick={onToggle}
             className="w-12 h-12 flex items-center justify-center text-[#858585] hover:text-white hover:bg-[#2a2d2e] transition-colors"
             title={isCollapsed ? "Show Sidebar" : "Hide Sidebar"}
@@ -107,15 +107,16 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
               size={16}
               className={`transition-transform duration-200 ${isCollapsed ? "rotate-0" : "rotate-180"}`}
             />
-          </button> */}
+          </button>
         </div>
       </div>
 
       {/* Sidebar Panel - Toggleable */}
       <div
-        className={`fixed top-0 left-12 h-full bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 ${
+        className={`fixed top-0 left-12 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 ${
           isCollapsed ? "w-0 overflow-hidden" : "w-64"
         }`}
+        style={{ height: "calc(100vh - 60px)" }}
       >
         {activeTab === "explorer" && (
           <>

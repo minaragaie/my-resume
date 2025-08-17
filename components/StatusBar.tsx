@@ -6,12 +6,14 @@ interface StatusBarProps {
   status?: string
   isVisible?: boolean
   onStatusChange?: (status: string) => void
+  sidebarCollapsed?: boolean
 }
 
 export default function StatusBar({
   status = "Ready for next challenge",
   isVisible = true,
   onStatusChange,
+  sidebarCollapsed = false,
 }: StatusBarProps) {
   if (!isVisible) return null
 
@@ -22,8 +24,12 @@ export default function StatusBar({
   const showCloseButton =
     status !== "Ready for next challenge" && !status.includes("Ready") && !status.includes("challenge")
 
+  const leftMargin = sidebarCollapsed ? "ml-12" : "ml-80"
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-[#2d2d30] border-t border-[#3e3e42] px-4 py-3 flex items-center justify-between text-sm z-40">
+    <div
+      className={`fixed bottom-0 left-0 right-0 bg-[#2d2d30] border-t border-[#3e3e42] px-4 py-3 flex items-center justify-between text-sm z-40 ${leftMargin}`}
+    >
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">
           <GitBranch className="w-4 h-4 text-[#4ec9b0]" />
