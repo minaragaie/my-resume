@@ -24,11 +24,10 @@ export default function StatusBar({
   const showCloseButton =
     status !== "Ready for next challenge" && !status.includes("Ready") && !status.includes("challenge")
 
-  const leftMargin = sidebarCollapsed ? "ml-12" : "ml-80"
 
   return (
     <div
-      className={`fixed bottom-0 left-0 right-0 bg-[#2d2d30] border-t border-[#3e3e42] px-4 py-3 flex items-center justify-between text-sm z-40 ${leftMargin}`}
+      className={`fixed bottom-0 left-0 right-0 bg-[#2d2d30] border-t border-[#3e3e42] px-4 py-3 flex items-center justify-between text-sm z-50`}
     >
       <div className="flex items-center gap-4">
         <div className="flex items-center gap-2">

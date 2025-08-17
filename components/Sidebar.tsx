@@ -159,7 +159,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
               )}
             </div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-[#3e3e42] bg-[#252526]">
+            <div className="p-3 border-t border-[#3e3e42] bg-[#252526]">
               <div className="text-xs text-[#858585] space-y-1">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
