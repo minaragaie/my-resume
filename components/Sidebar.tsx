@@ -15,7 +15,11 @@ import {
   GitBranch,
   Settings,
   ExpandIcon as Extensions,
+  Folder,
+  FileText,
 } from "lucide-react"
+
+import { staticResumeData } from "@/lib/resume-data"
 
 interface SidebarProps {
   currentSection: string
@@ -27,16 +31,117 @@ interface SidebarProps {
 export default function Sidebar({ currentSection, onSectionClick, isCollapsed, onToggle }: SidebarProps) {
   const [isExplorerOpen, setIsExplorerOpen] = useState(true)
   const [activeTab, setActiveTab] = useState("explorer")
+  const [expandedDirs, setExpandedDirs] = useState<Record<string, boolean>>({
+    skills: false,
+    experience: false,
+    education: false,
+    certifications: false,
+  })
 
-  const sections = [
-    { id: "hero", name: "hero.tsx", icon: User, color: "#007acc" },
-    { id: "skills", name: "skills.tsx", icon: Code, color: "#4ec9b0" },
-    { id: "experience", name: "experience.tsx", icon: Briefcase, color: "#dcdcaa" },
-    { id: "technologies", name: "technologies.tsx", icon: Code, color: "#9cdcfe" },
-    { id: "education", name: "education.tsx", icon: GraduationCap, color: "#c586c0" },
-    { id: "certifications", name: "certifications.tsx", icon: Award, color: "#ce9178" },
-    { id: "contact", name: "contact.tsx", icon: Mail, color: "#b5cea8" },
-  ]
+  const generateFileStructure = () => {
+    const structure = [{ id: "hero", name: "hero.tsx", icon: User, color: "#007acc", type: "file" }]
+
+    const skillsChildren = Object.entries(staticResumeData.skills).map(([category, skills]) => ({
+      id: `skills-${category}`,
+      name: `${category}.ts`,
+      icon: FileText,
+      color: "#4ec9b0",
+      parent: "skills",
+    }))
+
+    structure.push({
+      id: "skills",
+      name: "skills/",
+      icon: Folder,
+      color: "#dcb67a",
+      type: "directory",
+      children: skillsChildren,
+    })
+
+    const experienceChildren = staticResumeData.experience.map((exp) => ({
+      id: `experience-${exp.id}`,
+      name: `${exp.company.toLowerCase().replace(/[^a-z0-9]/g, "-")}.tsx`,
+      icon: Briefcase,
+      color: "#dcdcaa",
+      parent: "experience",
+    }))
+
+    structure.push({
+      id: "experience",
+      name: "experience/",
+      icon: Folder,
+      color: "#dcb67a",
+      type: "directory",
+      children: experienceChildren,
+    })
+
+    structure.push({ id: "technologies", name: "technologies.tsx", icon: Code, color: "#9cdcfe", type: "file" })
+
+    const educationChildren = staticResumeData.education.map((edu, index) => ({
+      id: `education-${index}`,
+      name: `${(edu.degree || "unknown-degree").toLowerCase().replace(/[^a-z0-9]/g, "-")}.tsx`,
+      icon: GraduationCap,
+      color: "#c586c0",
+      parent: "education",
+    }))
+
+    structure.push({
+      id: "education",
+      name: "education/",
+      icon: Folder,
+      color: "#dcb67a",
+      type: "directory",
+      children: educationChildren,
+    })
+
+    const certificationsChildren = staticResumeData.certifications.map((cert, index) => ({
+      id: `certifications-${index}`,
+      name: `${(cert.name || "unknown-certificate").toLowerCase().replace(/[^a-z0-9]/g, "-")}.tsx`,
+      icon: Award,
+      color: "#ce9178",
+      parent: "certifications",
+    }))
+
+    structure.push({
+      id: "certifications",
+      name: "certifications/",
+      icon: Folder,
+      color: "#dcb67a",
+      type: "directory",
+      children: certificationsChildren,
+    })
+
+    structure.push({ id: "contact", name: "contact.tsx", icon: Mail, color: "#b5cea8", type: "file" })
+
+    return structure
+  }
+
+  const fileStructure = generateFileStructure()
+
+  const getTotalFileCount = () => {
+    let count = 3 // hero, technologies, contact
+    count += Object.keys(staticResumeData.skills).length
+    count += staticResumeData.experience.length
+    count += staticResumeData.education.length
+    count += staticResumeData.certifications.length
+    return count
+  }
+
+  const toggleDirectory = (dirId: string) => {
+    setExpandedDirs((prev) => ({
+      ...prev,
+      [dirId]: !prev[dirId],
+    }))
+  }
+
+  const scrollToSection = (sectionId: string) => {
+    const parentSection = sectionId.includes("-") ? sectionId.split("-")[0] : sectionId
+    const element = document.getElementById(parentSection)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+    onSectionClick(parentSection)
+  }
 
   const sidebarTabs = [
     { id: "explorer", icon: FolderOpen, tooltip: "Explorer" },
@@ -45,14 +150,6 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
     { id: "extensions", icon: Extensions, tooltip: "Extensions" },
     { id: "settings", icon: Settings, tooltip: "Settings" },
   ]
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" })
-    }
-    onSectionClick(sectionId)
-  }
 
   return (
     <>
@@ -135,23 +232,73 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
                 {isExplorerOpen && (
                   <div className="ml-4 space-y-0.5">
-                    {sections.map((section) => {
-                      const Icon = section.icon
-                      const isActive = currentSection === section.id
+                    {fileStructure.map((item) => {
+                      if (item.type === "directory") {
+                        const Icon = item.icon
+                        const isExpanded = expandedDirs[item.id]
+                        const isActive = currentSection === item.id
 
-                      return (
-                        <button
-                          key={section.id}
-                          onClick={() => scrollToSection(section.id)}
-                          className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
-                            isActive ? "bg-[#094771] text-white" : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
-                          }`}
-                        >
-                          <Icon size={14} style={{ color: section.color }} />
-                          <span>{section.name}</span>
-                          {isActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
-                        </button>
-                      )
+                        return (
+                          <div key={item.id}>
+                            <button
+                              onClick={() => toggleDirectory(item.id)}
+                              className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+                                isActive
+                                  ? "bg-[#094771] text-white"
+                                  : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
+                              }`}
+                            >
+                              {isExpanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+                              <Icon size={14} style={{ color: item.color }} />
+                              <span>{item.name}</span>
+                            </button>
+
+                            {isExpanded && item.children && (
+                              <div className="ml-6 space-y-0.5 mt-1">
+                                {item.children.map((child) => {
+                                  const ChildIcon = child.icon
+                                  const isChildActive = currentSection === child.parent
+
+                                  return (
+                                    <button
+                                      key={child.id}
+                                      onClick={() => scrollToSection(child.id)}
+                                      className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+                                        isChildActive
+                                          ? "bg-[#094771] text-white"
+                                          : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
+                                      }`}
+                                    >
+                                      <ChildIcon size={14} style={{ color: child.color }} />
+                                      <span>{child.name}</span>
+                                      {isChildActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
+                                    </button>
+                                  )
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        )
+                      } else {
+                        const Icon = item.icon
+                        const isActive = currentSection === item.id
+
+                        return (
+                          <button
+                            key={item.id}
+                            onClick={() => scrollToSection(item.id)}
+                            className={`flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded transition-colors ${
+                              isActive
+                                ? "bg-[#094771] text-white"
+                                : "text-[#cccccc] hover:bg-[#2a2d2e] hover:text-white"
+                            }`}
+                          >
+                            <Icon size={14} style={{ color: item.color }} />
+                            <span>{item.name}</span>
+                            {isActive && <div className="ml-auto w-1 h-1 bg-white rounded-full"></div>}
+                          </button>
+                        )
+                      }
                     })}
                   </div>
                 )}
@@ -161,7 +308,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 <div className="text-xs text-[#858585] space-y-1">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span>7 files • Portfolio v1.0</span>
+                    <span>{getTotalFileCount()} files • Portfolio v1.0</span>
                   </div>
                   <div className="text-[#6a6a6a]">Last modified: Just now</div>
                 </div>
