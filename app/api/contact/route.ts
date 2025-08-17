@@ -22,8 +22,8 @@ export async function POST(request: NextRequest) {
 
     try {
       const emailData = await resend.emails.send({
-        from: "Contact Form <noreply@yourdomain.com>", // Replace with your verified domain
-        to: ["your-email@gmail.com"], // Replace with your actual email
+        from: 'onboarding@resend.dev',
+        to: 'minaragaie@hotmail.com',
         subject: `New Contact Form Message from ${name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -41,27 +41,17 @@ export async function POST(request: NextRequest) {
             </p>
           </div>
         `,
-        reply_to: email,
+        replyTo: email,
       })
 
       console.log("[v0] Email sent successfully:", emailData)
       console.log("[v0] Email ID:", emailData.data?.id)
       return NextResponse.json({ message: "Message sent successfully" }, { status: 200 })
     } catch (emailError) {
-      console.error("[v0] Email sending failed:", emailError)
-      console.error("[v0] Error details:", {
-        message: emailError.message,
-        name: emailError.name,
-        stack: emailError.stack,
-      })
       return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
     }
   } catch (error) {
     console.error("[v0] Contact form error:", error)
-    console.error("[v0] Request parsing failed:", {
-      message: error.message,
-      name: error.name,
-    })
     return NextResponse.json({ error: "Failed to send message" }, { status: 500 })
   }
 }
