@@ -2,6 +2,8 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
+  basePath: '/my-resume',
+  assetPrefix: '/my-resume',
   eslint: {
     ignoreDuringBuilds: true,
   },
