@@ -5,7 +5,8 @@
   "homepage": "https://minaragaie.github.io/my-resume",
   "scripts": {
     "build": "next build",
-    "deploy": "npm run build && touch ./out/.nojekyll && gh-pages -d ./out",
+    "deploy": "npm run build && touch ./out/.nojekyll && gh-pages -d ./out -b gh-pages",
+    
     "dev": "next dev",
     "dev:debug": "NODE_OPTIONS='--inspect' next dev",
     "lint": "next lint",
