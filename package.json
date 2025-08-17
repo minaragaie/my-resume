@@ -4,11 +4,13 @@
   "private": true,
   "homepage": "https://minaragaie.github.io/my-resume",
   "scripts": {
-   "dev": "next dev",
-  "build": "next build",
-  "export": "next export",
-  "start": "next start",
-  "lint": "next lint"
+    "build": "next build",
+    "deploy": "npm run export && touch out/.nojekyll && gh-pages -d out",
+    "dev": "next dev",
+    "dev:debug": "NODE_OPTIONS='--inspect' next dev",
+    "export": "next build && next export",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
