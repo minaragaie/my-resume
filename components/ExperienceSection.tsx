@@ -71,14 +71,16 @@ export default function ExperienceSection({ isVisible }: ExperienceSectionProps)
 
                 <div className="mb-6">
                   <h4 className="text-[#569cd6] font-mono mb-3">// Journey Milestones</h4>
-                  <ul className="space-y-2">
-                    {(exp.achievements || []).map((achievement, achIndex) => (
-                      <li key={achIndex} className="flex items-start gap-3 text-[#d4d4d4]">
-                        <span className="text-[#4ec9b0] mt-1">🚀</span>
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="bg-[#1e1e1e] rounded p-3 mb-4 transition-all duration-500 translate-y-0 opacity-100 border border-[#3e3e42]">
+                    <ul className="space-y-2">
+                      {(exp.achievements || []).map((achievement, achIndex) => (
+                        <li key={achIndex} className="flex items-start gap-3 text-[#d4d4d4]">
+                          <span className="text-[#4ec9b0] mt-1">🚀</span>
+                          <span>{achievement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
                 <div>
