@@ -401,7 +401,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
           )}
 
           {activeTab === "search" && (
-            <div className="h-full flex flex-col">
+            <div className="max-h-[calc(100vh-8rem)] flex flex-col">
               <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
                 Search
               </div>
@@ -414,7 +414,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                   <Search size={16} className="text-[#858585]" />
                   <span className="text-sm text-[#858585]">Search resume content...</span>
                   <div className="ml-auto text-xs text-[#858585]">
-                    <kbd className="px-1.5 py-0.5 bg-[#2a2d2e] rounded text-xs">{shortcutKey}</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-[#2a2d2e] rounded font-sans">{shortcutKey}</kbd>
                   </div>
                 </button>
 
@@ -448,18 +448,22 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
                 <div className="mt-6">
                   <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-3">Search Tips</div>
-                  <div className="space-y-2 text-xs text-[#858585]">
-                    <div>• Type skill names to find relevant experience</div>
-                    <div>• Search company names for specific roles</div>
-                    <div>• Use &gt; prefix for navigation commands</div>
-                    <div>• Press {shortcutKey} for command palette</div>
-                  </div>
+                  <ul className="list-disc list-outside pl-5 space-y-2 text-xs text-[#858585]">
+                    <li>Type skill names to find relevant experience</li>
+                    <li>Search company names for specific roles</li>
+                    <li>Use &gt; prefix for navigation commands</li>
+                    <li>Press {shortcutKey} for command palette</li>
+                  </ul>
+
+
                 </div>
               </div>
             </div>
           )}
 
           {activeTab === "git" && (
+            <div className="max-h-[calc(100vh-8rem)] flex flex-col">
+
             <CareerGitHistory
               onNavigate={(sectionId) => {
                 scrollToSection(sectionId)
@@ -468,9 +472,13 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 }
               }}
             />
+          </div>
+
           )}
 
           {activeTab === "extensions" && (
+            <div className="max-h-[calc(100vh-8rem)] flex flex-col">
+
             <SkillsMarketplace
               onNavigate={(sectionId) => {
                 scrollToSection(sectionId)
@@ -479,9 +487,12 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 }
               }}
             />
+            </div> 
           )}
 
           {activeTab === "settings" && (
+            <div className="max-h-[calc(100vh-8rem)] flex flex-col">
+
             <RecruiterDashboard
               onNavigate={(sectionId) => {
                 scrollToSection(sectionId)
@@ -490,6 +501,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 }
               }}
             />
+            </div>
           )}
         </div>
       )}
