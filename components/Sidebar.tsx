@@ -43,6 +43,9 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   })
   const [showCommandPalette, setShowCommandPalette] = useState(false)
 
+  const isMac = typeof navigator !== "undefined" && navigator.platform.toUpperCase().indexOf("MAC") >= 0
+  const shortcutKey = isMac ? "⌘⇧P" : "Ctrl+Shift+P"
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "P") {
@@ -408,7 +411,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                   <Search size={16} className="text-[#858585]" />
                   <span className="text-sm text-[#858585]">Search resume content...</span>
                   <div className="ml-auto text-xs text-[#858585]">
-                    <kbd className="px-1.5 py-0.5 bg-[#2a2d2e] rounded text-xs">Ctrl+Shift+P</kbd>
+                    <kbd className="px-1.5 py-0.5 bg-[#2a2d2e] rounded text-xs">{shortcutKey}</kbd>
                   </div>
                 </button>
 
@@ -446,7 +449,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                     <div>• Type skill names to find relevant experience</div>
                     <div>• Search company names for specific roles</div>
                     <div>• Use &gt; prefix for navigation commands</div>
-                    <div>• Press Ctrl+Shift+P for command palette</div>
+                    <div>• Press {shortcutKey} for command palette</div>
                   </div>
                 </div>
               </div>

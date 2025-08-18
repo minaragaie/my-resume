@@ -27,6 +27,9 @@ export default function CommandPalette({ onNavigate, onClose }: CommandPalettePr
   const [history, setHistory] = useState<string[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const isMac = typeof navigator !== "undefined" && navigator.platform.toUpperCase().indexOf("MAC") >= 0
+  const shortcutKey = isMac ? "⌘⇧P" : "Ctrl+Shift+P"
+
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
@@ -255,6 +258,10 @@ export default function CommandPalette({ onNavigate, onClose }: CommandPalettePr
             <div className="flex items-center gap-1">
               <kbd className="px-1.5 py-0.5 bg-[#3e3e42] rounded">Enter</kbd>
               <span>Select</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <kbd className="px-1.5 py-0.5 bg-[#3e3e42] rounded text-xs">{shortcutKey}</kbd>
+              <span>Open</span>
             </div>
           </div>
           <div>{results.length} results</div>
