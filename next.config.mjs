@@ -2,8 +2,8 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: '/my-resume', // Ensure basePath matches your exact repository name
-  assetPrefix: '/my-resume',
+  basePath: '', // Ensure basePath matches your exact repository name
+  assetPrefix: '',
   eslint: {
     ignoreDuringBuilds: true,
   },
