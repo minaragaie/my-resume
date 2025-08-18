@@ -25,6 +25,7 @@ import { slugify } from "@/lib/utils"
 import TreeItem from "./TreeItem"
 import CommandPalette from "./CommandPalette"
 import CareerGitHistory from "./CareerGitHistory"
+import SkillsMarketplace from "./SkillsMarketplace"
 
 interface SidebarProps {
   currentSection: string
@@ -469,10 +470,14 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
           )}
 
           {activeTab === "extensions" && (
-            <div className="p-4">
-              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Extensions</div>
-              <div className="text-xs text-[#858585]">No extensions installed</div>
-            </div>
+            <SkillsMarketplace
+              onNavigate={(sectionId) => {
+                scrollToSection(sectionId)
+                if (window.innerWidth < 768) {
+                  onToggle()
+                }
+              }}
+            />
           )}
 
           {activeTab === "settings" && (
