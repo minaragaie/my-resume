@@ -1,12 +1,17 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY || "dummy-key-for-build")
 
 export async function POST(request: NextRequest) {
   console.log("[v0] API Route called - Contact form submission")
   console.log("[v0] Environment check - RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY)
   console.log("[v0] RESEND_API_KEY value:", process.env.RESEND_API_KEY?.substring(0, 10) + "...")
+
+  if (!process.env.RESEND_API_KEY || process.env.RESEND_API_KEY === "dummy-key-for-build") {
+    console.log("[v0] RESEND_API_KEY not configured")
+    return NextResponse.json({ error: "Email service not configured" }, { status: 500 })
+  }
 
   try {
     const { name, email, message } = await request.json()
@@ -22,8 +27,8 @@ export async function POST(request: NextRequest) {
 
     try {
       const emailData = await resend.emails.send({
-        from: 'onboarding@resend.dev',
-        to: 'minaragaie@hotmail.com',
+        from: "onboarding@resend.dev",
+        to: "minaragaie@hotmail.com",
         subject: `New Contact Form Message from ${name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
