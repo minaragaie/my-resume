@@ -71,7 +71,11 @@ interface ProjectsSectionProps {
 export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="text-center mb-16">
+      <div
+        className={`text-center mb-16 transition-all duration-1000 ${
+          isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+        }`}
+      >
         <h2 className="text-4xl font-bold mb-4 text-white">
           <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">recentProjects</span>{" "}
           <span className="text-white">=</span> <span className="text-[#ce9178]">{"["}</span>
@@ -86,16 +90,25 @@ export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
           return (
             <div
               key={project.name}
-              className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform ${
+              className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform hover:scale-105 ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
               style={{
-                transitionDelay: `${projectIndex * 150}ms`,
-                transitionProperty: "transform, opacity",
+                transitionDelay: `${projectIndex * 150 + 200}ms`,
+                transitionProperty: "transform, opacity, border-color, box-shadow, scale",
               }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`p-2 bg-gradient-to-br ${project.color} rounded`}>
+              <div
+                className={`flex items-center gap-3 mb-4 transition-all duration-500 ${
+                  isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                }`}
+                style={{
+                  transitionDelay: `${projectIndex * 150 + 400}ms`,
+                }}
+              >
+                <div
+                  className={`p-2 bg-gradient-to-br ${project.color} rounded transition-transform duration-300 hover:rotate-12`}
+                >
                   <Icon className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -107,21 +120,35 @@ export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
                 </div>
               </div>
 
-              <div className="bg-[#2d2d30] rounded p-3 mb-4">
+              <div
+                className={`bg-[#2d2d30] rounded p-3 mb-4 transition-all duration-500 ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                }`}
+                style={{
+                  transitionDelay: `${projectIndex * 150 + 600}ms`,
+                }}
+              >
                 <p className="text-xs text-[#d4d4d4] leading-relaxed">{project.description}</p>
               </div>
 
-              <div className="space-y-2">
+              <div
+                className={`space-y-2 transition-all duration-500 ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                }`}
+                style={{
+                  transitionDelay: `${projectIndex * 150 + 800}ms`,
+                }}
+              >
                 <h4 className="text-xs font-medium text-[#569cd6]">Technologies:</h4>
                 <div className="flex flex-wrap gap-1">
                   {project.technologies.map((tech, techIndex) => (
                     <span
                       key={tech}
-                      className={`text-xs px-2 py-1 bg-[#2d2d30] text-[#d4d4d4] rounded border border-[#3e3e42] hover:border-[#007acc] transition-all duration-500 ${
-                        isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                      className={`text-xs px-2 py-1 bg-[#2d2d30] text-[#d4d4d4] rounded border border-[#3e3e42] hover:border-[#007acc] hover:bg-[#3e3e42] transition-all duration-500 ${
+                        isVisible ? "translate-x-0 opacity-100 scale-100" : "translate-x-4 opacity-0 scale-95"
                       }`}
                       style={{
-                        transitionDelay: `${projectIndex * 150 + techIndex * 50 + 300}ms`,
+                        transitionDelay: `${projectIndex * 150 + techIndex * 50 + 1000}ms`,
                       }}
                     >
                       {tech}

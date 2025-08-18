@@ -20,7 +20,7 @@ export default function Resume() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(true)
   const [animationStates, setAnimationStates] = useState({
     hero: true, // Hero starts visible since it's above the fold
-    skills: false,
+    projects: false,
     experience: false,
     technologies: false,
     education: false,
@@ -103,7 +103,7 @@ export default function Resume() {
           </section>
 
           <section id="projects" className="py-20 px-4 bg-[var(--bg-secondary)] transition-colors duration-300">
-            <ProjectsSection isVisible={animationStates.skills} />
+            <ProjectsSection isVisible={animationStates.projects} />
           </section>
 
           <section id="experience" className="py-20 px-4 bg-[var(--bg-primary)] transition-colors duration-300">

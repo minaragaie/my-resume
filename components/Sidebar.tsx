@@ -39,7 +39,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   const [isExplorerOpen, setIsExplorerOpen] = useState(true)
   const [activeTab, setActiveTab] = useState("explorer")
   const [expandedDirs, setExpandedDirs] = useState<Record<string, boolean>>({
-    skills: false,
+    projects: false,
     experience: false,
     education: false,
     certifications: false,
@@ -64,21 +64,34 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   const generateFileStructure = () => {
     const structure: any[] = [{ id: "hero", name: "hero.ts", icon: User, color: "#007acc", type: "file" }]
 
-    const skillsChildren = Object.entries(staticResumeData.skills).map(([category, skills]) => ({
-      id: `skills-${category}`,
-      name: `${category}.ts`,
-      icon: FileText,
-      color: "#4ec9b0",
-      parent: "skills",
-    }))
+    const projectsChildren = [
+      { id: "projects-turris-erp", name: "turris-erp.ts", icon: FileText, color: "#4ec9b0", parent: "projects" },
+      { id: "projects-entityconnect", name: "entityconnect.ts", icon: FileText, color: "#4ec9b0", parent: "projects" },
+      { id: "projects-abgadya", name: "abgadya-learning.ts", icon: FileText, color: "#4ec9b0", parent: "projects" },
+      { id: "projects-medical-rep", name: "medical-rep.ts", icon: FileText, color: "#4ec9b0", parent: "projects" },
+      {
+        id: "projects-booking-engine",
+        name: "booking-engine.ts",
+        icon: FileText,
+        color: "#4ec9b0",
+        parent: "projects",
+      },
+      {
+        id: "projects-communication",
+        name: "communication-suite.ts",
+        icon: FileText,
+        color: "#4ec9b0",
+        parent: "projects",
+      },
+    ]
 
     structure.push({
-      id: "skills",
-      name: "skills/",
+      id: "projects",
+      name: "projects/",
       icon: Folder,
       color: "#dcb67a",
       type: "directory",
-      children: skillsChildren,
+      children: projectsChildren,
     })
 
     const experienceChildren = staticResumeData.experience.map((exp) => ({
@@ -143,7 +156,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
   const getTotalFileCount = () => {
     let count = 3 // hero, technologies, contact
-    count += Object.keys(staticResumeData.skills).length
+    count += 6 // 6 projects
     count += staticResumeData.experience.length
     count += staticResumeData.education.length
     count += staticResumeData.certifications.length
@@ -160,7 +173,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   const scrollToSection = (sectionId: string) => {
     if (
       sectionId.includes("-") &&
-      sectionId !== "skills" &&
+      sectionId !== "projects" &&
       sectionId !== "experience" &&
       sectionId !== "education" &&
       sectionId !== "certifications"
@@ -172,9 +185,8 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" })
         }
-      } else if (parentSection === "skills") {
-        const skillCategory = rest.join("-")
-        const element = document.getElementById(`skill-${skillCategory}`)
+      } else if (parentSection === "projects") {
+        const element = document.getElementById("projects")
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" })
         }
@@ -422,11 +434,11 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                   <div className="text-xs text-[#cccccc] uppercase tracking-wide">Quick Actions</div>
 
                   <button
-                    onClick={() => scrollToSection("skills")}
+                    onClick={() => scrollToSection("projects")}
                     className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
                   >
                     <Code size={14} className="text-[#4ec9b0]" />
-                    <span className="text-sm text-[#cccccc]">View All Skills</span>
+                    <span className="text-sm text-[#cccccc]">View All Projects</span>
                   </button>
 
                   <button
@@ -449,13 +461,11 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 <div className="mt-6">
                   <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-3">Search Tips</div>
                   <ul className="list-disc list-outside pl-5 space-y-2 text-xs text-[#858585]">
-                    <li>Type skill names to find relevant experience</li>
+                    <li>Type project names to find relevant experience</li>
                     <li>Search company names for specific roles</li>
                     <li>Use &gt; prefix for navigation commands</li>
                     <li>Press {shortcutKey} for command palette</li>
                   </ul>
-
-
                 </div>
               </div>
             </div>
@@ -463,44 +473,40 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
           {activeTab === "git" && (
             <div className="max-h-[calc(100vh-8rem)] flex flex-col">
-
-            <CareerGitHistory
-              onNavigate={(sectionId) => {
-                scrollToSection(sectionId)
-                if (window.innerWidth < 768) {
-                  onToggle()
-                }
-              }}
-            />
-          </div>
-
+              <CareerGitHistory
+                onNavigate={(sectionId) => {
+                  scrollToSection(sectionId)
+                  if (window.innerWidth < 768) {
+                    onToggle()
+                  }
+                }}
+              />
+            </div>
           )}
 
           {activeTab === "extensions" && (
             <div className="max-h-[calc(100vh-8rem)] flex flex-col">
-
-            <SkillsMarketplace
-              onNavigate={(sectionId) => {
-                scrollToSection(sectionId)
-                if (window.innerWidth < 768) {
-                  onToggle()
-                }
-              }}
-            />
-            </div> 
+              <SkillsMarketplace
+                onNavigate={(sectionId) => {
+                  scrollToSection(sectionId)
+                  if (window.innerWidth < 768) {
+                    onToggle()
+                  }
+                }}
+              />
+            </div>
           )}
 
           {activeTab === "settings" && (
             <div className="max-h-[calc(100vh-8rem)] flex flex-col">
-
-            <RecruiterDashboard
-              onNavigate={(sectionId) => {
-                scrollToSection(sectionId)
-                if (window.innerWidth < 768) {
-                  onToggle()
-                }
-              }}
-            />
+              <RecruiterDashboard
+                onNavigate={(sectionId) => {
+                  scrollToSection(sectionId)
+                  if (window.innerWidth < 768) {
+                    onToggle()
+                  }
+                }}
+              />
             </div>
           )}
         </div>
