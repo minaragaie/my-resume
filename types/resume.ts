@@ -22,7 +22,6 @@ export interface ResumeData {
   highlights: string
   experience: Array<{
     id: number
-    duration?: string   // ✅ add this
     title: string
     company: string
     startDate: string

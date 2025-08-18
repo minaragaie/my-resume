@@ -88,14 +88,14 @@ interface SkillsSectionProps {
 
 export default function SkillsSection({ isVisible }: SkillsSectionProps) {
   return (
-    <section id="skills" className="py-20 px-4 bg-[#252526]">
+    <section id="skills" className="py-20 px-4 bg-[var(--vscode-sidebar)]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-white">
-            <span className="text-[#569cd6] font-mono">class</span>{" "}
-            <span className="text-[#4ec9b0]">TechnicalSkills</span>
+          <h2 className="text-4xl font-bold mb-4 text-[var(--vscode-text)]">
+            <span className="text-[var(--vscode-keyword)] font-mono">class</span>{" "}
+            <span className="text-[var(--vscode-success)]">TechnicalSkills</span>
           </h2>
-          <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
+          <p className="text-[var(--vscode-text)] max-w-2xl mx-auto font-mono">
             // Comprehensive expertise built through hands-on experience
           </p>
         </div>
@@ -106,7 +106,7 @@ export default function SkillsSection({ isVisible }: SkillsSectionProps) {
               <div
                 key={category.name}
                 id={`skill-${category.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
-                className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform ${
+                className={`bg-[var(--vscode-bg)] border border-[var(--vscode-border)] rounded-lg p-6 hover:border-[var(--vscode-accent)] transition-all duration-700 hover:shadow-lg hover:shadow-[var(--vscode-accent)]/20 transform ${
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
                 style={{
@@ -119,20 +119,20 @@ export default function SkillsSection({ isVisible }: SkillsSectionProps) {
                     <Icon className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white">{category.name}</h3>
-                    <p className="text-sm text-[#d4d4d4]">{category.skills.length} skills</p>
+                    <h3 className="font-semibold text-[var(--vscode-text)]">{category.name}</h3>
+                    <p className="text-sm text-[var(--vscode-text)]">{category.skills.length} skills</p>
                   </div>
                 </div>
 
-                <div className="bg-[#2d2d30] rounded p-3 mb-4">
-                  <code className="text-xs text-[#ce9178] font-mono">{category.syntax}</code>
+                <div className="bg-[var(--vscode-sidebar)] rounded p-3 mb-4">
+                  <code className="text-xs text-[var(--vscode-string)] font-mono">{category.syntax}</code>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   {category.skills.map((skill, skillIndex) => (
                     <div
                       key={skill}
-                      className={`flex items-center gap-2 text-xs text-[#d4d4d4] bg-[#2d2d30] px-2 py-1.5 rounded hover:bg-[#3e3e42] transition-all duration-500 ${
+                      className={`flex items-center gap-2 text-xs text-[var(--vscode-text)] bg-[var(--vscode-sidebar)] px-2 py-1.5 rounded hover:bg-[var(--vscode-border)] transition-all duration-500 ${
                         isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
                       }`}
                       style={{

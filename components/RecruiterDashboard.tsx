@@ -60,10 +60,6 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
     }
   }
 
-  useEffect(() => {
-    applyTheme(theme)
-  }, [theme])
-
   const applyTheme = (newTheme: string) => {
     setTheme(newTheme)
     console.log(`[v0] Applied theme: ${newTheme}`)
@@ -71,25 +67,44 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
     const html = document.documentElement
     const body = document.body
 
-    // Remove all theme classes
-    html.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark")
-    body.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark")
+    // Remove all existing theme classes
+    html.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark", "light")
+    body.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark", "light")
 
-    // Apply new theme class
+    // Apply new theme class to both html and body for maximum coverage
     const themeClass = `theme-${newTheme}`
     html.classList.add(themeClass)
     body.classList.add(themeClass)
 
-    // Also add 'dark' class for compatibility with existing dark mode styles
-    if (newTheme !== "light") {
+    // Add compatibility classes for existing components
+    if (newTheme === "light") {
+      html.classList.add("light")
+      body.classList.add("light")
+    } else {
       html.classList.add("dark")
       body.classList.add("dark")
     }
 
-    // Clear any inline styles that might override CSS variables
-    body.style.removeProperty("background-color")
-    body.style.removeProperty("color")
+    // Force CSS custom property updates by triggering a reflow
+    html.style.setProperty("--theme-transition", "all 0.3s ease")
+
+    // Dispatch custom event to notify all components of theme change
+    window.dispatchEvent(
+      new CustomEvent("themeChange", {
+        detail: { theme: newTheme },
+      }),
+    )
+
+    console.log(`[v0] Theme classes applied: ${themeClass}, dark: ${newTheme !== "light"}`)
   }
+
+  useEffect(() => {
+    applyTheme(theme)
+  }, [])
+
+  useEffect(() => {
+    applyTheme(theme)
+  }, [theme])
 
   const handleFontSizeChange = (size: string) => {
     setFontSize(size)
@@ -100,8 +115,8 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
   }
 
   return (
-    <div className="flex flex-col bg-[#252526] min-h-0 flex-1">
-      <div className="flex-shrink-0 h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
+    <div className="flex flex-col bg-[var(--vscode-sidebar)] min-h-0 flex-1">
+      <div className="flex-shrink-0 h-9 bg-[var(--vscode-sidebar)] flex items-center px-3 text-xs text-[var(--vscode-text)] font-medium border-b border-[var(--vscode-border)] uppercase tracking-wide">
         <Settings size={12} className="mr-2" />
         Settings
       </div>
@@ -112,10 +127,10 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
           const isExpanded = expandedSections.includes(section.id)
 
           return (
-            <div key={section.id} className="border-b border-[#3e3e42]">
+            <div key={section.id} className="border-b border-[var(--vscode-border)]">
               <button
                 onClick={() => toggleAccordionSection(section.id)}
-                className="w-full flex items-center justify-between px-3 py-2 text-xs text-[#cccccc] hover:bg-[#2a2d2e] transition-colors"
+                className="w-full flex items-center justify-between px-3 py-2 text-xs text-[var(--vscode-text)] hover:bg-[var(--vscode-tab)] transition-colors"
               >
                 <div className="flex items-center gap-2">
                   <Icon size={12} />
@@ -129,7 +144,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                   {section.id === "theme" && (
                     <>
                       <div>
-                        <h4 className="text-xs font-medium text-[#cccccc] mb-2 flex items-center gap-1">
+                        <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
                           <Palette size={10} />
                           Color Theme
                         </h4>
@@ -145,8 +160,8 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                               onClick={() => applyTheme(themeOption.value)}
                               className={`w-full text-left p-2 rounded border transition-colors ${
                                 theme === themeOption.value
-                                  ? "bg-[#007acc] border-[#007acc] text-white"
-                                  : "bg-[#3e3e42] border-[#464647] text-[#cccccc] hover:bg-[#4e4e4e]"
+                                  ? "bg-[var(--vscode-blue)] border-[var(--vscode-blue)] text-white"
+                                  : "bg-[var(--vscode-tab)] border-[var(--vscode-border)] text-[var(--vscode-text)] hover:bg-[var(--vscode-bg)]"
                               }`}
                             >
                               <div className="text-xs font-medium">{themeOption.label}</div>
@@ -157,7 +172,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                       </div>
 
                       <div>
-                        <h4 className="text-xs font-medium text-[#cccccc] mb-2">Font Size</h4>
+                        <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2">Font Size</h4>
                         <div className="flex gap-1">
                           {["small", "medium", "large"].map((size) => (
                             <button
@@ -165,8 +180,8 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                               onClick={() => handleFontSizeChange(size)}
                               className={`flex-1 p-1.5 text-xs rounded transition-colors capitalize ${
                                 fontSize === size
-                                  ? "bg-[#007acc] text-white"
-                                  : "bg-[#3e3e42] hover:bg-[#4e4e4e] text-[#cccccc]"
+                                  ? "bg-[var(--vscode-blue)] text-white"
+                                  : "bg-[var(--vscode-tab)] hover:bg-[var(--vscode-bg)] text-[var(--vscode-text)]"
                               }`}
                             >
                               {size}
@@ -180,7 +195,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                   {section.id === "quickActions" && (
                     <>
                       <div>
-                        <h4 className="text-xs font-medium text-[#cccccc] mb-2 flex items-center gap-1">
+                        <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
                           <Zap size={10} />
                           Navigate to Section
                         </h4>
@@ -191,14 +206,17 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                               <button
                                 key={action.id}
                                 onClick={() => handleNavigation(action.id)}
-                                className="w-full flex items-center gap-2 p-2 bg-[#3e3e42] hover:bg-[#007acc] rounded transition-colors text-left group"
+                                className="w-full flex items-center gap-2 p-2 bg-[var(--vscode-tab)] hover:bg-[var(--vscode-blue)] rounded transition-colors text-left group"
                               >
-                                <ActionIcon size={12} className="text-[#858585] group-hover:text-white" />
+                                <ActionIcon
+                                  size={12}
+                                  className="text-[var(--vscode-text-muted)] group-hover:text-white"
+                                />
                                 <div className="flex-1">
-                                  <div className="text-xs font-medium text-[#cccccc] group-hover:text-white">
+                                  <div className="text-xs font-medium text-[var(--vscode-text)] group-hover:text-white">
                                     {action.label}
                                   </div>
-                                  <div className="text-xs text-[#858585] group-hover:text-blue-100">
+                                  <div className="text-xs text-[var(--vscode-text-muted)] group-hover:text-blue-100">
                                     {action.description}
                                   </div>
                                 </div>
@@ -209,7 +227,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                       </div>
 
                       <div>
-                        <h4 className="text-xs font-medium text-[#cccccc] mb-2 flex items-center gap-1">
+                        <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
                           <Target size={10} />
                           Popular Searches
                         </h4>
@@ -220,7 +238,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                               <button
                                 key={index}
                                 onClick={search.action}
-                                className="w-full flex items-center gap-2 p-1.5 text-xs text-[#cccccc] hover:text-[#007acc] hover:bg-[#2a2d2e] rounded transition-colors"
+                                className="w-full flex items-center gap-2 p-1.5 text-xs text-[var(--vscode-text)] hover:text-[var(--vscode-blue)] hover:bg-[var(--vscode-tab)] rounded transition-colors"
                               >
                                 <SearchIcon size={10} />
                                 <span>{search.label}</span>
@@ -230,9 +248,9 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                         </div>
                       </div>
 
-                      <div className="mt-4 p-2 bg-[#1e1e1e] rounded border border-[#3e3e42]">
-                        <h4 className="text-xs font-medium text-[#cccccc] mb-1">Keyboard Shortcuts</h4>
-                        <div className="space-y-1 text-xs text-[#858585]">
+                      <div className="mt-4 p-2 bg-[var(--vscode-bg)] rounded border border-[var(--vscode-border)]">
+                        <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-1">Keyboard Shortcuts</h4>
+                        <div className="space-y-1 text-xs text-[var(--vscode-text-muted)]">
                           <div>⌘/Ctrl + Shift + P - Command Palette</div>
                           <div>⌘/Ctrl + K - Quick Navigation</div>
                         </div>
