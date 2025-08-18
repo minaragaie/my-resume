@@ -105,66 +105,64 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           >
             <div className="flex items-center gap-6 mb-8">
               <div className="relative group">
-                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[var(--vscode-accent)] p-1 bg-gradient-to-br from-[var(--vscode-accent)] to-[var(--vscode-success)]">
+                <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#007acc] p-1 bg-gradient-to-br from-[#007acc] to-[#4ec9b0]">
                   <img
                     src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/1753407168559-PCWiZjGAS8MtQhjaIJJBeSTHaxePdY.jpeg"
                     alt="Mina Youaness - Full Stack Developer"
                     className="w-full h-full rounded-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[var(--vscode-success)] rounded-full border-2 border-[var(--vscode-bg)] flex items-center justify-center">
+                <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#28ca42] rounded-full border-2 border-[#1e1e1e] flex items-center justify-center">
                   <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                 </div>
               </div>
               <div>
-                <div className="text-[var(--vscode-keyword)] text-sm mb-1 font-mono">// Full Stack Developer</div>
-                <h1 className="text-4xl md:text-5xl font-bold text-[var(--vscode-text)] mb-1">
-                  <span className="text-[var(--vscode-keyword)]">const</span>{" "}
-                  <span className="text-[var(--vscode-variable)]">developer</span>{" "}
-                  <span className="text-[var(--vscode-text)]">=</span>{" "}
-                  <span className="text-[var(--vscode-string)]">"Mina Youaness"</span>
+                <div className="text-[#569cd6] text-sm mb-1 font-mono">// Full Stack Developer</div>
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-1">
+                  <span className="text-[#4ec9b0]">const</span> <span className="text-[#9cdcfe]">developer</span>{" "}
+                  <span className="text-white">=</span> <span className="text-[#ce9178]">"Mina Youaness"</span>
                 </h1>
-                <div className="h-1 w-32 bg-gradient-to-r from-[var(--vscode-accent)] to-[var(--vscode-success)] rounded-full"></div>
+                <div className="h-1 w-32 bg-gradient-to-r from-[#007acc] to-[#4ec9b0] rounded-full"></div>
               </div>
             </div>
 
             <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-3 text-[var(--vscode-text)]">
-                <span className="text-[var(--vscode-keyword)] font-mono">experience:</span>
-                <span className="text-[var(--vscode-string)]">"10+ years"</span>
+              <div className="flex items-center gap-3 text-[#d4d4d4]">
+                <span className="text-[#569cd6] font-mono">experience:</span>
+                <span className="text-[#ce9178]">"10+ years"</span>
               </div>
-              <div className="flex items-center gap-3 text-[var(--vscode-text)]">
-                <span className="text-[var(--vscode-keyword)] font-mono">specialization:</span>
-                <span className="text-[var(--vscode-string)]">"Full-Stack Web Development"</span>
+              <div className="flex items-center gap-3 text-[#d4d4d4]">
+                <span className="text-[#569cd6] font-mono">specialization:</span>
+                <span className="text-[#ce9178]">"Full-Stack Web Development"</span>
               </div>
-              <div className="flex items-center gap-3 text-[var(--vscode-text)]">
-                <span className="text-[var(--vscode-keyword)] font-mono">passion:</span>
-                <span className="text-[var(--vscode-string)]">"Scalable & Secure Applications"</span>
+              <div className="flex items-center gap-3 text-[#d4d4d4]">
+                <span className="text-[#569cd6] font-mono">passion:</span>
+                <span className="text-[#ce9178]">"Scalable & Secure Applications"</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4 text-sm mb-8">
-              <div className="flex items-center gap-2 p-3 rounded bg-[var(--vscode-sidebar)] hover:bg-[var(--vscode-border)] transition-all">
-                <MapPin className="w-4 h-4 text-[var(--vscode-success)]" />
+              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
+                <MapPin className="w-4 h-4 text-[#4ec9b0]" />
                 <span>Voorhees, NJ</span>
               </div>
-              <div className="flex items-center gap-2 p-3 rounded bg-[var(--vscode-sidebar)] hover:bg-[var(--vscode-border)] transition-all">
-                <Phone className="w-4 h-4 text-[var(--vscode-success)]" />
+              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
+                <Phone className="w-4 h-4 text-[#4ec9b0]" />
                 <span>609.839.3558</span>
               </div>
-              <div className="flex items-center gap-2 p-3 rounded bg-[var(--vscode-sidebar)] hover:bg-[var(--vscode-border)] transition-all">
-                <Mail className="w-4 h-4 text-[var(--vscode-success)]" />
+              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
+                <Mail className="w-4 h-4 text-[#4ec9b0]" />
                 <span>minaragaie@hotmail.com</span>
               </div>
-              <div className="flex items-center gap-2 p-3 rounded bg-[var(--vscode-sidebar)] hover:bg-[var(--vscode-border)] transition-all">
-                <Linkedin className="w-4 h-4 text-[var(--vscode-success)]" />
+              <div className="flex items-center gap-2 p-3 rounded bg-[#2d2d30] hover:bg-[#3e3e42] transition-all">
+                <Linkedin className="w-4 h-4 text-[#4ec9b0]" />
                 <span>LinkedIn</span>
               </div>
             </div>
 
             <div className="flex gap-4">
               <Button
-                className="bg-gradient-to-r from-[var(--vscode-accent)] to-[var(--vscode-accent)] hover:opacity-80 text-white shadow-lg hover:shadow-xl border border-[var(--vscode-accent)]/20"
+                className="bg-gradient-to-r from-[#007acc] to-[#0086d4] hover:from-[#005a9e] hover:to-[#006bb3] text-white shadow-lg hover:shadow-xl border border-[#007acc]/20"
                 size="lg"
                 onClick={handleDownloadResume}
               >
@@ -174,7 +172,7 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-2 border-[var(--vscode-accent)] text-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)] hover:text-white bg-transparent/80 backdrop-blur-sm shadow-md hover:shadow-lg"
+                className="border-2 border-[#007acc] text-[#007acc] hover:bg-[#007acc] hover:text-white bg-transparent/80 backdrop-blur-sm shadow-md hover:shadow-lg"
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
                 View Portfolio
@@ -183,10 +181,10 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           </div>
 
           {/* Right side - Terminal */}
-          <div className="bg-[var(--vscode-terminal-bg)] rounded-lg border border-[var(--vscode-border)] overflow-hidden">
-            <div className="bg-[var(--vscode-sidebar)] px-4 py-2 flex items-center gap-2 border-b border-[var(--vscode-border)]">
-              <Terminal className="w-4 h-4 text-[var(--vscode-text-muted)]" />
-              <span className="text-sm text-[var(--vscode-text-muted)]">Terminal</span>
+          <div className="bg-[#0d1117] rounded-lg border border-[#30363d] overflow-hidden">
+            <div className="bg-[#21262d] px-4 py-2 flex items-center gap-2 border-b border-[#30363d]">
+              <Terminal className="w-4 h-4 text-[#7d8590]" />
+              <span className="text-sm text-[#7d8590]">Terminal</span>
               <div className="ml-auto flex gap-1">
                 <div className="w-3 h-3 bg-[#ff6b6b] rounded-full"></div>
                 <div className="w-3 h-3 bg-[#ffd93d] rounded-full"></div>
@@ -194,9 +192,9 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
               </div>
             </div>
             <div className="p-4 font-mono text-sm h-64 overflow-hidden">
-              <pre className="text-[var(--vscode-accent)] whitespace-pre-wrap">
+              <pre className="text-[#58a6ff] whitespace-pre-wrap">
                 {terminalText}
-                {showCursor && <span className="bg-[var(--vscode-accent)] text-[var(--vscode-terminal-bg)]">█</span>}
+                {showCursor && <span className="bg-[#58a6ff] text-[#0d1117]">█</span>}
               </pre>
             </div>
           </div>
