@@ -21,6 +21,15 @@
   --vscode-error: #f44747;
   --vscode-warning: #ffcc02;
 
+  /* Added default theme values to prevent same colors on initial load */
+  --bg-primary: #1e1e1e; /* Main background - VS Code editor */
+  --bg-secondary: #2d2d30; /* Secondary background - VS Code tab bar */
+  --bg-tertiary: #252526; /* Tertiary background - VS Code sidebar */
+  --text-primary: #d4d4d4;
+  --text-secondary: #969696;
+  --border-color: #3e3e42;
+  --accent-color: #007acc;
+
   /* Updated color tokens to match professional resume design brief */
   --background: oklch(1 0 0); /* #ffffff */
   --foreground: oklch(0.145 0 0);
@@ -371,9 +380,9 @@ html {
 }
 
 .theme-dark {
-  --bg-primary: #1e1e1e;
-  --bg-secondary: #252526;
-  --bg-tertiary: #2d2d30;
+  --bg-primary: #1e1e1e; /* Main background - VS Code editor */
+  --bg-secondary: #2d2d30; /* Secondary background - VS Code tab bar */
+  --bg-tertiary: #252526; /* Tertiary background - VS Code sidebar */
   --text-primary: #d4d4d4;
   --text-secondary: #969696;
   --border-color: #3e3e42;
@@ -393,8 +402,8 @@ html {
 
 .theme-high-contrast {
   --bg-primary: #000000;
-  --bg-secondary: #000000;
-  --bg-tertiary: #1a1a1a;
+  --bg-secondary: #1a1a1a; /* More distinct secondary background */
+  --bg-tertiary: #333333; /* Even more distinct tertiary background */
   --text-primary: #ffffff;
   --text-secondary: #cccccc;
   --border-color: #ffffff;
@@ -414,9 +423,9 @@ html {
 }
 
 .theme-monokai {
-  --bg-primary: #272822;
-  --bg-secondary: #2f3129;
-  --bg-tertiary: #383a2e;
+  --bg-primary: #272822; /* Main Monokai background */
+  --bg-secondary: #383a2e; /* More distinct secondary background */
+  --bg-tertiary: #2f3129; /* Tertiary background */
   --text-primary: #f8f8f2;
   --text-secondary: #75715e;
   --border-color: #49483e;
