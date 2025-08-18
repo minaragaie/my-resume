@@ -98,25 +98,31 @@ export default function Resume() {
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          <section id="hero">
+          <section id="hero" className="py-20 px-4 bg-[var(--bg-primary)] transition-colors duration-300">
             <HeroSection isVisible={animationStates.hero} />
           </section>
-          <section id="skills">
+
+          <section id="skills" className="py-20 px-4 bg-[var(--bg-secondary)] transition-colors duration-300">
             <SkillsSection isVisible={animationStates.skills} />
           </section>
-          <section id="experience">
+
+          <section id="experience" className="py-20 px-4 bg-[var(--bg-primary)] transition-colors duration-300">
             <ExperienceSection isVisible={animationStates.experience} />
           </section>
-          <section id="technologies">
+
+          <section id="technologies" className="py-20 px-4 bg-[var(--bg-secondary)] transition-colors duration-300">
             <TechnologiesSection isVisible={animationStates.technologies} />
           </section>
-          <section id="education">
+
+          <section id="education" className="py-20 px-4 bg-[var(--bg-primary)] transition-colors duration-300">
             <EducationSection isVisible={animationStates.education} />
           </section>
-          <section id="certifications">
+
+          <section id="certifications" className="py-20 px-4 bg-[var(--bg-secondary)] transition-colors duration-300">
             <CertificationsSection isVisible={animationStates.certifications} />
           </section>
-          <section id="contact">
+
+          <section id="contact" className="py-20 px-4 bg-[var(--bg-primary)] transition-colors duration-300">
             <ContactSection isVisible={animationStates.contact} onStatusChange={setStatus} />
           </section>
         </div>
