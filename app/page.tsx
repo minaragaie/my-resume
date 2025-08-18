@@ -65,7 +65,7 @@ export default function Resume() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1e1e1e] text-[#d4d4d4] flex">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex transition-colors duration-300">
       <Sidebar
         currentSection={currentSection}
         onSectionClick={setCurrentSection}
@@ -74,7 +74,7 @@ export default function Resume() {
       />
 
       <div className={`flex-1 h-screen flex flex-col transition-all duration-300`}>
-        <div className="bg-[#2d2d30] border-b border-[#3e3e42] px-4 py-2 flex items-center gap-4 flex-shrink-0">
+        <div className="bg-[var(--bg-secondary)] border-b border-[var(--border-color)] px-4 py-2 flex items-center gap-4 flex-shrink-0 transition-colors duration-300">
           <div className="flex gap-2">
             <div className="w-3 h-3 bg-[#ff5f57] rounded-full"></div>
             <div className="w-3 h-3 bg-[#ffbd2e] rounded-full"></div>

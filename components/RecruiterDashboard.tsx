@@ -68,37 +68,34 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
     setTheme(newTheme)
     console.log(`[v0] Applied theme: ${newTheme}`)
 
+    const html = document.documentElement
     const body = document.body
-    body.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai")
 
-    switch (newTheme) {
-      case "light":
-        body.classList.add("theme-light")
-        body.style.backgroundColor = "#ffffff"
-        body.style.color = "#000000"
-        break
-      case "high-contrast":
-        body.classList.add("theme-high-contrast")
-        body.style.backgroundColor = "#000000"
-        body.style.color = "#ffffff"
-        break
-      case "monokai":
-        body.classList.add("theme-monokai")
-        body.style.backgroundColor = "#272822"
-        body.style.color = "#f8f8f2"
-        break
-      default:
-        body.classList.add("theme-dark")
-        body.style.backgroundColor = "#1e1e1e"
-        body.style.color = "#cccccc"
+    // Remove all theme classes
+    html.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark")
+    body.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark")
+
+    // Apply new theme class
+    const themeClass = `theme-${newTheme}`
+    html.classList.add(themeClass)
+    body.classList.add(themeClass)
+
+    // Also add 'dark' class for compatibility with existing dark mode styles
+    if (newTheme !== "light") {
+      html.classList.add("dark")
+      body.classList.add("dark")
     }
+
+    // Clear any inline styles that might override CSS variables
+    body.style.removeProperty("background-color")
+    body.style.removeProperty("color")
   }
 
   const handleFontSizeChange = (size: string) => {
     setFontSize(size)
-    const body = document.body
+    const html = document.documentElement
     const sizeMap = { small: "14px", medium: "16px", large: "18px" }
-    body.style.fontSize = sizeMap[size as keyof typeof sizeMap]
+    html.style.setProperty("--base-font-size", sizeMap[size as keyof typeof sizeMap])
     console.log(`[v0] Applied font size: ${size}`)
   }
 
