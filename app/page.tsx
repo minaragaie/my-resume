@@ -29,6 +29,16 @@ export default function Resume() {
   })
 
   useEffect(() => {
+    const handleThemeChange = () => {
+      // Force a re-render to apply new theme variables
+      setCurrentSection((prev) => prev)
+    }
+
+    window.addEventListener("themeChange", handleThemeChange)
+    return () => window.removeEventListener("themeChange", handleThemeChange)
+  }, [])
+
+  useEffect(() => {
     if (isLoading) return
 
     const observer = new IntersectionObserver(
@@ -65,7 +75,7 @@ export default function Resume() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] flex transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--vscode-bg)] text-[var(--vscode-text)] flex transition-colors duration-300">
       <Sidebar
         currentSection={currentSection}
         onSectionClick={setCurrentSection}
@@ -74,13 +84,13 @@ export default function Resume() {
       />
 
       <div className={`flex-1 h-screen flex flex-col transition-all duration-300`}>
-        <div className="bg-[var(--bg-secondary)] border-b border-[var(--border-color)] px-4 py-2 flex items-center gap-4 flex-shrink-0 transition-colors duration-300">
+        <div className="bg-[var(--vscode-sidebar)] border-b border-[var(--vscode-border)] px-4 py-2 flex items-center gap-4 flex-shrink-0 transition-colors duration-300">
           <div className="flex gap-2">
             <div className="w-3 h-3 bg-[#ff5f57] rounded-full"></div>
             <div className="w-3 h-3 bg-[#ffbd2e] rounded-full"></div>
             <div className="w-3 h-3 bg-[#28ca42] rounded-full"></div>
           </div>
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-2 text-sm text-[var(--vscode-text)]">
             <FileCode className="w-4 h-4" />
             <span>mina-youaness-resume.tsx</span>
             <div className="w-2 h-2 bg-white rounded-full ml-2"></div>
