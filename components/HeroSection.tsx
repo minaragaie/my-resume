@@ -178,7 +178,10 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           </div>
 
           {/* Right side - Terminal */}
-          <div className="bg-[#0d1117] rounded-lg border border-[#30363d] overflow-hidden">
+          
+        </div>
+
+        <div className="bg-[#0d1117] rounded-lg border border-[#30363d] overflow-hidden">
             <div className="bg-[#21262d] px-4 py-2 flex items-center gap-2 border-b border-[#30363d]">
               <Terminal className="w-4 h-4 text-[#7d8590]" />
               <span className="text-sm text-[#7d8590]">Terminal</span>
@@ -195,7 +198,6 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
               </pre>
             </div>
           </div>
-        </div>
       </div>
     </div>
   )
