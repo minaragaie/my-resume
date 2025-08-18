@@ -112,20 +112,19 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
   }
 
   return (
-    <section
-      id="contact"
-      className={`py-20 px-4 bg-[#252526] relative transition-all duration-700 ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-      }`}
+    <div
+      className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-white">
+          <h2 className="text-4xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
             <span className="text-[#569cd6] font-mono">function</span>{" "}
             <span className="text-[#4ec9b0]">getInTouch</span>
-            <span className="text-white">()</span>
+            <span style={{ color: "var(--text-primary)" }}>()</span>
           </h2>
-          <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">// Ready to collaborate on your next project</p>
+          <p className="max-w-2xl mx-auto font-mono" style={{ color: "var(--text-secondary)" }}>
+            // Ready to collaborate on your next project
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -302,6 +301,6 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
           </div>
         </div>
       )}
-    </section>
+    </div>
   )
 }
