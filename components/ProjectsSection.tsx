@@ -64,11 +64,11 @@ const recentProjects = [
   },
 ]
 
-interface SkillsSectionProps {
+interface ProjectsSectionProps {
   isVisible: boolean
 }
 
-export default function SkillsSection({ isVisible }: SkillsSectionProps) {
+export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-16">

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import HeroSection from "@/components/HeroSection"
-import SkillsSection from "@/components/SkillsSection"
+import ProjectsSection from "@/components/ProjectsSection"
 import ExperienceSection from "@/components/ExperienceSection"
 import TechnologiesSection from "@/components/TechnologiesSection"
 import EducationSection from "@/components/EducationSection"
@@ -102,8 +102,8 @@ export default function Resume() {
             <HeroSection isVisible={animationStates.hero} />
           </section>
 
-          <section id="skills" className="py-20 px-4 bg-[var(--bg-secondary)] transition-colors duration-300">
-            <SkillsSection isVisible={animationStates.skills} />
+          <section id="projects" className="py-20 px-4 bg-[var(--bg-secondary)] transition-colors duration-300">
+            <ProjectsSection isVisible={animationStates.skills} />
           </section>
 
           <section id="experience" className="py-20 px-4 bg-[var(--bg-primary)] transition-colors duration-300">
