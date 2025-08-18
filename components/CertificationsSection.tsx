@@ -110,6 +110,7 @@ export default function CertificationsSection({ isVisible = false }: Certificati
           {(resumeData.certifications as Certificate[]).map((cert, index) => (
             <div
               key={index}
+              id={`cert-${cert.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
               className={`relative h-[350px] sm:h-[400px] transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}

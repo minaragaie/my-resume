@@ -27,7 +27,7 @@ export default function ExperienceSection({ isVisible }: ExperienceSectionProps)
 
           <div className="space-y-12">
             {resumeData.experience.map((exp, index) => (
-              <div key={exp.id} className="relative">
+              <div key={exp.id} id={`experience-${exp.id}`} className="relative">
                 {/* Journey milestone marker */}
                 <div className="absolute left-6 w-4 h-4 bg-[#007acc] rounded-full border-4 border-[#1e1e1e] z-10 shadow-lg shadow-[#007acc]/50"></div>
 

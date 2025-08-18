@@ -105,6 +105,7 @@ export default function SkillsSection({ isVisible }: SkillsSectionProps) {
             return (
               <div
                 key={category.name}
+                id={`skill-${category.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
                 className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform ${
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}

@@ -138,12 +138,51 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   }
 
   const scrollToSection = (sectionId: string) => {
-    const parentSection = sectionId.includes("-") ? sectionId.split("-")[0] : sectionId
-    const element = document.getElementById(parentSection)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" })
+    if (
+      sectionId.includes("-") &&
+      sectionId !== "skills" &&
+      sectionId !== "experience" &&
+      sectionId !== "education" &&
+      sectionId !== "certifications"
+    ) {
+      const [parentSection, ...rest] = sectionId.split("-")
+
+      if (parentSection === "experience") {
+        const element = document.getElementById(sectionId)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      } else if (parentSection === "skills") {
+        const skillCategory = rest.join("-")
+        const element = document.getElementById(`skill-${skillCategory}`)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      } else if (parentSection === "certifications") {
+        const certIndex = rest[0]
+        const cert = staticResumeData.certifications[Number.parseInt(certIndex)]
+        if (cert) {
+          const certId = `cert-${cert.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`
+          const element = document.getElementById(certId)
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+        }
+      } else {
+        const element = document.getElementById(parentSection)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      }
+
+      onSectionClick(sectionId)
+    } else {
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" })
+      }
+      onSectionClick(sectionId)
     }
-    onSectionClick(parentSection)
   }
 
   const sidebarTabs = [
@@ -171,17 +210,17 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 onClick={() => {
                   if (tab.id === "explorer") {
                     if (activeTab === "explorer" && !isCollapsed) {
-                      onToggle() // Close sidebar if explorer is active and open
+                      onToggle()
                     } else {
                       setActiveTab(tab.id)
                       if (isCollapsed) {
-                        onToggle() // Open sidebar if closed
+                        onToggle()
                       }
                     }
                   } else {
                     setActiveTab(tab.id)
                     if (isCollapsed) {
-                      onToggle() // Open sidebar for other tabs
+                      onToggle()
                     }
                   }
                 }}
@@ -280,7 +319,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                             {item.children && (
                               <div className="space-y-0.5">
                                 {item.children.map((child: any) => {
-                                  const isChildActive = currentSection === child.parent
+                                  const isChildActive = currentSection === child.id
 
                                   return (
                                     <TreeItem
