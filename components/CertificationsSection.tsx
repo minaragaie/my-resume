@@ -93,7 +93,7 @@ export default function CertificationsSection({ isVisible = false }: Certificati
   }
 
   return (
-    <section id="certifications" className="py-12 sm:py-20 px-4 bg-[#1e1e1e]">
+   <section id="certifications" className="py-12 sm:py-20 px-4 bg-[#1e1e1e]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8 sm:mb-16">
           <h2 className="text-2xl sm:text-4xl font-bold mb-4 text-white">
@@ -110,7 +110,6 @@ export default function CertificationsSection({ isVisible = false }: Certificati
           {(resumeData.certifications as Certificate[]).map((cert, index) => (
             <div
               key={index}
-              id={`cert-${cert.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
               className={`relative h-[350px] sm:h-[400px] transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
