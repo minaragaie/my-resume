@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   ChevronDown,
   ChevronRight,
@@ -23,6 +23,7 @@ import {
 import { staticResumeData } from "@/lib/resume-data"
 import { slugify } from "@/lib/utils"
 import TreeItem from "./TreeItem"
+import CommandPalette from "./CommandPalette"
 
 interface SidebarProps {
   currentSection: string
@@ -40,6 +41,19 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
     education: false,
     certifications: false,
   })
+  const [showCommandPalette, setShowCommandPalette] = useState(false)
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === "P") {
+        e.preventDefault()
+        setShowCommandPalette(true)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
 
   const generateFileStructure = () => {
     const structure: any[] = [{ id: "hero", name: "hero.ts", icon: User, color: "#007acc", type: "file" }]
@@ -381,9 +395,61 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
           )}
 
           {activeTab === "search" && (
-            <div className="p-4">
-              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Search</div>
-              <div className="text-xs text-[#858585]">Search functionality coming soon...</div>
+            <div className="h-full flex flex-col">
+              <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
+                Search
+              </div>
+
+              <div className="p-4 flex-1">
+                <button
+                  onClick={() => setShowCommandPalette(true)}
+                  className="w-full flex items-center gap-3 p-3 bg-[#3e3e42] hover:bg-[#4e4e4e] rounded-md transition-colors text-left"
+                >
+                  <Search size={16} className="text-[#858585]" />
+                  <span className="text-sm text-[#858585]">Search resume content...</span>
+                  <div className="ml-auto text-xs text-[#858585]">
+                    <kbd className="px-1.5 py-0.5 bg-[#2a2d2e] rounded text-xs">Ctrl+Shift+P</kbd>
+                  </div>
+                </button>
+
+                <div className="mt-6 space-y-3">
+                  <div className="text-xs text-[#cccccc] uppercase tracking-wide">Quick Actions</div>
+
+                  <button
+                    onClick={() => scrollToSection("skills")}
+                    className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
+                  >
+                    <Code size={14} className="text-[#4ec9b0]" />
+                    <span className="text-sm text-[#cccccc]">View All Skills</span>
+                  </button>
+
+                  <button
+                    onClick={() => scrollToSection("experience")}
+                    className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
+                  >
+                    <Briefcase size={14} className="text-[#dcdcaa]" />
+                    <span className="text-sm text-[#cccccc]">Browse Experience</span>
+                  </button>
+
+                  <button
+                    onClick={() => scrollToSection("certifications")}
+                    className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
+                  >
+                    <Award size={14} className="text-[#ce9178]" />
+                    <span className="text-sm text-[#cccccc]">View Certifications</span>
+                  </button>
+                </div>
+
+                <div className="mt-6">
+                  <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-3">Search Tips</div>
+                  <div className="space-y-2 text-xs text-[#858585]">
+                    <div>• Type skill names to find relevant experience</div>
+                    <div>• Search company names for specific roles</div>
+                    <div>• Use &gt; prefix for navigation commands</div>
+                    <div>• Press Ctrl+Shift+P for command palette</div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
@@ -414,6 +480,19 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
             </div>
           )}
         </div>
+      )}
+
+      {/* Command Palette Modal */}
+      {showCommandPalette && (
+        <CommandPalette
+          onNavigate={(sectionId) => {
+            scrollToSection(sectionId)
+            if (window.innerWidth < 768) {
+              onToggle()
+            }
+          }}
+          onClose={() => setShowCommandPalette(false)}
+        />
       )}
     </>
   )
