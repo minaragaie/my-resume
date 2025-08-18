@@ -122,12 +122,13 @@ export default function CommandPalette({ onNavigate, onClose }: CommandPalettePr
       if (
         query === "" ||
         (exp.company && exp.company.toLowerCase().includes(query.toLowerCase())) ||
-        (exp.position && exp.position.toLowerCase().includes(query.toLowerCase()))
+        (exp.title && exp.title.toLowerCase().includes(query.toLowerCase()))
       ) {
+        let duration = `${exp.startDate || "Unknown"} - ${exp.endDate || "Present"}`;
         results.push({
           id: `experience-${exp.id}`,
           title: exp.company || "Unknown Company",
-          description: `${exp.position || "Unknown Position"} • ${exp.duration || "Unknown Duration"}`,
+          description: `${exp.title || "Unknown Title"} • ${duration || "Unknown Duration"}`,
           category: "Experience",
           icon: Briefcase,
           color: "#dcdcaa",
