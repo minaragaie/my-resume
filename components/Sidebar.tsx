@@ -42,7 +42,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
   })
 
   const generateFileStructure = () => {
-    const structure: any[] = [{ id: "hero", name: "hero.tsx", icon: User, color: "#007acc", type: "file" }]
+    const structure: any[] = [{ id: "hero", name: "hero.ts", icon: User, color: "#007acc", type: "file" }]
 
     const skillsChildren = Object.entries(staticResumeData.skills).map(([category, skills]) => ({
       id: `skills-${category}`,
@@ -63,7 +63,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
     const experienceChildren = staticResumeData.experience.map((exp) => ({
       id: `experience-${exp.id}`,
-      name: `${slugify(exp.company.toLowerCase())}.tsx`,
+      name: `${slugify(exp.company.toLowerCase())}.ts`,
       icon: Briefcase,
       color: "#dcdcaa",
       parent: "experience",
@@ -78,11 +78,11 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
       children: experienceChildren,
     })
 
-    structure.push({ id: "technologies", name: "technologies.tsx", icon: Code, color: "#9cdcfe", type: "file" })
+    structure.push({ id: "technologies", name: "technologies.ts", icon: Code, color: "#9cdcfe", type: "file" })
 
     const educationChildren = staticResumeData.education.map((edu, index) => ({
       id: `education-${index}`,
-      name: `${slugify((edu.degree || "unknown-degree").toLowerCase())}.tsx`,
+      name: `${slugify((edu.degree || "unknown-degree").toLowerCase())}.ts`,
       icon: GraduationCap,
       color: "#c586c0",
       parent: "education",
@@ -99,7 +99,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
     const certificationsChildren = staticResumeData.certifications.map((cert, index) => ({
       id: `certifications-${index}`,
-      name: `${slugify((cert.name || "unknown-certificate").toLowerCase())}.tsx`,
+      name: `${slugify((cert.name || "unknown-certificate").toLowerCase())}.ts`,
       icon: Award,
       color: "#ce9178",
       parent: "certifications",
@@ -114,7 +114,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
       children: certificationsChildren,
     })
 
-    structure.push({ id: "contact", name: "contact.tsx", icon: Mail, color: "#b5cea8", type: "file" })
+    structure.push({ id: "contact", name: "contact.ts", icon: Mail, color: "#b5cea8", type: "file" })
 
     return structure
   }
