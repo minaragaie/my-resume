@@ -7,7 +7,6 @@ interface EducationSectionProps {
 
 export default function EducationSection({ isVisible }: EducationSectionProps) {
   return (
-    <section id="education" className="py-20 bg-[#1e1e1e]">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-white">
@@ -65,6 +64,5 @@ export default function EducationSection({ isVisible }: EducationSectionProps) {
           ))}
         </div>
       </div>
-    </section>
   )
 }

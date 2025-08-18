@@ -88,7 +88,6 @@ interface SkillsSectionProps {
 
 export default function SkillsSection({ isVisible }: SkillsSectionProps) {
   return (
-    <section id="skills" className="py-20 px-4 bg-[#252526]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4 text-white">
@@ -148,6 +147,5 @@ export default function SkillsSection({ isVisible }: SkillsSectionProps) {
           })}
         </div>
       </div>
-    </section>
   )
 }
