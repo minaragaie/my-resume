@@ -119,15 +119,16 @@ export default function CommandPalette({ onNavigate, onClose }: CommandPalettePr
 
     // Experience search
     staticResumeData.experience.forEach((exp) => {
+    let duration = `${exp.startDate || "Unknown"} - ${exp.endDate || "Present"}`;
       if (
         query === "" ||
         (exp.company && exp.company.toLowerCase().includes(query.toLowerCase())) ||
-        (exp.position && exp.position.toLowerCase().includes(query.toLowerCase()))
+        (exp.title && exp.title.toLowerCase().includes(query.toLowerCase()))
       ) {
         results.push({
           id: `experience-${exp.id}`,
           title: exp.company || "Unknown Company",
-          description: `${exp.position || "Unknown Position"} • ${exp.duration || "Unknown Duration"}`,
+          description: `${exp.title || "Unknown title"} • ${duration || "Unknown Duration"}`,
           category: "Experience",
           icon: Briefcase,
           color: "#dcdcaa",

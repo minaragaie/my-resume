@@ -1,18 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'export',
-  trailingSlash: true,
-  basePath: '/my-resume',
-  assetPrefix: '/my-resume',
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true,
-  },
-}
+const isProd = "production";
 
-export default nextConfig
+export default {
+  output: "export",
+  trailingSlash: true,
+  images: { unoptimized: true },
+  basePath: ""
+}
