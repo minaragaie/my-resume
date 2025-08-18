@@ -24,6 +24,7 @@ import { staticResumeData } from "@/lib/resume-data"
 import { slugify } from "@/lib/utils"
 import TreeItem from "./TreeItem"
 import CommandPalette from "./CommandPalette"
+import CareerGitHistory from "./CareerGitHistory"
 
 interface SidebarProps {
   currentSection: string
@@ -457,16 +458,14 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
           )}
 
           {activeTab === "git" && (
-            <div className="p-4">
-              <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-4">Source Control</div>
-              <div className="text-xs text-[#858585]">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>Clean working tree</span>
-                </div>
-                <div>Branch: main</div>
-              </div>
-            </div>
+            <CareerGitHistory
+              onNavigate={(sectionId) => {
+                scrollToSection(sectionId)
+                if (window.innerWidth < 768) {
+                  onToggle()
+                }
+              }}
+            />
           )}
 
           {activeTab === "extensions" && (
