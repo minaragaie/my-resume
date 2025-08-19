@@ -72,7 +72,7 @@ export default function ExperienceSection({ isVisible }: ExperienceSectionProps)
 
                 <div className="mb-6">
                   <h4 className="text-[var(--vscode-blue)] font-mono mb-3">// Journey Milestones</h4>
-                  <div className="bg-[var(--bg-primary)] rounded p-3 mb-4 transition-all duration-500 translate-y-0 opacity-100 border border-[var(--border-color)]">
+                  <div className="bg-[var(--bg-primary)] rounded-lg p-3 mb-4 transition-all duration-500 translate-y-0 opacity-100 border border-[var(--border-color)]">
                     <ul className="space-y-2">
                       {(exp.achievements || []).map((achievement, achIndex) => (
                         <li key={achIndex} className="flex items-start gap-3 text-[var(--text-primary)]">
