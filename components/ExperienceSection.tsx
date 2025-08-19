@@ -86,7 +86,7 @@ export default function ExperienceSection({ isVisible }: ExperienceSectionProps)
 
                 <div>
                   <h4 className="text-[var(--vscode-blue)] font-mono mb-3">// Tech Stack Evolved</h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1">
                     {(exp.technologies || []).map((tech, techIndex) => (
                       <Badge
                         key={techIndex}
