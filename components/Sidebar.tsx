@@ -227,11 +227,11 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
   return (
     <>
-      {!isCollapsed && <div className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" onClick={onToggle} />}
+      {!isCollapsed && <div className=" inset-0 bg-black bg-opacity-50 z-30 md:hidden" onClick={onToggle} />}
 
       {/* Activity Bar - Always visible */}
-      <div className="w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50 min-h-screen fixed md:relative">
-        <div className="flex flex-col py-2">
+      <div className=" w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50 min-h-screen ">
+        <div className=" flex flex-col py-2">
           {sidebarTabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
@@ -268,9 +268,8 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
               </button>
             )
           })}
-        </div>
 
-        <div className="mt-auto mb-2">
+          <div className="mt-auto mb-2">
           <button
             onClick={onToggle}
             className="w-12 h-12 flex items-center justify-center text-[#858585] hover:text-white hover:bg-[#2a2d2e] transition-colors"
@@ -282,6 +281,9 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
             />
           </button>
         </div>
+        </div>
+
+        
       </div>
 
       {/* Sidebar Panel - Toggleable */}
