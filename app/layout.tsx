@@ -27,6 +27,8 @@ export const metadata: Metadata = {
     "Mina Youaness",
     "Full-Stack Developer",
     "Web Developer",
+    "MEAN",
+    "MERN",
     "Angular",
     "React",
     "Node.js",
