@@ -41,6 +41,9 @@
   --vscode-comment: #6a9955;
   --vscode-error: #f44747;
   --vscode-warning: #ffcc02;
+  --terminal-title-bar: #21262d;
+  --terminal-text: #58a6ff;
+  --terminal-bg: #0d1117;
 
   /* General design tokens */
   --background: var(--vscode-bg);
@@ -109,6 +112,9 @@
   --vscode-comment: #008000;
   --vscode-error: #cd3131;
   --vscode-warning: #c25900;
+  --terminal-title-bar: #e8e8e8;
+  --terminal-text: #444444;
+  --terminal-bg: #fafafa;
 
   /* General design tokens */
   --background: var(--vscode-bg);
@@ -169,6 +175,10 @@
   --vscode-error: #ff0000;
   --vscode-warning: #ffcc02;
 
+  --terminal-title-bar: #333333;
+  --terminal-text: #00d4ff;
+  --terminal-bg: #1a1a1a;
+
   /* General design tokens */
   --background: var(--vscode-bg);
   --foreground: var(--vscode-text);
@@ -227,6 +237,10 @@
   --vscode-comment: #75715e;
   --vscode-error: #f92672;
   --vscode-warning: #fd971f;
+    /* Terminal Colors */
+  --terminal-title-bar: var(--vscode-border);
+  --terminal-text: var(--vscode-blue);
+  --terminal-bg: var(--vscode-tab);
 
   /* General design tokens */
   --background: var(--vscode-bg);
