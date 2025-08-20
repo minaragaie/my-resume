@@ -104,6 +104,23 @@
   --certificates-color-yellow: #dcb67a;
   --certificates-color-cyan: #4ec9b0;
   --certificates-color-blue: #007acc;
+
+ --projects-bg: #1e1e1e;
+  --projects-border: #3e3e42;
+  --projects-primary: #007acc;
+
+  --projects-text-white: #ffffff;
+  --projects-text-muted: #d4d4d4;
+  --projects-text-accent-blue: #569cd6;
+  --projects-text-accent-green: #4ec9b0;
+  --projects-text-accent-orange: #ce9178;
+
+  --projects-card-bg: #2d2d30;
+  --projects-card-border-hover: #3e3e42;
+  --projects-card-bg-hover: #3e3e42;
+
+  --projects-shadow: 0 4px 12px rgba(0, 122, 204, 0.2);
+  
 }
 
 /* ==================================== */
@@ -180,6 +197,22 @@
   --certificates-color-yellow: #f59e0b;
   --certificates-color-cyan: #06b6d4;
   --certificates-color-blue: #3b82f6;
+
+   --projects-bg: #ffffff;
+  --projects-border: #e0e0e0;
+  --projects-primary: #007acc;
+
+  --projects-text-white: #000000;
+  --projects-text-muted: #555555;
+  --projects-text-accent-blue: #005fb8;
+  --projects-text-accent-green: #00897b;
+  --projects-text-accent-orange: #d35400;
+
+  --projects-card-bg: #f9f9f9;
+  --projects-card-border-hover: #cccccc;
+  --projects-card-bg-hover: #f0f0f0;
+
+  --projects-shadow: 0 4px 12px rgba(0, 122, 204, 0.15);
 }
 
 /* ==================================== */
@@ -257,6 +290,22 @@
   --certificates-color-yellow: #ffeb02;
   --certificates-color-cyan: #4ec9b0;
   --certificates-color-blue: #007acc;
+
+  --projects-bg: #000000;
+  --projects-border: #ffffff;
+  --projects-primary: #ffff00;
+
+  --projects-text-white: #ffffff;
+  --projects-text-muted: #f2f2f2;
+  --projects-text-accent-blue: #00ffff;
+  --projects-text-accent-green: #00ff00;
+  --projects-text-accent-orange: #ff8000;
+
+  --projects-card-bg: #000000;
+  --projects-card-border-hover: #ffff00;
+  --projects-card-bg-hover: #1a1a1a;
+
+  --projects-shadow: 0 0 0 2px #ffff00, 0 0 8px rgba(255, 255, 0, 0.8);
 }
 
 /* ==================================== */
@@ -334,6 +383,22 @@
   --certificates-color-yellow: #e6db74;
   --certificates-color-cyan: #66d9ef;
   --certificates-color-blue: #66d9ef;
+
+  --projects-bg: #272822;
+  --projects-border: #3e3d32;
+  --projects-primary: #f92672;
+
+  --projects-text-white: #f8f8f2;
+  --projects-text-muted: #a6e22e;
+  --projects-text-accent-blue: #66d9ef;
+  --projects-text-accent-green: #a6e22e;
+  --projects-text-accent-orange: #fd971f;
+
+  --projects-card-bg: #2e2f27;
+  --projects-card-border-hover: #75715e;
+  --projects-card-bg-hover: #383830;
+
+  --projects-shadow: 0 4px 12px rgba(249, 38, 114, 0.3);
 }
 
 @theme inline {
