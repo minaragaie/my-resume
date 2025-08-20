@@ -1,7 +1,52 @@
 "use client"
 
 import { useState } from "react"
-import { Award, CheckCircle, Clock, ExternalLink, RotateCcw } from "lucide-react"
+const Award = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="8" r="7"></circle>
+    <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"></polyline>
+  </svg>
+)
+
+const CheckCircle = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+)
+
+const Clock = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12,6 12,12 16,14"></polyline>
+  </svg>
+)
+
+const ExternalLink = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+    />
+  </svg>
+)
+
+const RotateCcw = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="1,4 1,10 7,10"></polyline>
+    <path d="M3.51,15a9,9,0,0,0,2.13,3.09l.77-.77A8,8,0,0,1,4.86,15Z"></path>
+    <path d="M13.8,21.67A9,9,0,0,0,21.49,15H20.51a8,8,0,0,1-6.93,6.93Z"></path>
+    <path d="M21.49,9A9,9,0,0,0,13.8,2.33L14.2,3.27A8,8,0,0,1,20.51,9Z"></path>
+    <path d="M9,2.33A9,9,0,0,0,3.51,9H4.49A8,8,0,0,1,9,3.07Z"></path>
+  </svg>
+)
+
 import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
 import { Button } from "./ui/button"
