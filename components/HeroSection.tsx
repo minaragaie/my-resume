@@ -78,17 +78,11 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
   }, [typeTerminal])
 
   const handleDownloadResume = () => {
-    // This assumes `jsPDF` is available on the window object from a CDN.
-    if (typeof window.jsPDF !== 'undefined') {
-      const doc = new window.jsPDF()
-      doc.text("Mina Youaness - Full Stack Developer", 10, 10)
-      doc.save("resume.pdf")
-    } else {
-      console.error("jsPDF is not loaded. Please add the CDN script tag to your HTML.")
-      // Optional: Add a message box for the user to see
-      alert("Error: Resume download is not available. The required library is missing.")
-    }
+    const doc = new jsPDF()
+    doc.text("Mina Youaness - Full Stack Developer", 10, 10)
+    doc.save("resume.pdf")
   }
+
 
   return (
     <div className="relative overflow-hidden p-6 md:p-12 lg:p-16">
