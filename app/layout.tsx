@@ -21,7 +21,27 @@ export const metadata: Metadata = {
   title: "Mina Youaness - Full-Stack Developer",
   description:
     "Professional resume of Mina Youaness, experienced Full-Stack Web Developer with 10+ years of expertise in Angular, React, Node.js, and secure development practices.",
-  generator: "v0.app",
+  generator: "Mina Youaness",
+  applicationName: "Mina Youaness Resume",
+  keywords: [
+    "Mina Youaness",
+    "Full-Stack Developer",
+    "Web Developer",
+    "Angular",
+    "React",
+    "Node.js",
+    "TypeScript",
+    "Web Development",
+    "Resume",
+    "Portfolio",
+    "Professional Resume",
+    "Software Engineer",
+    "Web Applications",
+    "Frontend Development",
+    "Backend Development"],
+  authors: [{ name: "Mina Youaness", url: "https://minaragaie.github.io/" }],
+  creator: "Mina Youaness",
+  viewport: "width=device-width, initial-scale=1",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32" },

@@ -75,7 +75,7 @@ export default function Resume() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--vscode-bg)] text-[var(--vscode-text)] flex transition-colors duration-300">
+    <div className=" bg-[var(--vscode-bg)] text-[var(--vscode-text)] flex transition-colors duration-300 flex flex-col">
       <div className="main-container w-full flex flex-row">
         <Sidebar
           currentSection={currentSection}
