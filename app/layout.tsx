@@ -20,7 +20,7 @@ const sourceSans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "Mina Youaness - Full-Stack Developer",
   description:
-    "Professional resume of Mina Youaness, experienced Full-Stack Web Developer with 10+ years of expertise in Angular, React, Node.js, and secure development practices.",
+    "Full-Stack Web Developer with 10+ years of experience in Angular, React, Node.js, and building scalable, secure applications.",
   generator: "Mina Youaness",
   applicationName: "Mina Youaness Resume",
   keywords: [
