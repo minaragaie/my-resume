@@ -1,52 +1,7 @@
 "use client"
 
 import { useState } from "react"
-const Award = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <circle cx="12" cy="8" r="7"></circle>
-    <polyline points="8.21,13.89 7,23 12,20 17,23 15.79,13.88"></polyline>
-  </svg>
-)
-
-const CheckCircle = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-    />
-  </svg>
-)
-
-const Clock = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <circle cx="12" cy="12" r="10"></circle>
-    <polyline points="12,6 12,12 16,14"></polyline>
-  </svg>
-)
-
-const ExternalLink = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-    />
-  </svg>
-)
-
-const RotateCcw = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <polyline points="1,4 1,10 7,10"></polyline>
-    <path d="M3.51,15a9,9,0,0,0,2.13,3.09l.77-.77A8,8,0,0,1,4.86,15Z"></path>
-    <path d="M13.8,21.67A9,9,0,0,0,21.49,15H20.51a8,8,0,0,1-6.93,6.93Z"></path>
-    <path d="M21.49,9A9,9,0,0,0,13.8,2.33L14.2,3.27A8,8,0,0,1,20.51,9Z"></path>
-    <path d="M9,2.33A9,9,0,0,0,3.51,9H4.49A8,8,0,0,1,9,3.07Z"></path>
-  </svg>
-)
-
+import { Award, CheckCircle, Clock, ExternalLink, RotateCcw } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
 import { Button } from "./ui/button"
@@ -118,33 +73,33 @@ export default function CertificationsSection({ isVisible = false }: Certificati
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
       case "completed":
-        return <CheckCircle className="w-4 h-4 text-success" />
+        return <CheckCircle className="w-4 h-4 text-[#28ca42]" />
       case "studied and attended exam":
-        return <Clock className="w-4 h-4 text-warning" />
+        return <Clock className="w-4 h-4 text-[#dcb67a]" />
       default:
-        return <Award className="w-4 h-4 text-secondary" />
+        return <Award className="w-4 h-4 text-[#4ec9b0]" />
     }
   }
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
       case "completed":
-        return "badge-success"
+        return "text-[#28ca42] border-[#28ca42]"
       case "studied and attended exam":
-        return "badge-warning"
+        return "text-[#dcb67a] border-[#dcb67a]"
       default:
-        return "badge-secondary"
+        return "text-[#4ec9b0] border-[#4ec9b0]"
     }
   }
 
   return (
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8 sm:mb-16">
-        <h2 className="text-2xl sm:text-4xl font-bold mb-4 text-base-content">
-          <span className="text-primary font-mono">const</span> <span className="text-secondary">certifications</span>{" "}
-          <span className="text-base-content">=</span> <span className="text-warning">[]</span>
+        <h2 className="text-2xl sm:text-4xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
+          <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">certifications</span>{" "}
+          <span style={{ color: "var(--text-primary)" }}>=</span> <span className="text-[#ce9178]">[]</span>
         </h2>
-        <p className="max-w-2xl mx-auto font-mono text-sm sm:text-base text-base-content/70">
+        <p className="max-w-2xl mx-auto font-mono text-sm sm:text-base" style={{ color: "var(--text-secondary)" }}>
           // Continuous learning and professional development
         </p>
       </div>
@@ -168,72 +123,84 @@ export default function CertificationsSection({ isVisible = false }: Certificati
               style={{ transformStyle: "preserve-3d" }}
             >
               <div
-                className="card bg-base-200 shadow-lg hover:shadow-xl border border-base-content/20 hover:border-primary transition-all duration-300 absolute inset-0 w-full h-full backface-hidden"
+                className="absolute inset-0 w-full h-full bg-[#252526] border border-[#3e3e42] rounded-lg p-4 sm:p-8 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/10 backface-hidden"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                <div className="card-body p-4 sm:p-8">
-                  <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-                    <div className="avatar placeholder">
-                      <div className="p-2 sm:p-3 bg-gradient-to-br from-primary to-secondary rounded-lg flex-shrink-0">
-                        <Award className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
-                      </div>
+                <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="p-2 sm:p-3 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded-lg flex-shrink-0">
+                    <Award className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                      <h3 className="text-sm sm:text-lg font-bold text-white truncate">{cert.name}</h3>
+                      {getStatusIcon(cert.status)}
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 sm:gap-3 mb-2">
-                        <h3 className="card-title text-sm sm:text-lg text-base-content truncate">{cert.name}</h3>
-                        {getStatusIcon(cert.status)}
-                      </div>
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3 sm:mb-4">
-                        <span className="text-primary font-semibold text-xs sm:text-sm truncate">{cert.issuer}</span>
-                        <div className={`badge badge-outline ${getStatusColor(cert.status)} text-xs w-fit`}>
-                          {cert.status}
-                        </div>
-                      </div>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-3 sm:mb-4">
+                      <span className="text-[#007acc] font-semibold text-xs sm:text-sm truncate">{cert.issuer}</span>
+                      <Badge variant="outline" className={`${getStatusColor(cert.status)} text-xs w-fit`}>
+                        {cert.status}
+                      </Badge>
                     </div>
                   </div>
+                </div>
 
-                  <div className="mockup-code bg-base-300 p-3 sm:p-4 mb-3 sm:mb-4">
-                    <pre className="text-xs text-primary font-mono">// Certification Details</pre>
-                    <p className="text-base-content/80 mt-2 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">
-                      {cert.description}
-                    </p>
-                  </div>
+                <div className="bg-[#2d2d30] rounded p-3 sm:p-4 mb-3 sm:mb-4">
+                  <code className="text-xs text-[#569cd6] font-mono">// Certification Details</code>
+                  <p className="text-[#d4d4d4] mt-2 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">
+                    {cert.description}
+                  </p>
+                </div>
 
-                  {cert.skills.length > 0 && (
-                    <div className="mb-3 sm:mb-4">
-                      <h4 className="text-xs sm:text-sm font-semibold text-primary mb-2 font-mono">// Key Skills:</h4>
-                      <div className="flex flex-wrap gap-1 sm:gap-2">
-                        {cert.skills
-                          .slice(0, window.innerWidth < 640 ? 4 : cert.skills.length)
-                          .map((skill, skillIndex) => (
-                            <div key={skillIndex} className="badge badge-outline badge-secondary text-xs px-1 sm:px-2">
-                              {skill}
-                            </div>
-                          ))}
-                        {cert.skills.length > 4 && window.innerWidth < 640 && (
-                          <div className="badge badge-outline text-xs px-1">+{cert.skills.length - 4}</div>
-                        )}
-                      </div>
+                {cert.skills.length > 0 && (
+                  <div className="mb-3 sm:mb-4">
+                    <h4 className="text-xs sm:text-sm font-semibold text-[#569cd6] mb-2 font-mono">// Key Skills:</h4>
+                    <div className="flex flex-wrap gap-1 sm:gap-2">
+                      {cert.skills
+                        .slice(0, window.innerWidth < 640 ? 4 : cert.skills.length)
+                        .map((skill, skillIndex) => (
+                          <Badge
+                            key={skillIndex}
+                            variant="outline"
+                            className="text-xs text-[#4ec9b0] border-[#4ec9b0] bg-[#1e1e1e] px-1 sm:px-2"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
+                      {cert.skills.length > 4 && window.innerWidth < 640 && (
+                        <Badge variant="outline" className="text-xs text-[#666] border-[#666] bg-[#1e1e1e] px-1">
+                          +{cert.skills.length - 4}
+                        </Badge>
+                      )}
                     </div>
-                  )}
+                  </div>
+                )}
 
-                  <div className="card-actions justify-between items-center mt-auto">
-                    <div className="flex items-center gap-2 text-xs sm:text-sm text-base-content/70 truncate">
-                      <span className="text-primary font-mono">issuer:</span>
-                      <span className="text-warning truncate">"{cert.issuer}"</span>
+                <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-[#d4d4d4] truncate">
+                      <span className="text-[#569cd6] font-mono">issuer:</span>
+                      <span className="text-[#ce9178] truncate">"{cert.issuer}"</span>
                     </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                       {cert.pathway && cert.pathway.length > 0 && (
-                        <button className="btn btn-outline btn-warning btn-xs" onClick={() => toggleCardFlip(index)}>
-                          <RotateCcw className="w-3 h-3" />
+                        <Button
+                          size="sm"
+                          className="bg-gradient-to-r from-[#dcb67a]/10 to-[#dcb67a]/5 hover:from-[#dcb67a] hover:to-[#f0c674] text-[#dcb67a] hover:text-black border-2 border-[#dcb67a]/30 hover:border-[#dcb67a] transition-all shadow-md hover:shadow-lg backdrop-blur-sm text-xs px-2 py-1 h-auto"
+                          onClick={() => toggleCardFlip(index)}
+                        >
+                          <RotateCcw className="w-3 h-3 sm:mr-2" />
                           <span className="font-mono text-xs hidden sm:inline">viewPathway()</span>
-                        </button>
+                        </Button>
                       )}
                       {cert.verify && (
-                        <button className="btn btn-outline btn-secondary btn-xs" onClick={() => handleVerify(cert)}>
-                          <ExternalLink className="w-3 h-3" />
+                        <Button
+                          size="sm"
+                          className="bg-gradient-to-r from-[#4ec9b0]/10 to-[#4ec9b0]/5 hover:from-[#4ec9b0] hover:to-[#0086d4] text-[#4ec9b0] hover:text-white border-2 border-[#4ec9b0]/30 hover:border-[#4ec9b0] transition-all shadow-md hover:shadow-lg backdrop-blur-sm text-xs px-2 py-1 h-auto"
+                          onClick={() => handleVerify(cert)}
+                        >
+                          <ExternalLink className="w-3 h-3 sm:mr-2" />
                           <span className="font-mono text-xs hidden sm:inline">verify()</span>
-                        </button>
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -242,91 +209,92 @@ export default function CertificationsSection({ isVisible = false }: Certificati
 
               {cert.pathway && cert.pathway.length > 0 && (
                 <div
-                  className="card bg-gradient-to-br from-base-300 to-base-200 border border-warning shadow-lg absolute inset-0 w-full h-full backface-hidden rotate-y-180 overflow-y-auto"
+                  className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#2d2d30] to-[#252526] border border-[#dcb67a] rounded-lg p-3 sm:p-6 backface-hidden rotate-y-180 overflow-y-auto"
                   style={{
                     backfaceVisibility: "hidden",
                     transform: "rotateY(180deg)",
                   }}
                 >
-                  <div className="card-body p-3 sm:p-6">
-                    <div className="flex items-center justify-between mb-4 sm:mb-6">
-                      <div>
-                        <h3 className="card-title text-sm sm:text-lg text-base-content mb-1">Certificate Pathway</h3>
-                        <p className="text-warning text-xs sm:text-sm font-mono">{cert.pathway.length} components</p>
-                      </div>
-                      <button
-                        className="btn btn-ghost btn-sm text-warning hover:bg-warning/10"
-                        onClick={() => toggleCardFlip(index)}
-                      >
-                        <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
-                      </button>
+                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                    <div>
+                      <h3 className="text-sm sm:text-lg font-bold text-white mb-1">Certificate Pathway</h3>
+                      <p className="text-[#dcb67a] text-xs sm:text-sm font-mono">{cert.pathway.length} components</p>
                     </div>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="text-[#dcb67a] hover:bg-[#dcb67a]/10 p-1 sm:p-2"
+                      onClick={() => toggleCardFlip(index)}
+                    >
+                      <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
+                    </Button>
+                  </div>
 
-                    <div className="space-y-2 sm:space-y-4">
-                      {cert.pathway.map((pathwayCert, pathwayIndex) => (
-                        <div
-                          key={pathwayIndex}
-                          className="card bg-base-100 shadow-sm border border-base-content/20 hover:border-warning/50 transition-colors"
-                        >
-                          <div className="card-body p-3 sm:p-4">
-                            <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
-                              <div className="avatar placeholder">
-                                <div className="p-1 sm:p-2 bg-gradient-to-br from-success to-secondary rounded flex-shrink-0">
-                                  <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
-                                </div>
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="text-xs sm:text-sm font-bold text-base-content mb-1 truncate">
-                                  {pathwayCert.name}
-                                </h4>
-                                <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
-                                  <span className="text-xs text-primary truncate">{pathwayCert.issuer}</span>
-                                  <div
-                                    className={`badge badge-outline ${getStatusColor(pathwayCert.status)} text-xs w-fit`}
-                                  >
-                                    {pathwayCert.status}
-                                  </div>
-                                </div>
-                              </div>
+                  <div className="space-y-2 sm:space-y-4">
+                    {cert.pathway.map((pathwayCert, pathwayIndex) => (
+                      <div
+                        key={pathwayIndex}
+                        className="bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-3 sm:p-4 hover:border-[#dcb67a]/50 transition-colors"
+                      >
+                        <div className="flex items-start gap-2 sm:gap-3 mb-2 sm:mb-3">
+                          <div className="p-1 sm:p-2 bg-gradient-to-br from-[#28ca42] to-[#4ec9b0] rounded flex-shrink-0">
+                            <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-xs sm:text-sm font-bold text-white mb-1 truncate">
+                              {pathwayCert.name}
+                            </h4>
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                              <span className="text-xs text-[#007acc] truncate">{pathwayCert.issuer}</span>
+                              <Badge
+                                variant="outline"
+                                className={`text-xs ${getStatusColor(pathwayCert.status)} w-fit`}
+                              >
+                                {pathwayCert.status}
+                              </Badge>
                             </div>
-
-                            <p className="text-xs text-base-content/80 mb-2 sm:mb-3 line-clamp-2">
-                              {pathwayCert.description}
-                            </p>
-
-                            {pathwayCert.skills.length > 0 && (
-                              <div className="flex flex-wrap gap-1 mb-2 sm:mb-3">
-                                {pathwayCert.skills.slice(0, 2).map((skill, skillIndex) => (
-                                  <div
-                                    key={skillIndex}
-                                    className="badge badge-outline badge-secondary text-xs px-1 py-0"
-                                  >
-                                    {skill}
-                                  </div>
-                                ))}
-                                {pathwayCert.skills.length > 2 && (
-                                  <div className="badge badge-outline text-xs px-1 py-0">
-                                    +{pathwayCert.skills.length - 2}
-                                  </div>
-                                )}
-                              </div>
-                            )}
-
-                            {pathwayCert.verify && (
-                              <div className="card-actions justify-end">
-                                <button
-                                  className="btn btn-ghost btn-xs text-secondary hover:bg-secondary/10"
-                                  onClick={() => handleVerify(pathwayCert)}
-                                >
-                                  <ExternalLink className="w-3 h-3 mr-1" />
-                                  verify
-                                </button>
-                              </div>
-                            )}
                           </div>
                         </div>
-                      ))}
-                    </div>
+
+                        <p className="text-xs text-[#d4d4d4] mb-2 sm:mb-3 line-clamp-2">{pathwayCert.description}</p>
+
+                        {pathwayCert.skills.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mb-2 sm:mb-3">
+                            {pathwayCert.skills.slice(0, 2).map((skill, skillIndex) => (
+                              <Badge
+                                key={skillIndex}
+                                variant="outline"
+                                className="text-xs text-[#4ec9b0] border-[#4ec9b0] bg-[#1e1e1e] px-1 py-0"
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
+                            {pathwayCert.skills.length > 2 && (
+                              <Badge
+                                variant="outline"
+                                className="text-xs text-[#666] border-[#666] bg-[#1e1e1e] px-1 py-0"
+                              >
+                                +{pathwayCert.skills.length - 2}
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+
+                        {pathwayCert.verify && (
+                          <div className="flex justify-end">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-xs text-[#4ec9b0] hover:bg-[#4ec9b0]/10 p-1 h-auto"
+                              onClick={() => handleVerify(pathwayCert)}
+                            >
+                              <ExternalLink className="w-3 h-3 mr-1" />
+                              verify
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               )}
@@ -466,14 +434,12 @@ export default function CertificationsSection({ isVisible = false }: Certificati
       )}
 
       <div className="mt-8 sm:mt-12 text-center">
-        <div className="card bg-base-200 shadow-lg border border-base-content/20 max-w-4xl mx-auto">
-          <div className="card-body p-4 sm:p-6">
-            <div className="flex items-center gap-3 mb-4">
-              <Award className="w-4 h-4 sm:w-5 sm:h-5 text-warning" />
-              <h3 className="card-title text-base sm:text-lg text-base-content">Additional Information</h3>
-            </div>
-            <p className="text-base-content/80 leading-relaxed text-sm sm:text-base">{resumeData.additionalInfo}</p>
+        <div className="bg-[#252526] border border-[#3e3e42] rounded-lg p-4 sm:p-6 max-w-4xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <Award className="w-4 h-4 sm:w-5 sm:h-5 text-[#dcb67a]" />
+            <h3 className="text-base sm:text-lg font-semibold text-white">Additional Information</h3>
           </div>
+          <p className="text-[#d4d4d4] leading-relaxed text-sm sm:text-base">{resumeData.additionalInfo}</p>
         </div>
       </div>
     </div>

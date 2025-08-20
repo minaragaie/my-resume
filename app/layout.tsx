@@ -20,15 +20,13 @@ const sourceSans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "Mina Youaness - Full-Stack Developer",
   description:
-    "Full-Stack Web Developer with 10+ years of experience in Angular, React, Node.js, and building scalable, secure applications.",
+    "Professional resume of Mina Youaness, experienced Full-Stack Web Developer with 10+ years of expertise in Angular, React, Node.js, and secure development practices.",
   generator: "Mina Youaness",
   applicationName: "Mina Youaness Resume",
   keywords: [
     "Mina Youaness",
     "Full-Stack Developer",
     "Web Developer",
-    "MEAN",
-    "MERN",
     "Angular",
     "React",
     "Node.js",
@@ -40,8 +38,7 @@ export const metadata: Metadata = {
     "Software Engineer",
     "Web Applications",
     "Frontend Development",
-    "Backend Development",
-  ],
+    "Backend Development"],
   authors: [{ name: "Mina Youaness", url: "https://minaragaie.github.io/" }],
   creator: "Mina Youaness",
   viewport: "width=device-width, initial-scale=1",
@@ -61,8 +58,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`} data-theme="vscode-dark">
-      <body className="font-sans bg-base-100 text-base-content transition-colors duration-300">{children}</body>
+    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
+      <body className="font-sans bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
+        {children}
+      </body>
     </html>
   )
 }
