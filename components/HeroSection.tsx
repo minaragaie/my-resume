@@ -85,7 +85,7 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
 
 
   return (
-    <div className="relative overflow-hidden p-6 md:p-12 lg:p-16">
+    <div className="relative overflow-hidden p-6 ">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
         {/* Left side - Info */}
         <div

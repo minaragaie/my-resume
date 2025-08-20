@@ -30,42 +30,15 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
 
     const parseResumeDate = (dateStr: string): string => {
       if (!dateStr) return "2020-01-01"
-
-      // Handle "Month Year" format like "April 2025", "Jan 2020"
       const monthYearMatch = dateStr.match(/(\w+)\s+(\d{4})/)
       if (monthYearMatch) {
         const [, month, year] = monthYearMatch
         const monthMap: { [key: string]: string } = {
-          January: "01",
-          Jan: "01",
-          February: "02",
-          Feb: "02",
-          March: "03",
-          Mar: "03",
-          April: "04",
-          Apr: "04",
-          May: "05",
-          June: "06",
-          Jun: "06",
-          July: "07",
-          Jul: "07",
-          August: "08",
-          Aug: "08",
-          September: "09",
-          Sep: "09",
-          October: "10",
-          Oct: "10",
-          November: "11",
-          Nov: "11",
-          December: "12",
-          Dec: "12",
+          January: "01", Jan: "01", February: "02", Feb: "02", March: "03", Mar: "03", April: "04", Apr: "04", May: "05", June: "06", Jun: "06", July: "07", Jul: "07", August: "08", Aug: "08", September: "09", Sep: "09", October: "10", Oct: "10", November: "11", Nov: "11", December: "12", Dec: "12",
         }
-
         const monthNum = monthMap[month] || "01"
         return `${year}-${monthNum}-01`
       }
-
-      // Fallback for any other format
       return "2020-01-01"
     }
 
@@ -86,7 +59,6 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
     // Experience commits
     staticResumeData.experience.forEach((exp, index) => {
       const startDate = parseResumeDate(exp.startDate)
-
       commits.push({
         hash: `${Math.random().toString(36).substr(2, 7)}`,
         message: `feat: joined ${exp.company} as ${exp.title}`,
@@ -99,10 +71,8 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
         },
         branch: "career",
       })
-
       if (exp.endDate && exp.endDate !== "April 2025") {
         const endDate = parseResumeDate(exp.endDate)
-
         commits.push({
           hash: `${Math.random().toString(36).substr(2, 7)}`,
           message: `refactor: completed tenure at ${exp.company}`,
@@ -128,7 +98,6 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
       methodologies: "2018-11-12",
       standards: "2021-07-18",
     }
-
     Object.entries(staticResumeData.skills).forEach(([category, skills]) => {
       commits.push({
         hash: `${Math.random().toString(36).substr(2, 7)}`,
@@ -146,16 +115,8 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
 
     // Certification commits
     const certificationDates = [
-      "2018-03-15", // HTML, CSS and JavaScript
-      "2019-08-22", // Full Stack Developer
-      "2020-11-10", // Microsoft Exam 480
-      "2021-05-18", // .NET Core
-      "2022-09-25", // AI For Everyone
-      "2023-12-08", // Google Cybersecurity (started)
-      "2024-06-15", // Google Cybersecurity (completed)
-      "2020-01-20", // WES Verification
+      "2018-03-15", "2019-08-22", "2020-11-10", "2021-05-18", "2022-09-25", "2023-12-08", "2024-06-15", "2020-01-20",
     ]
-
     staticResumeData.certifications.forEach((cert, index) => {
       commits.push({
         hash: `${Math.random().toString(36).substr(2, 7)}`,
@@ -179,41 +140,41 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
   const getCommitIcon = (type: string) => {
     switch (type) {
       case "feat":
-        return <GitCommitIcon size={14} className="text-green-400" />
+        return <GitCommitIcon size={14} className="text-[var(--vscode-green)]" />
       case "merge":
-        return <GitMerge size={14} className="text-purple-400" />
+        return <GitMerge size={14} className="text-[var(--vscode-purple)]" />
       case "refactor":
-        return <GitBranch size={14} className="text-blue-400" />
+        return <GitBranch size={14} className="text-[var(--vscode-blue)]" />
       case "docs":
-        return <GitCommitIcon size={14} className="text-yellow-400" />
+        return <GitCommitIcon size={14} className="text-[var(--vscode-yellow)]" />
       default:
-        return <GitCommitIcon size={14} className="text-gray-400" />
+        return <GitCommitIcon size={14} className="text-[var(--vscode-text-muted)]" />
     }
   }
 
   const getBranchColor = (branch: string) => {
     switch (branch) {
       case "main":
-        return "text-green-400"
+        return "text-[var(--vscode-green)]"
       case "career":
-        return "text-blue-400"
+        return "text-[var(--vscode-blue)]"
       case "certifications":
-        return "text-yellow-400"
+        return "text-[var(--vscode-yellow)]"
       default:
-        return "text-purple-400"
+        return "text-[var(--vscode-purple)]"
     }
   }
 
   const getBranchBadgeStyle = (branch: string) => {
     switch (branch) {
       case "main":
-        return "bg-green-500/20 text-green-300 border border-green-500/30"
+        return "bg-[var(--vscode-green)]/20 text-[var(--vscode-green)] border border-[var(--vscode-green)]/30"
       case "career":
-        return "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+        return "bg-[var(--vscode-blue)]/20 text-[var(--vscode-blue)] border border-[var(--vscode-blue)]/30"
       case "certifications":
-        return "bg-yellow-500/20 text-yellow-300 border border-yellow-500/30"
+        return "bg-[var(--vscode-yellow)]/20 text-[var(--vscode-yellow)] border border-[var(--vscode-yellow)]/30"
       default:
-        return "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+        return "bg-[var(--vscode-purple)]/20 text-[var(--vscode-purple)] border border-[var(--vscode-purple)]/30"
     }
   }
 
@@ -229,31 +190,30 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
     } else if (commit.message.includes("Initial commit") || commit.message.includes("career journey")) {
       onNavigate("hero")
     } else {
-      // Default to experience for career-related commits
       onNavigate("experience")
     }
   }
 
   return (
-    <div className="flex flex-col bg-[#1e1e1e] h-full text-xs">
-      <div className="h-8 bg-gradient-to-r from-[#007acc] to-[#005a9e] flex items-center px-2 text-white border-b border-[#007acc]/30">
+    <div className="flex flex-col bg-[var(--vscode-bg)] h-full text-xs">
+      <div className="h-8 bg-gradient-to-r from-[var(--vscode-blue)] to-[var(--vscode-blue-light)] flex items-center px-2 text-white border-b border-[var(--vscode-blue)]/30">
         <GitBranch size={12} className="text-white mr-2" />
         <div className="text-xs font-semibold">SOURCE CONTROL</div>
       </div>
 
-      <div className="p-2 border-b border-[#3e3e42] bg-[#252526]">
+      <div className="p-2 border-b border-[var(--vscode-border)] bg-[var(--vscode-sidebar)]">
         <div className="grid grid-cols-3 gap-1 text-xs">
-          <div className="bg-[#1a1a1a] rounded p-2 border border-[#3e3e42] text-center">
-            <div className="text-green-400 font-mono text-xs">{commits.length}</div>
-            <div className="text-[#858585] text-xs">commits</div>
+          <div className="bg-[var(--vscode-tab)] rounded p-2 border border-[var(--vscode-border)] text-center">
+            <div className="text-[var(--vscode-green)] font-mono text-xs">{commits.length}</div>
+            <div className="text-[var(--vscode-text-muted)] text-xs">commits</div>
           </div>
-          <div className="bg-[#1a1a1a] rounded p-2 border border-[#3e3e42] text-center">
-            <div className="text-blue-400 font-mono text-xs">main</div>
-            <div className="text-[#858585] text-xs">branch</div>
+          <div className="bg-[var(--vscode-tab)] rounded p-2 border border-[var(--vscode-border)] text-center">
+            <div className="text-[var(--vscode-blue)] font-mono text-xs">main</div>
+            <div className="text-[var(--vscode-text-muted)] text-xs">branch</div>
           </div>
-          <div className="bg-[#1a1a1a] rounded p-2 border border-[#3e3e42] text-center">
-            <div className="text-purple-400 font-mono text-xs">live</div>
-            <div className="text-[#858585] text-xs">status</div>
+          <div className="bg-[var(--vscode-tab)] rounded p-2 border border-[var(--vscode-border)] text-center">
+            <div className="text-[var(--vscode-purple)] font-mono text-xs">live</div>
+            <div className="text-[var(--vscode-text-muted)] text-xs">status</div>
           </div>
         </div>
       </div>
@@ -263,8 +223,8 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
           {commits.slice(0, 8).map((commit, index) => (
             <div key={commit.hash} className="group">
               <div
-                className={`flex items-center gap-2 p-2 rounded hover:bg-[#2a2d2e] cursor-pointer transition-all ${
-                  selectedCommit === commit.hash ? "bg-[#094771] border border-[#007acc]/50" : ""
+                className={`flex items-center gap-2 p-2 rounded hover:bg-[var(--vscode-sidebar)] cursor-pointer transition-all ${
+                  selectedCommit === commit.hash ? "bg-[var(--vscode-blue)]/30 border border-[var(--vscode-blue)]/50" : ""
                 }`}
                 onClick={() => {
                   setSelectedCommit(commit.hash)
@@ -273,17 +233,17 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
                 }}
               >
                 <div className="flex-shrink-0">
-                  <div className="w-4 h-4 rounded-full bg-[#2d2d30] border border-current flex items-center justify-center">
+                  <div className="w-4 h-4 rounded-full bg-[var(--vscode-tab)] border border-current flex items-center justify-center">
                     {getCommitIcon(commit.type)}
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs text-white truncate mb-1 group-hover:text-[#007acc]">{commit.message}</div>
+                  <div className="text-xs text-[var(--vscode-text)] truncate mb-1 group-hover:text-[var(--vscode-blue)]">{commit.message}</div>
                   <div className="flex items-center gap-2 text-xs">
-                    <span className="font-mono text-[#007acc] text-xs">{commit.hash}</span>
-                    <span className="text-[#858585]">•</span>
-                    <span className="text-[#858585] text-xs">
+                    <span className="font-mono text-[var(--vscode-blue)] text-xs">{commit.hash}</span>
+                    <span className="text-[var(--vscode-text-muted)]">•</span>
+                    <span className="text-[var(--vscode-text-muted)] text-xs">
                       {new Date(commit.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
                     <div className={`px-1 py-0.5 rounded text-xs ${getBranchBadgeStyle(commit.branch)}`}>
@@ -294,22 +254,22 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
 
                 <div className="flex-shrink-0">
                   {expandedCommit === commit.hash ? (
-                    <ChevronDown size={12} className="text-[#007acc]" />
+                    <ChevronDown size={12} className="text-[var(--vscode-blue)]" />
                   ) : (
-                    <ChevronRight size={12} className="text-[#858585]" />
+                    <ChevronRight size={12} className="text-[var(--vscode-text-muted)]" />
                   )}
                 </div>
               </div>
 
               {expandedCommit === commit.hash && (
-                <div className="ml-6 mt-1 mb-2 p-2 bg-[#1a1a1a] rounded border border-[#007acc]/30">
+                <div className="ml-6 mt-1 mb-2 p-2 bg-[var(--vscode-tab)] rounded border border-[var(--vscode-blue)]/30">
                   {commit.changes.additions.length > 0 && (
                     <div className="mb-2">
-                      <div className="text-xs text-green-400 mb-1 flex items-center gap-1">
+                      <div className="text-xs text-[var(--vscode-green)] mb-1 flex items-center gap-1">
                         <Plus size={10} />+{commit.changes.additions.length}
                       </div>
                       {commit.changes.additions.slice(0, 3).map((addition, index) => (
-                        <div key={index} className="text-xs text-green-300 ml-3 truncate">
+                        <div key={index} className="text-xs text-[var(--vscode-green)]/70 ml-3 truncate">
                           {addition}
                         </div>
                       ))}
@@ -320,26 +280,26 @@ export default function CareerGitHistory({ onNavigate }: CareerGitHistoryProps) 
                       e.stopPropagation()
                       handleCommitNavigation(commit)
                     }}
-                    className="text-xs px-2 py-1 bg-[#007acc] text-white rounded hover:bg-[#1177bb] transition-colors"
+                    className="text-xs px-2 py-1 bg-[var(--vscode-blue)] text-white rounded hover:bg-[var(--vscode-blue-light)] transition-colors"
                   >
                     View →
                   </button>
                 </div>
               )}
 
-              {index < commits.slice(0, 8).length - 1 && <div className="ml-4 w-px h-2 bg-[#3e3e42]"></div>}
+              {index < commits.slice(0, 8).length - 1 && <div className="ml-4 w-px h-2 bg-[var(--vscode-border)]"></div>}
             </div>
           ))}
         </div>
       </div>
 
-      <div className="p-2 border-t border-[#3e3e42] bg-[#252526]">
-        <div className="flex items-center justify-between text-xs text-[#858585]">
+      <div className="p-2 border-t border-[var(--vscode-border)] bg-[var(--vscode-sidebar)]">
+        <div className="flex items-center justify-between text-xs text-[var(--vscode-text-muted)]">
           <div className="flex items-center gap-1">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div className="w-2 h-2 bg-[var(--vscode-green)] rounded-full"></div>
             <span>Live</span>
           </div>
-          <div className="text-[#007acc] font-mono">HEAD → main</div>
+          <div className="text-[var(--vscode-blue)] font-mono">HEAD → main</div>
         </div>
       </div>
     </div>
