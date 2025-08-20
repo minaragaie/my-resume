@@ -1,14 +1,27 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { LucideIcon, LucideProps } from "lucide-react"
+import { useState, useEffect, ComponentType } from "react"
 
-const Settings = ({ size = 16 }: { size?: number }) => (
+const Settings =({ size = 16, className }: IconProps) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="3" />
     <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" />
   </svg>
 )
+interface IconProps {
+  size?: number
+  className?: string
+}
+type IconType = ComponentType<{ size?: number }> | ComponentType<LucideProps>
 
+
+interface QuickAction {
+  id: string
+  label: string
+  icon: IconType
+  description: string
+}
 const Palette = ({ size = 16 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="13.5" cy="6.5" r=".5" />
@@ -122,7 +135,7 @@ const SETTINGS_SECTIONS = [
   { id: "quickActions", label: "Quick Actions", icon: Zap },
 ]
 
-const QUICK_ACTIONS = [
+const QUICK_ACTIONS: QuickAction[]  = [
   { id: "hero", label: "Profile Overview", icon: User, description: "Personal info & summary" },
   { id: "technologies", label: "Technical Skills", icon: Code, description: "Programming languages & frameworks" },
   { id: "experience", label: "Work Experience", icon: Briefcase, description: "Career journey & achievements" },
@@ -259,7 +272,10 @@ function QuickActionsSettings({ onNavigate }: { onNavigate: (id: string) => void
               onClick={() => onNavigate(action.id)}
               className="btn btn-ghost btn-sm w-full justify-start text-left hover:btn-primary group"
             >
-              <ActionIcon size={12} className="text-base-content/60 group-hover:text-primary-content" />
+              <ActionIcon
+                size={12}
+                className="text-base-content/60 group-hover:text-primary-content"
+              />
               <div className="flex-1 text-left">
                 <div className="text-xs font-medium text-base-content group-hover:text-primary-content">
                   {action.label}
@@ -275,6 +291,7 @@ function QuickActionsSettings({ onNavigate }: { onNavigate: (id: string) => void
     </div>
   )
 }
+
 
 function PopularSearches({ onNavigate }: { onNavigate: (id: string) => void }) {
   return (
