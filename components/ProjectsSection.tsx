@@ -76,11 +76,11 @@ export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
           isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         }`}
       >
-        <h2 className="text-4xl font-bold mb-4 text-white">
-          <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">recentProjects</span>{" "}
-          <span className="text-white">=</span> <span className="text-[#ce9178]">{"["}</span>
+        <h2 className="text-4xl font-bold mb-4 text-base-content">
+          <span className="text-primary font-mono">const</span> <span className="text-secondary">recentProjects</span>{" "}
+          <span className="text-base-content">=</span> <span className="text-warning">{"["}</span>
         </h2>
-        <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">
+        <p className="text-base-content/70 max-w-2xl mx-auto font-mono">
           // Showcasing innovative solutions built with modern technologies
         </p>
       </div>
@@ -90,7 +90,7 @@ export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
           return (
             <div
               key={project.name}
-              className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-700 hover:shadow-lg hover:shadow-[#007acc]/20 transform ${
+              className={`card bg-base-200 shadow-lg hover:shadow-xl border border-base-content/20 hover:border-primary transition-all duration-700 transform ${
                 isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
               }`}
               style={{
@@ -98,62 +98,64 @@ export default function ProjectsSection({ isVisible }: ProjectsSectionProps) {
                 transitionProperty: "transform, opacity, border-color, box-shadow, scale",
               }}
             >
-              <div
-                className={`flex items-center gap-3 mb-4 transition-all duration-500 ${
-                  isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
-                }`}
-                style={{
-                  transitionDelay: `${projectIndex * 150 + 400}ms`,
-                }}
-              >
+              <div className="card-body p-6">
                 <div
-                  className={`p-2 bg-gradient-to-br ${project.color} rounded transition-transform duration-300 hover:rotate-12`}
+                  className={`flex items-center gap-3 mb-4 transition-all duration-500 ${
+                    isVisible ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"
+                  }`}
+                  style={{
+                    transitionDelay: `${projectIndex * 150 + 400}ms`,
+                  }}
                 >
-                  <Icon className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white text-sm">{project.name}</h3>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-[#4ec9b0]">{project.status}</span>
-                    <span className="text-xs text-[#d4d4d4]">• {project.year}</span>
+                  <div
+                    className={`p-2 bg-gradient-to-br ${project.color} rounded transition-transform duration-300 hover:rotate-12`}
+                  >
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="card-title text-base-content text-sm">{project.name}</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="badge badge-success badge-sm">{project.status}</span>
+                      <span className="text-xs text-base-content/70">• {project.year}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div
-                className={`bg-[#2d2d30] rounded p-3 mb-4 transition-all duration-500 ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-                }`}
-                style={{
-                  transitionDelay: `${projectIndex * 150 + 600}ms`,
-                }}
-              >
-                <p className="text-xs text-[#d4d4d4] leading-relaxed">{project.description}</p>
-              </div>
+                <div
+                  className={`bg-base-300 rounded p-3 mb-4 transition-all duration-500 ${
+                    isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                  }`}
+                  style={{
+                    transitionDelay: `${projectIndex * 150 + 600}ms`,
+                  }}
+                >
+                  <p className="text-xs text-base-content/80 leading-relaxed">{project.description}</p>
+                </div>
 
-              <div
-                className={`space-y-2 transition-all duration-500 ${
-                  isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-                }`}
-                style={{
-                  transitionDelay: `${projectIndex * 150 + 800}ms`,
-                }}
-              >
-                <h4 className="text-xs font-medium text-[#569cd6]">Technologies:</h4>
-                <div className="flex flex-wrap gap-1">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span
-                      key={tech}
-                      className={`text-xs px-2 py-1 bg-[#2d2d30] text-[#d4d4d4] rounded border border-[#3e3e42] hover:border-[#007acc] hover:bg-[#3e3e42] transition-all duration-500 ${
-                        isVisible ? "translate-x-0 opacity-100 scale-100" : "translate-x-4 opacity-0 scale-95"
-                      }`}
-                      style={{
-                        transitionDelay: `${projectIndex * 150 + techIndex * 50 + 1000}ms`,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <div
+                  className={`space-y-2 transition-all duration-500 ${
+                    isVisible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                  }`}
+                  style={{
+                    transitionDelay: `${projectIndex * 150 + 800}ms`,
+                  }}
+                >
+                  <h4 className="text-xs font-medium text-primary">Technologies:</h4>
+                  <div className="flex flex-wrap gap-1">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span
+                        key={tech}
+                        className={`badge badge-outline badge-sm hover:badge-primary transition-all duration-500 ${
+                          isVisible ? "translate-x-0 opacity-100 scale-100" : "translate-x-4 opacity-0 scale-95"
+                        }`}
+                        style={{
+                          transitionDelay: `${projectIndex * 150 + techIndex * 50 + 1000}ms`,
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

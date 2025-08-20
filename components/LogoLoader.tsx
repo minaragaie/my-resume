@@ -41,23 +41,23 @@ export default function LogoLoader({ onLoadComplete }: LogoLoaderProps) {
   }, [onLoadComplete])
 
   return (
-    <div className="fixed inset-0 bg-[#1e1e1e] flex items-center justify-center z-[100000]">
+    <div className="fixed inset-0 bg-base-100 flex items-center justify-center z-[100000]">
       <div className="text-center">
         {/* Logo with typing effect */}
-        <div className="text-6xl font-mono font-bold text-[#007acc] mb-8">
+        <div className="text-6xl font-mono font-bold text-primary mb-8">
           {loadingText}
           <span className={`${showCursor ? "opacity-100" : "opacity-0"} transition-opacity duration-100`}>|</span>
         </div>
 
         {/* Loading animation */}
         <div className="flex items-center justify-center space-x-2">
-          <div className="w-2 h-2 bg-[#007acc] rounded-full animate-bounce"></div>
-          <div className="w-2 h-2 bg-[#007acc] rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
-          <div className="w-2 h-2 bg-[#007acc] rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce"></div>
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0.1s" }}></div>
+          <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0.2s" }}></div>
         </div>
 
         {/* Loading text */}
-        <p className="text-[#d4d4d4] mt-4 font-mono text-sm">Initializing portfolio...</p>
+        <p className="text-base-content/70 mt-4 font-mono text-sm">Initializing portfolio...</p>
       </div>
     </div>
   )

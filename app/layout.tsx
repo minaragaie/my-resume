@@ -40,7 +40,8 @@ export const metadata: Metadata = {
     "Software Engineer",
     "Web Applications",
     "Frontend Development",
-    "Backend Development"],
+    "Backend Development",
+  ],
   authors: [{ name: "Mina Youaness", url: "https://minaragaie.github.io/" }],
   creator: "Mina Youaness",
   viewport: "width=device-width, initial-scale=1",
@@ -60,10 +61,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`}>
-      <body className="font-sans bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-300">
-        {children}
-      </body>
+    <html lang="en" className={`${playfair.variable} ${sourceSans.variable} antialiased`} data-theme="vscode-dark">
+      <body className="font-sans bg-base-100 text-base-content transition-colors duration-300">{children}</body>
     </html>
   )
 }

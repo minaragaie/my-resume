@@ -1,6 +1,5 @@
 "use client"
 import { Code, Database, Globe, Wrench, Shield, Zap } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
 import resumeData from "@/data/resume.json"
 
 const techCategories = [
@@ -48,62 +47,65 @@ interface TechnologiesSectionProps {
 
 export default function TechnologiesSection({ isVisible }: TechnologiesSectionProps) {
   return (
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-white">
-            <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">techStack</span>{" "}
-            <span className="text-white">=</span> <span className="text-[#ce9178]">{"{"}</span>
-          </h2>
-          <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">// Comprehensive technology ecosystem mastery</p>
-        </div>
+    <div className="max-w-6xl mx-auto">
+      <div className="text-center mb-16">
+        <h2 className="text-4xl font-bold mb-4 text-base-content">
+          <span className="text-primary font-mono">const</span> <span className="text-secondary">techStack</span>{" "}
+          <span className="text-base-content">=</span> <span className="text-warning">{"{"}</span>
+        </h2>
+        <p className="text-base-content/70 max-w-2xl mx-auto font-mono">
+          // Comprehensive technology ecosystem mastery
+        </p>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {techCategories.map((category, index) => {
-            const Icon = category.icon
-            return (
-              <div
-                key={category.name}
-                className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{
-                  transitionDelay: `${index * 150}ms`,
-                  transitionDuration: "600ms",
-                }}
-              >
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {techCategories.map((category, index) => {
+          const Icon = category.icon
+          return (
+            <div
+              key={category.name}
+              className={`card bg-base-200 shadow-lg hover:shadow-xl border border-base-content/20 hover:border-primary transition-all duration-300 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{
+                transitionDelay: `${index * 150}ms`,
+                transitionDuration: "600ms",
+              }}
+            >
+              <div className="card-body p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className={`p-3 bg-gradient-to-br ${category.color} rounded-lg`}>
                     <Icon className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{category.name}</h3>
-                    <p className="text-sm text-[#d4d4d4]">{category.items.length} technologies</p>
+                    <h3 className="card-title text-lg text-base-content">{category.name}</h3>
+                    <p className="text-sm text-base-content/70">{category.items.length} technologies</p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
-                  <div className="bg-[#2d2d30] rounded p-3 mb-4">
-                    <code className="text-xs text-[#569cd6] font-mono">
+                  <div className="mockup-code bg-base-300 p-3 mb-4">
+                    <pre className="text-xs text-primary font-mono">
                       {category.name.toLowerCase().replace(/\s+/g, "")}: [
-                    </code>
+                    </pre>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
                     {category.items.map((item, itemIndex) => (
-                      <Badge
+                      <div
                         key={itemIndex}
-                        variant="secondary"
-                        className="bg-[#2d2d30] text-[#d4d4d4] border border-[#3e3e42] hover:border-[#007acc] hover:text-[#007acc] transition-colors text-xs"
+                        className="badge badge-outline hover:badge-primary transition-colors text-xs"
                       >
                         {item}
-                      </Badge>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
-            )
-          })}
-        </div>
+            </div>
+          )
+        })}
       </div>
+    </div>
   )
 }
