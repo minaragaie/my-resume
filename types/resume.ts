@@ -48,3 +48,5 @@ export interface ResumeData {
   certifications: Certificate[]
   additionalInfo: string
 }
+
+export type Theme =  "dark" | "light" | "high-contrast" | "monokai"

@@ -22,9 +22,12 @@
 /* ==================================== */
 /* Default (Dark) Theme        */
 /* ==================================== */
+/* 
+:root, body, html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+} */
 
-
-:root, .theme-dark {
+:root, .dark {
   /* VSCode Dark Theme Colors */
   --vscode-bg: #1e1e1e;
   --vscode-sidebar: #252526;
@@ -136,7 +139,7 @@
 /* ==================================== */
 /* Light Theme              */
 /* ==================================== */
-.theme-light {
+.light {
   /* VSCode Light Theme Colors */
   --vscode-bg: #ffffff;
   --vscode-sidebar: #f3f3f3;
@@ -242,7 +245,7 @@
 /* ==================================== */
 /* High Contrast Theme           */
 /* ==================================== */
-.theme-high-contrast {
+.high-contrast {
   /* High Contrast Theme Colors */
   --vscode-bg: #000000;
   --vscode-sidebar: #000000;
@@ -345,7 +348,7 @@
 /* ==================================== */
 /* Monokai Theme            */
 /* ==================================== */
-.theme-monokai {
+.monokai {
   /* Monokai Theme Colors */
   --vscode-bg: #272822;
   --vscode-sidebar: #2f3129;
@@ -671,7 +674,7 @@
   }
 
   body {
-    font-size: 12pt !important;
+    font-size: var(--base-font-size);
     line-height: 1.4 !important;
     margin: 0 !important;
     padding: 0 !important;

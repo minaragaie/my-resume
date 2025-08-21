@@ -1,6 +1,7 @@
-"use client"
+'use client'
 
 import { useState, useEffect } from "react"
+import { useTheme } from "next-themes"
 import {
   Settings,
   Palette,
@@ -16,8 +17,8 @@ import {
   Target,
   Clock,
 } from "lucide-react"
+import { Theme } from "@/types/resume"
 
-type Theme = "dark" | "light" | "high-contrast" | "monokai"
 type FontSize = "small" | "medium" | "large"
 
 interface RecruiterDashboardProps {
@@ -49,38 +50,15 @@ const KEYBOARD_SHORTCUTS = [
   { combo: "⌘/Ctrl + K", desc: "Quick Navigation" },
 ]
 
-/* ----------------------------- Theme Handling ----------------------------- */
-const applyTheme = (newTheme: Theme) => {
-  const html = document.documentElement
-  const body = document.body
-
-  html.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark", "light")
-  body.classList.remove("theme-light", "theme-dark", "theme-high-contrast", "theme-monokai", "dark", "light")
-
-  const themeClass = `theme-${newTheme}`
-  html.classList.add(themeClass)
-  body.classList.add(themeClass)
-
-  if (newTheme === "light") {
-    html.classList.add("light")
-    body.classList.add("light")
-  } else {
-    html.classList.add("dark")
-    body.classList.add("dark")
-  }
-
-  html.style.setProperty("--theme-transition", "all 0.3s ease")
-  window.dispatchEvent(new CustomEvent("themeChange", { detail: { theme: newTheme } }))
-}
-
 /* ----------------------------- Subcomponents ----------------------------- */
 
-function ThemeSettings({ theme, onThemeChange }: { theme: Theme; onThemeChange: (t: Theme) => void }) {
-  const handleThemeChange = (newTheme: Theme) => {
-    onThemeChange(newTheme)
-    localStorage.setItem("theme", newTheme) // save to localStorage
-    applyTheme(newTheme)
-  }
+function ThemeSettings() {
+    const { theme, setTheme } = useTheme()
+    useEffect(() => {
+    console.log("Current theme:", theme)
+  }, [theme])
+
+
   const themeOptions = [
     { value: "dark", label: "Dark (Default)", desc: "VS Code dark theme" },
     { value: "light", label: "Light", desc: "Clean light theme" },
@@ -88,17 +66,19 @@ function ThemeSettings({ theme, onThemeChange }: { theme: Theme; onThemeChange: 
     { value: "monokai", label: "Monokai", desc: "Popular developer theme" },
   ]
 
+  
+
   return (
     <div>
       <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
-        <Palette size={10} />
-        Color Theme
+        <Palette size={10} /> Color Theme
       </h4>
       <div className="space-y-2">
         {themeOptions.map((option) => (
           <button
             key={option.value}
-            onClick={() => handleThemeChange(option.value as Theme)}
+            onClick={() =>  {setTheme(option.value);}
+              }
             className={`w-full text-left p-2 rounded border transition-colors ${
               theme === option.value
                 ? "bg-[var(--vscode-blue)] border-[var(--vscode-blue)] text-white"
@@ -143,8 +123,7 @@ function QuickActionsSettings({ onNavigate }: { onNavigate: (id: string) => void
   return (
     <div>
       <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
-        <Zap size={10} />
-        Navigate to Section
+        <Zap size={10} /> Navigate to Section
       </h4>
       <div className="space-y-1">
         {QUICK_ACTIONS.map((action) => {
@@ -176,8 +155,7 @@ function PopularSearches({ onNavigate }: { onNavigate: (id: string) => void }) {
   return (
     <div>
       <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
-        <Target size={10} />
-        Popular Searches
+        <Target size={10} /> Popular Searches
       </h4>
       <div className="space-y-1">
         {POPULAR_SEARCHES.map((search, idx) => {
@@ -213,43 +191,39 @@ function KeyboardShortcuts() {
   )
 }
 
+/* QuickActions, PopularSearches, KeyboardShortcuts remain unchanged */
+
 /* ----------------------------- Main Component ----------------------------- */
 
 export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardProps) {
   const [expandedSections, setExpandedSections] = useState<string[]>(["theme"])
-  const [theme, setTheme] = useState<Theme>("dark")
+  const { theme, setTheme } = useTheme()
   const [fontSize, setFontSize] = useState<FontSize>("medium")
 
+  useEffect(() => {
+    const savedFont = (localStorage.getItem("fontSize") as FontSize) || fontSize
+    const sizeMap: Record<FontSize, string> = { small: "14px", medium: "16px", large: "18px" }
+    document.documentElement.style.setProperty("--base-font-size", sizeMap[savedFont])
+    setFontSize(savedFont)
+  }, [])
 
-
-  const toggleAccordionSection = (id: string) => {
-    setExpandedSections((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]))
-  }
+  const toggleAccordion = (id: string) =>
+    setExpandedSections((prev) =>
+      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
+    )
 
   const handleFontSizeChange = (size: FontSize) => {
     setFontSize(size)
     const sizeMap: Record<FontSize, string> = { small: "14px", medium: "16px", large: "18px" }
     document.documentElement.style.setProperty("--base-font-size", sizeMap[size])
+    localStorage.setItem("fontSize", size)
   }
-
-  
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") as Theme | null
-    if (savedTheme) {
-      setTheme(savedTheme)
-      applyTheme(savedTheme)
-    } else {
-      applyTheme(theme) // default theme
-    }
-  }, [])
 
   return (
     <div className="flex flex-col bg-[var(--vscode-sidebar)] min-h-0 flex-1">
       {/* Header */}
       <div className="flex-shrink-0 h-9 bg-[var(--vscode-sidebar)] flex items-center px-3 text-xs text-[var(--vscode-text)] font-medium border-b border-[var(--vscode-border)] uppercase tracking-wide">
-        <Settings size={12} className="mr-2" />
-        Settings
+        <Settings size={12} className="mr-2" /> Settings
       </div>
 
       {/* Body */}
@@ -257,11 +231,10 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
         {SETTINGS_SECTIONS.map((section) => {
           const Icon = section.icon
           const isExpanded = expandedSections.includes(section.id)
-
           return (
             <div key={section.id} className="border-b border-[var(--vscode-border)]">
               <button
-                onClick={() => toggleAccordionSection(section.id)}
+                onClick={() => toggleAccordion(section.id)}
                 className="w-full flex items-center justify-between px-3 py-2 text-xs text-[var(--vscode-text)] hover:bg-[var(--vscode-tab)] transition-colors"
               >
                 <div className="flex items-center gap-2">
@@ -275,7 +248,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
                 <div className="px-3 pb-3 space-y-3">
                   {section.id === "theme" && (
                     <>
-                      <ThemeSettings theme={theme} onThemeChange={setTheme} />
+                      <ThemeSettings />
                       <FontSizeSettings fontSize={fontSize} onChange={handleFontSizeChange} />
                     </>
                   )}
