@@ -48,62 +48,80 @@ interface TechnologiesSectionProps {
 
 export default function TechnologiesSection({ isVisible }: TechnologiesSectionProps) {
   return (
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-white">
-            <span className="text-[#569cd6] font-mono">const</span> <span className="text-[#4ec9b0]">techStack</span>{" "}
-            <span className="text-white">=</span> <span className="text-[#ce9178]">{"{"}</span>
-          </h2>
-          <p className="text-[#d4d4d4] max-w-2xl mx-auto font-mono">// Comprehensive technology ecosystem mastery</p>
+    <div className="max-w-6xl mx-auto">
+  <div className="text-center mb-16">
+    <h2 className="text-4xl font-bold mb-4 text-[var(--tech-text-white)]">
+      <span className="text-[var(--tech-text-accent-blue)] font-mono">const</span>{" "}
+      <span className="text-[var(--tech-text-accent-green)]">techStack</span>{" "}
+      <span className="text-[var(--tech-text-white)]">=</span>{" "}
+      <span className="text-[var(--tech-text-accent-orange)]">{"{"}</span>
+    </h2>
+    <p className="text-[var(--tech-text-muted)] max-w-2xl mx-auto font-mono">
+      // Comprehensive technology ecosystem mastery
+    </p>
+  </div>
+
+  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {techCategories.map((category, index) => {
+      const Icon = category.icon
+      return (
+        <div
+          key={category.name}
+          className={`
+            bg-[var(--tech-bg)] 
+            border border-[var(--tech-border)] 
+            rounded-lg p-6 
+            hover:border-[var(--tech-primary)] 
+            hover:shadow-[var(--tech-shadow)] 
+            transition-all duration-300 
+            ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
+          `}
+          style={{
+            transitionDelay: `${index * 150}ms`,
+            transitionDuration: "600ms",
+          }}
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className={`p-3 bg-gradient-to-br ${category.color} rounded-lg`}>
+              <Icon className="w-6 h-6 text-[var(--tech-text-white)]" />
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-[var(--tech-text-white)]">{category.name}</h3>
+              <p className="text-sm text-[var(--tech-text-muted)]">{category.items.length} technologies</p>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <div className="bg-[var(--tech-card-bg)] rounded p-3 mb-4">
+              <code className="text-xs text-[var(--tech-text-accent-blue)] font-mono">
+                {category.name.toLowerCase().replace(/\s+/g, "")}: [
+              </code>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {category.items.map((item, itemIndex) => (
+                <Badge
+                  key={itemIndex}
+                  variant="secondary"
+                  className="
+                    bg-[var(--tech-card-bg)] 
+                    text-[var(--tech-text-muted)] 
+                    border border-[var(--tech-border)] 
+                    hover:border-[var(--tech-primary)] 
+                    hover:text-[var(--tech-primary)] 
+                    transition-colors text-xs
+                  "
+                >
+                  {item}
+                </Badge>
+              ))}
+            </div>
+          </div>
         </div>
+      )
+    })}
+  </div>
+</div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {techCategories.map((category, index) => {
-            const Icon = category.icon
-            return (
-              <div
-                key={category.name}
-                className={`bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6 hover:border-[#007acc] transition-all duration-300 hover:shadow-lg hover:shadow-[#007acc]/20 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-                style={{
-                  transitionDelay: `${index * 150}ms`,
-                  transitionDuration: "600ms",
-                }}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className={`p-3 bg-gradient-to-br ${category.color} rounded-lg`}>
-                    <Icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">{category.name}</h3>
-                    <p className="text-sm text-[#d4d4d4]">{category.items.length} technologies</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="bg-[#2d2d30] rounded p-3 mb-4">
-                    <code className="text-xs text-[#569cd6] font-mono">
-                      {category.name.toLowerCase().replace(/\s+/g, "")}: [
-                    </code>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    {category.items.map((item, itemIndex) => (
-                      <Badge
-                        key={itemIndex}
-                        variant="secondary"
-                        className="bg-[#2d2d30] text-[#d4d4d4] border border-[#3e3e42] hover:border-[#007acc] hover:text-[#007acc] transition-colors text-xs"
-                      >
-                        {item}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
-      </div>
   )
 }
