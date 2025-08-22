@@ -110,7 +110,7 @@ export default function CertificationsSection({ isVisible = false }: Certificati
           {(resumeData.certifications as Certificate[]).map((cert, index) => (
             <div
               key={index}
-              className={`relative h-[350px] sm:h-[400px] transition-all duration-700 ${
+              className={`flex transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
               }`}
               style={{
@@ -119,13 +119,13 @@ export default function CertificationsSection({ isVisible = false }: Certificati
               }}
             >
               <div
-                className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                className={`flex w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
                   flippedCards.has(index) ? "rotate-y-180" : ""
                 }`}
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <div
-                  className="absolute inset-0 w-full h-full rounded-lg p-4 sm:p-8 hover:shadow-lg backface-hidden"
+                  className=" flex flex-col w-full h-full rounded-lg p-4 sm:p-8 hover:shadow-lg backface-hidden"
                   style={{
                     backfaceVisibility: "hidden",
                     backgroundColor: "var(--certificates-bg-secondary)",
@@ -183,7 +183,9 @@ export default function CertificationsSection({ isVisible = false }: Certificati
                     </div>
                   )}
 
+                    <div className=" flex flex-col flex-nowrap justify-between items-start shrink gap-2">
                     <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+
                       {cert.pathway && cert.pathway.length > 0 && (
                         <Button
                           size="sm"
@@ -204,16 +206,20 @@ export default function CertificationsSection({ isVisible = false }: Certificati
                           <span className="font-mono text-xs hidden sm:inline">verify()</span>
                         </Button>
                       )}
-                  <div className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 right-4 sm:right-8">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
-                      <div className="flex items-center gap-2 text-xs sm:text-sm truncate" style={{ color: "var(--certificates-text-primary)" }}>
-                        <span className="font-mono" style={{ color: "var(--certificates-text-code)" }}>issuer:</span>
-                        <span className="truncate" style={{ color: "var(--certificates-text-string)" }}>"{cert.issuer}"</span>
                       </div>
+                      <div className="">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+                          <div className="flex items-center gap-2 text-xs sm:text-sm truncate" style={{ color: "var(--certificates-text-primary)" }}>
+                            <span className="font-mono" style={{ color: "var(--certificates-text-code)" }}>issuer:</span>
+                            <span className="truncate" style={{ color: "var(--certificates-text-string)" }}>"{cert.issuer}"</span>
+                          </div>
+                        </div>
                       </div>
+                      
                     </div>
+
+
                   </div>
-                </div>
 
                 {cert.pathway && cert.pathway.length > 0 && (
                   <div
