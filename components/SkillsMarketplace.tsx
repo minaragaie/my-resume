@@ -137,27 +137,27 @@ export default function SkillsMarketplace({ onNavigate }: SkillsMarketplaceProps
   return (
     <div className="flex flex-col">
       {/* Header */}
-      <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
+      <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[var(--vscode-text-muted)] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
         Extensions
       </div>
 
       {/* Search and Filter */}
       <div className="p-3 border-b border-[#3e3e42] space-y-2">
         <div className="relative">
-          <Search size={14} className="absolute left-2 top-2 text-[#858585]" />
+          <Search size={14} className="absolute left-2 top-2 text-[var(--vscode-sidebar-info)]" />
           <input
             type="text"
             placeholder="Search skills..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1.5 bg-[#3e3e42] text-xs text-[#cccccc] rounded border-none outline-none focus:bg-[#4e4e4e]"
+            className="w-full pl-8 pr-3 py-1.5 bg-[#3e3e42] text-xs text-[var(--vscode-text-muted)] rounded border-none outline-none focus:bg-[#4e4e4e]"
           />
         </div>
 
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="w-full px-2 py-1.5 bg-[#3e3e42] text-xs text-[#cccccc] rounded border-none outline-none focus:bg-[#4e4e4e]"
+          className="w-full px-2 py-1.5 bg-[#3e3e42] text-xs text-[var(--vscode-text-muted)] rounded border-none outline-none focus:bg-[#4e4e4e]"
         >
           {categories.map((cat) => (
             <option key={cat} value={cat}>
@@ -180,13 +180,13 @@ export default function SkillsMarketplace({ onNavigate }: SkillsMarketplaceProps
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-sm font-medium text-[#cccccc] truncate">{extension.name}</h3>
+                  <h3 className="text-sm font-medium text-[var(--vscode-text-muted)] truncate">{extension.name}</h3>
                   {extension.verified && <CheckCircle size={12} className="text-[#007acc] flex-shrink-0" />}
                 </div>
 
-                <p className="text-xs text-[#858585] mb-2 line-clamp-2">{extension.description}</p>
+                <p className="text-xs text-[var(--vscode-sidebar-info)] mb-2 line-clamp-2">{extension.description}</p>
 
-                <div className="flex items-center gap-4 text-xs text-[#858585]">
+                <div className="flex items-center gap-4 text-xs text-[var(--vscode-sidebar-info)]">
                   <div className="flex items-center gap-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -205,7 +205,7 @@ export default function SkillsMarketplace({ onNavigate }: SkillsMarketplaceProps
                 </div>
 
                 <div className="flex items-center justify-between mt-2">
-                  <span className="text-xs text-[#858585]">{extension.publisher}</span>
+                  <span className="text-xs text-[var(--vscode-sidebar-info)]">{extension.publisher}</span>
                   <span className="text-xs text-[#007acc]">{extension.version}</span>
                 </div>
               </div>
@@ -216,7 +216,7 @@ export default function SkillsMarketplace({ onNavigate }: SkillsMarketplaceProps
 
       {/* Footer Stats */}
       <div className="p-3 border-t border-[#3e3e42] bg-[#252526]">
-        <div className="text-xs text-[#858585] space-y-1">
+        <div className="text-xs text-[var(--vscode-sidebar-info)] space-y-1">
           <div className="flex items-center justify-between">
             <span>{filteredExtensions.length} skills available</span>
             <span className="text-[#007acc]">All installed ✓</span>
