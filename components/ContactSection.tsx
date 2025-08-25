@@ -117,36 +117,52 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
                 <MessageSquare className="w-5 h-5 text-[#4ec9b0]" /> Let's Connect
               </h3>
               <div className="space-y-6">
-                {[
-                  { icon: Mail, label: "email", value: resumeData.personalInfo.email, from: "#007acc", to: "#4ec9b0" },
-                  { icon: Phone, label: "phone", value: resumeData.personalInfo.phone, from: "#28ca42", to: "#4ec9b0" },
-                  { icon: MapPin, label: "location", value: resumeData.personalInfo.location, from: "#dcb67a", to: "#4ec9b0" },
-                  { icon: Linkedin, label: "linkedin", value: resumeData.personalInfo.linkedin, from: "#0077b5", to: "#4ec9b0", isLink: true },
-                ].map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors"
-                  >
-                    <div className={`p-2 bg-gradient-to-br from-[${item.from}] to-[${item.to}] rounded`}>
-                      <item.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-[#569cd6] font-mono text-sm">{item.label}:</p>
-                      {item.isLink ? (
-                        <a
-                          href={item.value}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#007acc] hover:text-[#4ec9b0] transition-colors"
-                        >
-                          View Profile
-                        </a>
-                      ) : (
-                        <p className="text-white">{item.value}</p>
-                      )}
-                    </div>
+                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                  <div className="p-2 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded">
+                    <Mail className="w-5 h-5 text-white" />
                   </div>
-                ))}
+                  <div>
+                    <p className="text-[#569cd6] font-mono text-sm">email:</p>
+                    <p className="text-white">{resumeData.personalInfo.email}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                  <div className="p-2 bg-gradient-to-br from-[#28ca42] to-[#4ec9b0] rounded">
+                    <Phone className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-[#569cd6] font-mono text-sm">phone:</p>
+                    <p className="text-white">{resumeData.personalInfo.phone}</p>
+                    </div>
+                    </div>
+
+                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                  <div className="p-2 bg-gradient-to-br from-[#dcb67a] to-[#4ec9b0] rounded">
+                    <MapPin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-[#569cd6] font-mono text-sm">location:</p>
+                    <p className="text-white">{resumeData.personalInfo.location}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                  <div className="p-2 bg-gradient-to-br from-[#0077b5] to-[#4ec9b0] rounded">
+                    <Linkedin className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-[#569cd6] font-mono text-sm">linkedin:</p>
+                    <a
+                      href={resumeData.personalInfo.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#007acc] hover:text-[#4ec9b0] transition-colors"
+                    >
+                      View Profile
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
