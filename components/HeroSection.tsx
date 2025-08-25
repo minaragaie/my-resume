@@ -106,7 +106,19 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
           </div>
         </div>
         {/* Right side - Terminal */}
-        <TerminalWindow />
+        <TerminalWindow
+          title="Hero Terminal"
+          commands={[
+              "$ whoami",
+              "> Mina Youaness - Full Stack Developer",
+              "$ cat experience.txt",
+              "> 10+ years of innovative web development",
+              "$ ls skills/",
+              "> Angular React Node.js TypeScript...",
+              "$ git log --oneline",
+              "> Ready for next challenge! 🚀",
+            ]}/>
+
       </div>
     </div>
   )
