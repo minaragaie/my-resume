@@ -53,23 +53,35 @@ const KEYBOARD_SHORTCUTS = [
 
 function ThemeSettings() {
   const { theme, setTheme } = useTheme()
-
   const [isChanging, setIsChanging] = useState(false)
 
   const handleThemeChange = (newTheme: string) => {
-    if (isChanging) return
+    if (isChanging || theme === newTheme) return
 
+    console.log("[v0] Theme changing from", theme, "to", newTheme)
     setIsChanging(true)
 
-    // Use requestAnimationFrame for smoother transition
-    requestAnimationFrame(() => {
-      setTheme(newTheme)
+    try {
+      const validThemes = ["dark", "light", "high-contrast", "monokai"]
+      requestAnimationFrame(() => {
+        document.documentElement.className = document.documentElement.className
+          .split(" ")
+          .filter((cls) => !validThemes.includes(cls))
+          .concat(newTheme)
+          .join(" ")
+      })
 
-      // Reset changing state after transition
+      setTheme(newTheme)
+      localStorage.setItem("theme", newTheme)
+
       setTimeout(() => {
+        console.log("[v0] Theme change completed, resetting isChanging")
         setIsChanging(false)
-      }, 200)
-    })
+      }, 50)
+    } catch (error) {
+      console.error("[v0] Theme change error:", error)
+      setIsChanging(false)
+    }
   }
 
   const themeOptions = [
@@ -119,7 +131,7 @@ function FontSizeSettings({ fontSize, onChange }: { fontSize: FontSize; onChange
             className={`flex-1 p-1.5 text-xs rounded transition-colors capitalize ${
               fontSize === size
                 ? "bg-[var(--vscode-blue)] text-white"
-                : "bg-[var(--vscode-tab)] hover:bg-[var(--vscode-bg)] text-[var(--vscode-text)]"
+                : "bg-[var(--vscode-tab)] hover:bg-[var(--vscode-blue)] rounded transition-colors text-left group"
             }`}
           >
             {size}
@@ -202,13 +214,10 @@ function KeyboardShortcuts() {
   )
 }
 
-/* QuickActions, PopularSearches, KeyboardShortcuts remain unchanged */
-
 /* ----------------------------- Main Component ----------------------------- */
 
 export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardProps) {
   const [expandedSections, setExpandedSections] = useState<string[]>(["theme"])
-  const { theme, setTheme } = useTheme()
   const [fontSize, setFontSize] = useState<FontSize>("medium")
 
   useEffect(() => {
