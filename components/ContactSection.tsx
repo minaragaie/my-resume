@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Mail, Phone, MapPin, Linkedin, Send, MessageSquare } from "lucide-react"
@@ -63,8 +65,7 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
       })
       const data = await response.json()
 
-
-    if (response.ok && !data.error) {
+      if (response.ok && !data.error) {
         onStatusChange?.("Message sent successfully!")
         addTerminalCommand("------------------------------------------")
         addTerminalCommand(`👋 Hello ${formData.name} (<${formData.email}>)`)
@@ -96,7 +97,9 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
   }
 
   return (
-    <div className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+    <div
+      className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
@@ -112,42 +115,65 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div className="space-y-8">
-            <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-8">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <div
+              className="rounded-lg p-8"
+              style={{ backgroundColor: "var(--vscode-bg)", borderColor: "var(--vscode-border)", border: "1px solid" }}
+            >
+              <h3 className="text-xl font-bold mb-6 flex items-center gap-3" style={{ color: "var(--text-primary)" }}>
                 <MessageSquare className="w-5 h-5 text-[#4ec9b0]" /> Let's Connect
               </h3>
               <div className="space-y-6">
-                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                <div
+                  className="flex items-center gap-4 p-4 rounded-lg transition-colors"
+                  style={{ backgroundColor: "var(--vscode-input-bg)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-input-bg)")}
+                >
                   <div className="p-2 bg-gradient-to-br from-[#007acc] to-[#4ec9b0] rounded">
                     <Mail className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-[#569cd6] font-mono text-sm">email:</p>
-                    <p className="text-white">{resumeData.personalInfo.email}</p>
+                    <p style={{ color: "var(--text-primary)" }}>{resumeData.personalInfo.email}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                <div
+                  className="flex items-center gap-4 p-4 rounded-lg transition-colors"
+                  style={{ backgroundColor: "var(--vscode-input-bg)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-input-bg)")}
+                >
                   <div className="p-2 bg-gradient-to-br from-[#28ca42] to-[#4ec9b0] rounded">
                     <Phone className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-[#569cd6] font-mono text-sm">phone:</p>
-                    <p className="text-white">{resumeData.personalInfo.phone}</p>
-                    </div>
-                    </div>
+                    <p style={{ color: "var(--text-primary)" }}>{resumeData.personalInfo.phone}</p>
+                  </div>
+                </div>
 
-                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                <div
+                  className="flex items-center gap-4 p-4 rounded-lg transition-colors"
+                  style={{ backgroundColor: "var(--vscode-input-bg)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-input-bg)")}
+                >
                   <div className="p-2 bg-gradient-to-br from-[#dcb67a] to-[#4ec9b0] rounded">
                     <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <p className="text-[#569cd6] font-mono text-sm">location:</p>
-                    <p className="text-white">{resumeData.personalInfo.location}</p>
+                    <p style={{ color: "var(--text-primary)" }}>{resumeData.personalInfo.location}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 p-4 bg-[#2d2d30] rounded-lg hover:bg-[#3e3e42] transition-colors">
+                <div
+                  className="flex items-center gap-4 p-4 rounded-lg transition-colors"
+                  style={{ backgroundColor: "var(--vscode-input-bg)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-hover)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--vscode-input-bg)")}
+                >
                   <div className="p-2 bg-gradient-to-br from-[#0077b5] to-[#4ec9b0] rounded">
                     <Linkedin className="w-5 h-5 text-white" />
                   </div>
@@ -166,8 +192,12 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
               </div>
             </div>
 
-            <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-6">
-              <div className="bg-[#2d2d30] rounded p-4">
+            {/* Status Card */}
+            <div
+              className="rounded-lg p-6"
+              style={{ backgroundColor: "var(--vscode-bg)", borderColor: "var(--vscode-border)", border: "1px solid" }}
+            >
+              <div className="rounded p-4" style={{ backgroundColor: "var(--vscode-input-bg)" }}>
                 <code className="text-xs text-[#569cd6] font-mono block mb-2">// Available for opportunities</code>
                 <code className="text-xs text-[#ce9178] font-mono block">const status = "Open to new challenges";</code>
                 <code className="text-xs text-[#4ec9b0] font-mono block">const responseTime = "Within 24 hours";</code>
@@ -176,8 +206,11 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
           </div>
 
           {/* Contact Form */}
-          <div className="bg-[#1e1e1e] border border-[#3e3e42] rounded-lg p-8">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+          <div
+            className="rounded-lg p-8"
+            style={{ backgroundColor: "var(--vscode-bg)", borderColor: "var(--vscode-border)", border: "1px solid" }}
+          >
+            <h3 className="text-xl font-bold mb-6 flex items-center gap-3" style={{ color: "var(--text-primary)" }}>
               <Send className="w-5 h-5 text-[#4ec9b0]" /> Send Message
             </h3>
 
@@ -191,7 +224,13 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
                     value={formData[field as keyof typeof formData]}
                     onChange={handleInputChange}
                     placeholder={field === "email" ? "your.email@example.com" : "Your name"}
-                    className="w-full bg-[#2d2d30] border border-[#3e3e42] rounded px-4 py-3 text-white focus:border-[#007acc] focus:outline-none transition-colors"
+                    className="w-full rounded px-4 py-3 focus:border-[#007acc] focus:outline-none transition-colors"
+                    style={{
+                      backgroundColor: "var(--vscode-input-bg)",
+                      borderColor: "var(--vscode-border)",
+                      border: "1px solid",
+                      color: "var(--text-primary)",
+                    }}
                     required
                   />
                 </div>
@@ -205,7 +244,13 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
                   onChange={handleInputChange}
                   rows={6}
                   placeholder="Tell me about your project..."
-                  className="w-full bg-[#2d2d30] border border-[#3e3e42] rounded px-4 py-3 text-white focus:border-[#007acc] focus:outline-none transition-colors resize-none"
+                  className="w-full rounded px-4 py-3 focus:border-[#007acc] focus:outline-none transition-colors resize-none"
+                  style={{
+                    backgroundColor: "var(--vscode-input-bg)",
+                    borderColor: "var(--vscode-border)",
+                    border: "1px solid",
+                    color: "var(--text-primary)",
+                  }}
                   required
                 />
               </div>
@@ -235,12 +280,13 @@ export default function ContactSection({ onStatusChange, isVisible = false }: Co
       {/* Terminal Window */}
       {showTerminal && (
         <div className="fixed bottom-4 right-4 w-96 z-50">
-          <TerminalWindow title="Message Sender" 
-          commands={terminalCommands} 
-          isProcessing={isSubmitting} 
-          cursorBlinkSpeed={isSubmitting ? 500 : 0}
-          autoCloseAfter={14000} 
-          onClose={() => setShowTerminal(false)} // remove terminal from DOM
+          <TerminalWindow
+            title="Message Sender"
+            commands={terminalCommands}
+            isProcessing={isSubmitting}
+            cursorBlinkSpeed={isSubmitting ? 500 : 0}
+            autoCloseAfter={14000}
+            onClose={() => setShowTerminal(false)} // remove terminal from DOM
           />
         </div>
       )}

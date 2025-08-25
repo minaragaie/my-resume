@@ -14,7 +14,7 @@ import {
   Search,
   GitBranch,
   Settings,
-  ExpandIcon as Extensions,
+  Utensils as Extensions,
   Folder,
   FileText,
   X,
@@ -230,8 +230,8 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
       {!isCollapsed && <div className=" inset-0 bg-black bg-opacity-50 z-30 md:hidden" onClick={onToggle} />}
 
       {/* Activity Bar - Always visible */}
-      <div className=" w-12 h-full bg-[#2c2c2c] border-r border-[#3e3e42] flex flex-col z-50 min-h-screen ">
-        <div className=" flex flex-col py-2">
+      <div className="w-12 h-full bg-[var(--activity-bar-bg)] border-r border-[var(--activity-bar-border)] flex flex-col z-50 min-h-screen">
+        <div className="flex flex-col py-2">
           {sidebarTabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
@@ -258,39 +258,39 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 }}
                 className={`w-12 h-12 flex items-center justify-center transition-colors relative group ${
                   isActive && !isCollapsed
-                    ? "text-white bg-[#094771]"
-                    : "text-[#858585] hover:text-white hover:bg-[#2a2d2e]"
+                    ? "text-[var(--activity-bar-text-active)] bg-[var(--activity-bar-active)]"
+                    : "text-[var(--activity-bar-text)] hover:text-[var(--activity-bar-text-active)] hover:bg-[var(--activity-bar-hover)]"
                 }`}
                 title={tab.tooltip}
               >
                 <Icon size={20} />
-                {isActive && !isCollapsed && <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-white"></div>}
+                {isActive && !isCollapsed && (
+                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--activity-bar-text-active)]"></div>
+                )}
               </button>
             )
           })}
 
           <div className="mt-auto mb-2">
-          <button
-            onClick={onToggle}
-            className="w-12 h-12 flex items-center justify-center text-[#858585] hover:text-white hover:bg-[#2a2d2e] transition-colors"
-            title={isCollapsed ? "Show Sidebar" : "Hide Sidebar"}
-          >
-            <ChevronRight
-              size={16}
-              className={`transition-transform duration-200 ${isCollapsed ? "rotate-0" : "rotate-180"}`}
-            />
-          </button>
+            <button
+              onClick={onToggle}
+              className="w-12 h-12 flex items-center justify-center text-[var(--activity-bar-text)] hover:text-[var(--activity-bar-text-active)] hover:bg-[var(--activity-bar-hover)] transition-colors"
+              title={isCollapsed ? "Show Sidebar" : "Hide Sidebar"}
+            >
+              <ChevronRight
+                size={16}
+                className={`transition-transform duration-200 ${isCollapsed ? "rotate-0" : "rotate-180"}`}
+              />
+            </button>
+          </div>
         </div>
-        </div>
-
-        
       </div>
 
       {/* Sidebar Panel - Toggleable */}
       {!isCollapsed && (
         <div
           className={`
-          w-64 bg-[#252526] border-r border-[#3e3e42] transition-all duration-300 z-40 min-h-screen
+          w-64 bg-[var(--sidebar-bg)] border-r border-[var(--sidebar-border)] transition-all duration-300 z-40 min-h-screen
           fixed left-12 top-0 md:relative md:left-0
           max-w-[calc(100vw-3rem)] overflow-x-hidden
         `}
@@ -298,7 +298,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
           <div className="md:hidden absolute top-2 right-2 z-50">
             <button
               onClick={onToggle}
-              className="w-8 h-8 flex items-center justify-center text-[#858585] hover:text-white hover:bg-[#2a2d2e] rounded transition-colors"
+              className="w-8 h-8 flex items-center justify-center text-[var(--activity-bar-text)] hover:text-[var(--activity-bar-text-active)] hover:bg-[var(--activity-bar-hover)] rounded transition-colors"
             >
               <X size={16} />
             </button>
@@ -306,7 +306,7 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
           {activeTab === "explorer" && (
             <>
-              <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
+              <div className="h-9 bg-[var(--sidebar-bg)] flex items-center px-3 text-xs text-[var(--sidebar-text)] font-medium border-b border-[var(--sidebar-border)] uppercase tracking-wide">
                 Explorer
               </div>
 
@@ -315,10 +315,10 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 <div className="mb-2">
                   <button
                     onClick={() => setIsExplorerOpen(!isExplorerOpen)}
-                    className="flex items-center gap-2 text-xs text-[#cccccc] hover:text-white transition-colors w-full py-1 px-2 hover:bg-[#2a2d2e] rounded"
+                    className="flex items-center gap-2 text-xs text-[var(--sidebar-text)] hover:text-[var(--sidebar-text-active)] transition-colors w-full py-1 px-2 hover:bg-[var(--sidebar-hover)] rounded"
                   >
                     {isExplorerOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-                    <FolderOpen size={14} className="text-[#dcb67a]" />
+                    <FolderOpen size={14} className="text-[var(--sidebar-directory-color)]" />
                     <span className="font-medium uppercase tracking-wide truncate">Resume-Portfolio</span>
                   </button>
                 </div>
@@ -402,13 +402,13 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
                 )}
               </div>
 
-              <div className="p-3 border-t border-[#3e3e42] bg-[#252526]">
-                <div className="text-xs text-[#858585] space-y-1">
+              <div className="p-3 border-t border-[var(--sidebar-border)] bg-[var(--sidebar-bg)]">
+                <div className="text-xs text-[var(--sidebar-text)] space-y-1">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     <span>{getTotalFileCount()} files • Portfolio v1.0</span>
                   </div>
-                  <div className="text-[#6a6a6a]">Last modified: Just now</div>
+                  <div className="text-[var(--sidebar-text-muted)]">Last modified: Just now</div>
                 </div>
               </div>
             </>
@@ -416,53 +416,53 @@ export default function Sidebar({ currentSection, onSectionClick, isCollapsed, o
 
           {activeTab === "search" && (
             <div className="max-h-[calc(100vh-8rem)] flex flex-col">
-              <div className="h-9 bg-[#252526] flex items-center px-3 text-xs text-[#cccccc] font-medium border-b border-[#3e3e42] uppercase tracking-wide">
+              <div className="h-9 bg-[var(--sidebar-bg)] flex items-center px-3 text-xs text-[var(--sidebar-text)] font-medium border-b border-[var(--sidebar-border)] uppercase tracking-wide">
                 Search
               </div>
 
               <div className="p-4 flex-1">
                 <button
                   onClick={() => setShowCommandPalette(true)}
-                  className="w-full flex items-center gap-3 p-3 bg-[#3e3e42] hover:bg-[#4e4e4e] rounded-md transition-colors text-left"
+                  className="w-full flex items-center gap-3 p-3 bg-[var(--sidebar-hover)] hover:bg-[var(--sidebar-hover-active)] rounded-md transition-colors text-left"
                 >
-                  <Search size={16} className="text-[#858585]" />
-                  <span className="text-sm text-[#858585]">Search resume content...</span>
-                  <div className="ml-auto text-xs text-[#858585]">
-                    <kbd className="px-1.5 py-0.5 bg-[#2a2d2e] rounded font-sans">{shortcutKey}</kbd>
+                  <Search size={16} className="text-[var(--sidebar-text)]" />
+                  <span className="text-sm text-[var(--sidebar-text)]">Search resume content...</span>
+                  <div className="ml-auto text-xs text-[var(--sidebar-text)]">
+                    <kbd className="px-1.5 py-0.5 bg-[var(--sidebar-hover)] rounded font-sans">{shortcutKey}</kbd>
                   </div>
                 </button>
 
                 <div className="mt-6 space-y-3">
-                  <div className="text-xs text-[#cccccc] uppercase tracking-wide">Quick Actions</div>
+                  <div className="text-xs text-[var(--sidebar-text)] uppercase tracking-wide">Quick Actions</div>
 
                   <button
                     onClick={() => scrollToSection("projects")}
-                    className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
+                    className="w-full flex items-center gap-3 p-2 hover:bg-[var(--sidebar-hover)] rounded text-left transition-colors"
                   >
-                    <Code size={14} className="text-[#4ec9b0]" />
-                    <span className="text-sm text-[#cccccc]">View All Projects</span>
+                    <Code size={14} className="text-[var(--sidebar-directory-color)]" />
+                    <span className="text-sm text-[var(--sidebar-text)]">View All Projects</span>
                   </button>
 
                   <button
                     onClick={() => scrollToSection("experience")}
-                    className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
+                    className="w-full flex items-center gap-3 p-2 hover:bg-[var(--sidebar-hover)] rounded text-left transition-colors"
                   >
-                    <Briefcase size={14} className="text-[#dcdcaa]" />
-                    <span className="text-sm text-[#cccccc]">Browse Experience</span>
+                    <Briefcase size={14} className="text-[var(--sidebar-directory-color)]" />
+                    <span className="text-sm text-[var(--sidebar-text)]">Browse Experience</span>
                   </button>
 
                   <button
                     onClick={() => scrollToSection("certifications")}
-                    className="w-full flex items-center gap-3 p-2 hover:bg-[#2a2d2e] rounded text-left transition-colors"
+                    className="w-full flex items-center gap-3 p-2 hover:bg-[var(--sidebar-hover)] rounded text-left transition-colors"
                   >
-                    <Award size={14} className="text-[#ce9178]" />
-                    <span className="text-sm text-[#cccccc]">View Certifications</span>
+                    <Award size={14} className="text-[var(--sidebar-directory-color)]" />
+                    <span className="text-sm text-[var(--sidebar-text)]">View Certifications</span>
                   </button>
                 </div>
 
                 <div className="mt-6">
-                  <div className="text-xs text-[#cccccc] uppercase tracking-wide mb-3">Search Tips</div>
-                  <ul className="list-disc list-outside pl-5 space-y-2 text-xs text-[#858585]">
+                  <div className="text-xs text-[var(--sidebar-text)] uppercase tracking-wide mb-3">Search Tips</div>
+                  <ul className="list-disc list-outside pl-5 space-y-2 text-xs text-[var(--sidebar-text)]">
                     <li>Type project names to find relevant experience</li>
                     <li>Search company names for specific roles</li>
                     <li>Use &gt; prefix for navigation commands</li>

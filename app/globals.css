@@ -27,7 +27,8 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 } */
 
-:root, .dark {
+:root,
+.dark {
   /* VSCode Dark Theme Colors */
   --vscode-bg: #1e1e1e;
   --vscode-sidebar: #252526;
@@ -134,13 +135,31 @@
   --tech-card-bg-hover: #3e3e42;
   --tech-shadow: 0 4px 12px rgba(0, 122, 204, 0.2);
 
-  --tree-active-bg: #007acc;          /* tech-primary */
-  --tree-active-text: #ffffff;        /* tech-text-white */
-  --tree-toggle: #2d2d30;             /* tech-card-bg */
-  --tree-toggle-active: #3e3e42;      /* tech-card-bg-hover */
+  --tree-active-bg: #007acc; /* tech-primary */
+  --tree-active-text: #ffffff; /* tech-text-white */
+  --tree-toggle: #2d2d30; /* tech-card-bg */
+  --tree-toggle-active: #3e3e42; /* tech-card-bg-hover */
 
-  
-  
+  /* Enhanced Sidebar Variables */
+  --sidebar-bg: var(--vscode-sidebar);
+  --sidebar-bg-hover: var(--vscode-tab);
+  --sidebar-bg-active: var(--vscode-blue);
+  --sidebar-text: var(--vscode-text);
+  --sidebar-text-muted: var(--vscode-text-muted);
+  --sidebar-text-active: #ffffff;
+  --sidebar-border: var(--vscode-border);
+  --sidebar-border-active: var(--vscode-blue);
+  --sidebar-icon: var(--vscode-text-muted);
+  --sidebar-icon-active: #ffffff;
+  --sidebar-icon-hover: var(--vscode-text);
+
+  /* Activity Bar Variables */
+  --activity-bar-bg: #2c2c2c;
+  --activity-bar-hover: #2a2d2e;
+  --activity-bar-active: #094771;
+  --activity-bar-text: #858585;
+  --activity-bar-text-active: #ffffff;
+  --activity-bar-border: var(--vscode-border);
 }
 
 /* ==================================== */
@@ -247,11 +266,31 @@
 
   --tech-shadow: 0 4px 12px rgba(0, 122, 204, 0.15);
 
-  --tree-active-bg: #007acc;          /* tech-primary */
-  --tree-active-text: #000000;        /* tech-text-white */
-  --tree-toggle: #f5f5f5;             /* tech-card-bg */
-  --tree-toggle-active: #f0f0f0;      /* tech-card-bg-hover */
+  --tree-active-bg: #007acc; /* tech-primary */
+  --tree-active-text: #000000; /* tech-text-white */
+  --tree-toggle: #f5f5f5; /* tech-card-bg */
+  --tree-toggle-active: #f0f0f0; /* tech-card-bg-hover */
 
+  /* Enhanced Sidebar Variables for Light Theme */
+  --sidebar-bg: var(--vscode-sidebar);
+  --sidebar-bg-hover: var(--vscode-tab);
+  --sidebar-bg-active: var(--vscode-blue);
+  --sidebar-text: var(--vscode-text);
+  --sidebar-text-muted: var(--vscode-text-muted);
+  --sidebar-text-active: #ffffff;
+  --sidebar-border: var(--vscode-border);
+  --sidebar-border-active: var(--vscode-blue);
+  --sidebar-icon: var(--vscode-text-muted);
+  --sidebar-icon-active: #ffffff;
+  --sidebar-icon-hover: var(--vscode-text);
+
+  /* Activity Bar Variables for Light Theme */
+  --activity-bar-bg: #f3f3f3;
+  --activity-bar-hover: #e8e8e8;
+  --activity-bar-active: #007acc;
+  --activity-bar-text: #666666;
+  --activity-bar-text-active: #ffffff;
+  --activity-bar-border: var(--vscode-border);
 }
 
 /* ==================================== */
@@ -356,10 +395,31 @@
   --tech-card-bg-hover: #262626;
   --tech-shadow: 0 0 0 3px #ffff00;
 
-  --tree-active-bg: #ffff00;          /* tech-primary */
-  --tree-active-text: #ffffff;        /* tech-text-white */
-  --tree-toggle: #1a1a1a;             /* tech-card-bg */
-  --tree-toggle-active: #262626; 
+  --tree-active-bg: #ffff00; /* tech-primary */
+  --tree-active-text: #ffffff; /* tech-text-white */
+  --tree-toggle: #1a1a1a; /* tech-card-bg */
+  --tree-toggle-active: #262626;
+
+  /* Fixed Enhanced Sidebar Variables for High Contrast Theme */
+  --sidebar-bg: var(--vscode-sidebar);
+  --sidebar-bg-hover: var(--vscode-tab);
+  --sidebar-bg-active: var(--vscode-blue);
+  --sidebar-text: var(--vscode-text);
+  --sidebar-text-muted: var(--vscode-text-muted);
+  --sidebar-text-active: #000000;
+  --sidebar-border: var(--vscode-border);
+  --sidebar-border-active: var(--vscode-blue);
+  --sidebar-icon: var(--vscode-text-muted);
+  --sidebar-icon-active: #000000;
+  --sidebar-icon-hover: var(--vscode-text);
+
+  /* Activity Bar Variables for High Contrast Theme */
+  --activity-bar-bg: #000000;
+  --activity-bar-hover: #1a1a1a;
+  --activity-bar-active: #ffff00;
+  --activity-bar-text: #cccccc;
+  --activity-bar-text-active: #000000;
+  --activity-bar-border: #ffffff;
 }
 
 /* ==================================== */
@@ -384,7 +444,7 @@
   --vscode-comment: #75715e;
   --vscode-error: #f92672;
   --vscode-warning: #fd971f;
-    /* Terminal Colors */
+  /* Terminal Colors */
   --terminal-title-bar: var(--vscode-border);
   --terminal-text: var(--vscode-blue);
   --terminal-bg: var(--vscode-tab);
@@ -451,26 +511,43 @@
   --projects-card-bg-hover: #383830;
   --projects-shadow: 0 4px 12px rgba(249, 38, 114, 0.3);
 
-
   --tech-bg: #272822;
   --tech-border: #3e3d32;
   --tech-primary: #f92672;
-
   --tech-text-white: #f8f8f2;
   --tech-text-muted: #75715e;
   --tech-text-accent-blue: #66d9ef;
   --tech-text-accent-green: #a6e22e;
-  --tech-text-accent-orange: #fd971f;
-
+  --tech-text-accent-orange: #fd9900;
   --tech-card-bg: #3e3d32;
   --tech-card-border-hover: #75715e;
   --tech-card-bg-hover: #49483e;
-
   --tech-shadow: 0 4px 12px rgba(249, 38, 114, 0.25);
-  --tree-active-bg: #f92672;          /* tech-primary */
-  --tree-active-text: #f8f8f2;        /* tech-text-white */
-  --tree-toggle: #3e3d32;             /* tech-card-bg */
-  --tree-toggle-active: #49483e; 
+  --tree-active-bg: #f92672;
+  --tree-active-text: #f8f8f2;
+  --tree-toggle: #3e3d32;
+  --tree-toggle-active: #49483e;
+
+  /* Fixed Enhanced Sidebar Variables for Monokai Theme */
+  --sidebar-bg: var(--vscode-sidebar);
+  --sidebar-bg-hover: var(--vscode-tab);
+  --sidebar-bg-active: var(--vscode-blue);
+  --sidebar-text: var(--vscode-text);
+  --sidebar-text-muted: var(--vscode-text-muted);
+  --sidebar-text-active: var(--vscode-text);
+  --sidebar-border: var(--vscode-border);
+  --sidebar-border-active: var(--vscode-blue);
+  --sidebar-icon: var(--vscode-text-muted);
+  --sidebar-icon-active: var(--vscode-text);
+  --sidebar-icon-hover: var(--vscode-text);
+
+  /* Activity Bar Variables for Monokai Theme */
+  --activity-bar-bg: #2f3129;
+  --activity-bar-hover: #383a2e;
+  --activity-bar-active: #66d9ef;
+  --activity-bar-text: #75715e;
+  --activity-bar-text-active: #272822;
+  --activity-bar-border: var(--vscode-border);
 }
 
 @theme inline {
@@ -515,10 +592,13 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    /* Reduced transition properties for better performance */
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   }
   body {
     @apply bg-background text-foreground;
+    /* Prevent layout shifts during theme changes */
+    will-change: background-color, color;
   }
 }
 

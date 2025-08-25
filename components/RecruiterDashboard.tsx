@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
@@ -17,7 +17,6 @@ import {
   Target,
   Clock,
 } from "lucide-react"
-import { Theme } from "@/types/resume"
 
 type FontSize = "small" | "medium" | "large"
 
@@ -53,11 +52,25 @@ const KEYBOARD_SHORTCUTS = [
 /* ----------------------------- Subcomponents ----------------------------- */
 
 function ThemeSettings() {
-    const { theme, setTheme } = useTheme()
-    useEffect(() => {
-    console.log("Current theme:", theme)
-  }, [theme])
+  const { theme, setTheme } = useTheme()
 
+  const [isChanging, setIsChanging] = useState(false)
+
+  const handleThemeChange = (newTheme: string) => {
+    if (isChanging) return
+
+    setIsChanging(true)
+
+    // Use requestAnimationFrame for smoother transition
+    requestAnimationFrame(() => {
+      setTheme(newTheme)
+
+      // Reset changing state after transition
+      setTimeout(() => {
+        setIsChanging(false)
+      }, 200)
+    })
+  }
 
   const themeOptions = [
     { value: "dark", label: "Dark (Default)", desc: "VS Code dark theme" },
@@ -66,24 +79,22 @@ function ThemeSettings() {
     { value: "monokai", label: "Monokai", desc: "Popular developer theme" },
   ]
 
-  
-
   return (
     <div>
-      <h4 className="text-xs font-medium text-[var(--vscode-text)] mb-2 flex items-center gap-1">
+      <h4 className="text-xs font-medium text-[var(--sidebar-text)] mb-2 flex items-center gap-1">
         <Palette size={10} /> Color Theme
       </h4>
       <div className="space-y-2">
         {themeOptions.map((option) => (
           <button
             key={option.value}
-            onClick={() =>  {setTheme(option.value);}
-              }
+            onClick={() => handleThemeChange(option.value)}
+            disabled={isChanging}
             className={`w-full text-left p-2 rounded border transition-colors ${
               theme === option.value
-                ? "bg-[var(--vscode-blue)] border-[var(--vscode-blue)] text-white"
-                : "bg-[var(--vscode-tab)] border-[var(--vscode-border)] text-[var(--vscode-text)] hover:bg-[var(--vscode-bg)]"
-            }`}
+                ? "bg-[var(--sidebar-bg-active)] border-[var(--sidebar-border-active)] text-[var(--sidebar-text-active)]"
+                : "bg-[var(--sidebar-bg-hover)] border-[var(--sidebar-border)] text-[var(--sidebar-text)] hover:bg-[var(--sidebar-bg)]"
+            } ${isChanging ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <div className="text-xs font-medium">{option.label}</div>
             <div className="text-xs opacity-70">{option.desc}</div>
@@ -208,9 +219,7 @@ export default function RecruiterDashboard({ onNavigate }: RecruiterDashboardPro
   }, [])
 
   const toggleAccordion = (id: string) =>
-    setExpandedSections((prev) =>
-      prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]
-    )
+    setExpandedSections((prev) => (prev.includes(id) ? prev.filter((s) => s !== id) : [...prev, id]))
 
   const handleFontSizeChange = (size: FontSize) => {
     setFontSize(size)
