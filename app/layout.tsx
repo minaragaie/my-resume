@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "@/components/theme-provider";
+import StructuredData from "@/components/structuredData";
 
 // --------------------
 // Font Configuration
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     siteName: "Mina Youaness Resume",
     images: [
       {
-        url: "/images/profile.jpg", // Ensure this path is correct (no /public prefix needed in Next.js)
+        url: "/images/profile.jpg",
         width: 1200,
         height: 630,
         alt: "Mina Youaness Resume",
@@ -47,9 +48,6 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
-
-  viewport: { width: "device-width", initialScale: 1 },
-
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "32x32" },
@@ -80,6 +78,15 @@ export const metadata: Metadata = {
 };
 
 // --------------------
+// Viewport Configuration
+// --------------------
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
+
+// --------------------
 // Root Layout
 // --------------------
 export default function RootLayout({
@@ -93,10 +100,30 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSans.variable}`}
       suppressHydrationWarning
     >
+    {/* JSON-LD Structured Data - Placed directly in the HTML without `next/head` */}
+    <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Mina Youaness",
+            url: "https://minaragaie.github.io/",
+            sameAs: [
+              "https://github.com/minaragaie",
+              "https://www.linkedin.com/in/mina-youaness-ba833713/",
+            ],
+            jobTitle: "Full-Stack Developer",
+            worksFor: { "@type": "Organization", name: "Self-Employed" },
+          }),
+        }}
+      />
       <body className="font-sans antialiased transition-colors duration-300 bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+
           {children}
         </ThemeProvider>
+        <StructuredData />
       </body>
     </html>
   );

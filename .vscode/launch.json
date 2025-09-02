@@ -1,31 +1,19 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Next.js",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"]
-    },
-    {
-      "type": "pwa-node",
-      "request": "launch",
-      "name": "Debug Next.js",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
-      "console": "integratedTerminal",
-      "serverReadyAction": {
-        "pattern": "started server on .+, url: (https?://.+)",
-        "uriFormat": "%s"
-      },
-      "skipFiles": ["<node_internals>/**"],
-      "env": {
-        "NEXT_DEBUG": "true"
-      }
-    }
-  ]
+	"configurations": [
+		{
+			"name": "Launch Chrome",
+			"request": "launch",
+			"type": "chrome",
+			"url": "http://localhost:8080",
+			"webRoot": "${workspaceFolder}"
+		},
+	{
+		"name": "Attach to Chrome",
+		"port": 9222,
+		"request": "attach",
+		"type": "chrome",
+		"webRoot": "${workspaceFolder}"
+	}
+	
+	]
 }

@@ -2,7 +2,7 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: '', // Ensure basePath matches your exact repository name
+  basePath: '',
   assetPrefix: '',
   eslint: {
     ignoreDuringBuilds: true,
@@ -13,6 +13,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;

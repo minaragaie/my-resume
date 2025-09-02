@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import { Download, Mail, Phone, MapPin, Linkedin, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import jsPDF from "jspdf"
@@ -118,7 +117,6 @@ export default function HeroSection({ isVisible }: HeroSectionProps) {
               "$ git log --oneline",
               "> Ready for next challenge! 🚀",
             ]}/>
-
       </div>
     </div>
   )
